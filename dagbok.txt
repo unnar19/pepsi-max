@@ -15,8 +15,21 @@ Morgunfundur
 
 Eyþór, Ísak, Jón og Unnar hittust í Sólinni.
 
+Ákveðið að í viku 1 yrði Jón Evert verkstjóri
+
 Eyþór ætlar að setja upp overleaf skjal fyrir skil vikunnar
 Ísak skoðar mismunandi forrit til þess að vinna klasaritin
 Jón fer yfir kröfur og setur upp markmið
 Unnar setur upp github repository og dagbok
 _____________________________________________________________
+
+22/11/2021
+Kvöldfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Komið upp overleaf skjal fyrir skýrsluna sem á að skila í lok 
+vikunar og byrjað að vinna í kröfulista og norkunartilvikum.
+Ákveðið að nota plantUML fyrir klasaritið og Ísak byrjaði að 
+vinna í því. 
+Komið github repo: https://github.com/unnar19/pepsi-max 
