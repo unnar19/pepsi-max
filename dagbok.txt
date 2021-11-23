@@ -48,3 +48,19 @@ klösunum og hvort að wrapperinn sé singleton eða ekki. Erum
 að bíða eftir svari frá TA.
 
 _____________________________________________________________
+
+23/11/2021
+Kvöldfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Dagurinn í dag fór aðallega í að halda áfram með skýrsluna og
+rit. Klasarit komið vel af stað og stöðurit að verða komin. 
+Þurftum aðstoð frá TA í dag til þess að útkljá mál með fjölda 
+klasa í TUI. Hingað til í áfanganum þá hafa bara 4 meðlimir
+mætt, lítið hefur heyrst í Stefáni og ekkert í Jónasi. Við
+reiknum ekki með að þeir verði með í verkefninu. 
+
+_____________________________________________________________
+
+
