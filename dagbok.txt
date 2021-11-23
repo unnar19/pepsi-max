@@ -33,3 +33,18 @@ vikunar og byrjað að vinna í kröfulista og norkunartilvikum.
 Ákveðið að nota plantUML fyrir klasaritið og Ísak byrjaði að 
 vinna í því. 
 Komið github repo: https://github.com/unnar19/pepsi-max 
+
+_____________________________________________________________
+
+23/11/2021
+Morgunfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Haldið áfram að vinna í skýrslunni og klasariti. Tókum umræðu
+um hvort að TUI-ið þurfi að vera multiclass eða single class.
+Fórum líka að tala um hvernig best væri að hafa erfðinar í 
+klösunum og hvort að wrapperinn sé singleton eða ekki. Erum
+að bíða eftir svari frá TA.
+
+_____________________________________________________________
