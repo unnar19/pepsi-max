@@ -1,28 +1,105 @@
-C:\Users\SomeUser\Documents\NaNAir\UI.py >
-=============================================================
-	NaN Air - Dividing by zero every day!
 
-	1. Innskráning		2. Nýskráning
+ 		NaN Air | Dividing by zero every day!
+---------------------------------------------------------------------
+ Log-in
 
-Nr: 1
-============================================================
-	Innskráning
+	1. Email	[empty]
+	2. Password	[empty]
+	3. Log-in
 
-Notendanafn: swagboy69
-Lykilorð: *******
-
-Rangt notendanafn eða lykilorð!
-============================================================
-	Innskráning
-
-Notendanafn: unnar19
-Lykilorð: ********
+---------------------------------------------------------------------
+ Please select an option
+---------------------------------------------------------------------
+ Input: 1
 
 
-============================================================
-	NaN Air - Dividing by zero every day!
 
-	1. Leit			4. Verkskýrslur
-	2. Gisting		5. Verkbeiðnir
-	3. Starfsmenn		6. Log-out
 
+
+
+
+
+
+
+ 		NaN Air | Dividing by zero every day!
+---------------------------------------------------------------------
+ Log-in
+
+	1. Email	[empty]
+	2. Password	[empty]
+	3. Log-in
+
+---------------------------------------------------------------------
+ Enter your email address
+---------------------------------------------------------------------
+ Input: unnar19@ru.is
+
+
+
+
+
+
+
+
+
+
+ 		NaN Air | Dividing by zero every day!
+---------------------------------------------------------------------
+ Log-in
+
+	1. Email	[unnar19@ru.is]
+	2. Password	[empty]
+	3. Log-in
+
+---------------------------------------------------------------------
+ Please select an option
+---------------------------------------------------------------------
+ Input: 2
+
+
+
+
+
+
+
+
+
+
+ 		NaN Air | Dividing by zero every day!
+---------------------------------------------------------------------
+ Log-in
+
+	1. Email	[unnar19@ru.is]
+	2. Password	[empty]
+	3. Log-in
+
+---------------------------------------------------------------------
+ Enter your password
+---------------------------------------------------------------------
+ Input: cumA$$shit69
+
+
+
+
+
+
+
+
+
+
+ 		NaN Air | Dividing by zero every day!
+---------------------------------------------------------------------
+ Log-in
+
+	1. Email	[unnar19@ru.is]
+	2. Password	[************]
+	3. Log-in
+
+---------------------------------------------------------------------
+ Please select an option
+---------------------------------------------------------------------
+ Input: 3
+
+
+If password and username match,
+user is then logged in and is on main menu
