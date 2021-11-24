@@ -1,10 +1,10 @@
-Nafn ; 
-Nr. ;  
-Forgangur ; 
-LÃ½sing ; 
-Leikarar ; 
-Forsendur ; 
-StaÃ°a fyrir ; 
-StaÃ°a eftir ; 
-RÃ¶Ã° aÃ°gerÃ°a ; 
-Alt rÃ¶Ã° aÃ°gerÃ°a ; 
+Nafn ; ,Innskrá notanda
+Nr. ;  ,1
+Forgangur ; ,A
+LÃ½sing ; ,Notandi (starfsmağur eğa yfirmağur) skráir sig innmeğ lykilorği og notandanafni
+Leikarar ; ,Notandi
+Forsendur ; ,Notandi er skráğur
+StaÃ°a fyrir ; ,Notandi er ekki innskráğur
+StaÃ°a eftir ; ,Notandi er innskráğur
+RÃ¶Ã° aÃ°gerÃ°a ; ,Notandi slær inn notandanafn. Notandi slær inn lykilorğ. Notandi ıtir á ’Enter’. Upplısingar eru réttar.
+Alt rÃ¶Ã° aÃ°gerÃ°a ; ,Notandi slær inn notandanafn. Notandi slær inn lykilorğ. Notandi ıtir á ’Enter’. Upplısingar eru rangar. Notandi endurtekur röğ ağgerğa.
