@@ -1,0 +1,27 @@
+@startuml airline
+package airline {
+    class airline
+    class manager {
+        login()
+        file_employee()
+        change_employee()
+
+    }
+    class employee {
+
+    }
+    class real_estate {
+
+    }
+    class work_order {
+        make_work_order()
+        close_work_order()
+    }
+    class work_report {
+        make_work_report()
+        approve_work_report()
+    }
+
+}
+
+@enduml
