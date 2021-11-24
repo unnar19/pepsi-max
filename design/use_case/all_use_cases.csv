@@ -6,31 +6,36 @@ Nr, Lýsing, Forgangur
 5, Breyta upplýsingum fasteignar , A 
 6, Nýskrá verktaka , B 
 7, Breyta upplýsingum verktaka , B 
-8, Bæta við athugasemdum um verk þear lokað er beiðni , B 
-9, Leita að starfsmanni , A 
-10, Leita að fasteign , A 
-11, Leita að fasteign eftir auðkenni , A
-12, Leita að verkbeiðni eftir númeri , A 
-13, Leita að verkbeiðni eftir verktaka , B 
-14, Leita að þóknun verktaka í verkbeiðni , B 
-15, Prenta upplýsingar notanda , A 
-16, Prenta upplýsingar fasteignar , A 
-17, Prenta alla starfsmenn , A 
-18, Prenta alla starfsmenn sem uppfylla skilyrði , A 
-19, Prenta allar fasteignir , A 
-20, Prenta allar fasteignir sem uppfylla skilyrði , A     
-21, Prenta allar verkbeiðnir , A 
-22, Prenta allar opnar verkbeiðnir , A 
-23, Prenta allar verkbeiðnir fyrir ákveðna fasteign , A 
-24, Prenta allar skýrslur fyrir ákveðna fasteign , A 
-25, Prenta allar verkbeiðnir frá starfsmanni , A 
-26, Prenta skrá yfir áfangastaði NaN Air , A 
-27, Prenta upplýsingar verktaka , B 
-28, Prenta viðhaldsverkefni eftir staðsetningu og dagsetningu , B 
-29, Stofna verkbeiðni , A 
-30, Breyta verkbeiðni , A 
-31, Skrá verkskýrslu á opna verkbeiðni , A 
-32, Merkja verkbeiðni sem tilbúna fyrir lokun , A 
-33, Samþykkja verkskýrslu/Loka verkbeiðni , A 
-34, Merkja verkbeiðni sem endurtekið verkefni , B 
-
+8,B�ta vi� athugasemdum um verk �egar bei�ni er loka�, B 
+9,Setja forgang � verkbei�ni, B
+10,Breyta forgangi � verkbei�ni, B
+11, Leita að starfsmanni , A 
+12, Leita að fasteign , A 
+13, Leita að fasteign eftir auðkenni , A
+14, Leita að verkbeiðni eftir númeri , A 
+15, Leita að verkbeiðni eftir verktaka , B 
+16, Leita að þóknun verktaka í verkbeiðni , B 
+17, Prenta upplýsingar notanda , A 
+18, Prenta upplýsingar fasteignar , A 
+19, Prenta alla starfsmenn , A 
+20, Prenta alla starfsmenn sem uppfylla skilyrði , A 
+21, Prenta allar fasteignir , A 
+22, Prenta allar fasteignir sem uppfylla skilyrði , A     
+23, Prenta allar verkbeiðnir , A 
+24, Prenta allar opnar verkbeiðnir , A 
+25, Prenta allar verkbeiðnir fyrir ákveðna fasteign , A 
+26, Prenta allar skýrslur fyrir ákveðna fasteign , A 
+27, Prenta allar verkbeiðnir frá starfsmanni , A 
+28, Prenta skrá yfir áfangastaði NaN Air , A 
+29, Prenta upplýsingar verktaka , B 
+30, Prenta viðhaldsverkefni eftir staðsetningu og dagsetningu , B 
+31,Prenta allt vi�hald � �kve�inni fasteign � �kve�nu t�mabili, B
+32,Prenta �ll verk �kve�ins verktaka � �kve�nu t�mabili, B
+33,Prenta �ll verk �kve�ins starfsmanns � �kve�nu t�mabili, B
+34, Stofna verkbeiðni , A 
+35, Breyta verkbeiðni , A 
+36, Skrá verkskýrslu á opna verkbeiðni , A 
+37, Merkja verkbeiðni sem tilbúna fyrir lokun , A 
+38, Samþykkja verkskýrslu/Loka verkbeiðni , A 
+39, Merkja verkbeiðni sem endurtekið verkefni , B 
+40,Merkja verkbei�ni eftir �riggja flokka forgangsr��un, B
