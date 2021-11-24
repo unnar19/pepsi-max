@@ -1,0 +1,59 @@
+
+@startuml CreateUser
+
+[*] --> Authenticate
+
+state LoggedIn{
+
+    MainMenu --> EmployeMenu : select Employe
+
+    EmployeMenu --> CreateNewEmployee : select create new
+    EmployeMenu --> EmployeMenu : Unautharized employee creation
+    EmployeMenu --> MainMenu : Back
+
+    CreateNewEmployee --> EmployeMenu : New employee created
+    CreateNewEmployee --> MainMenu : cancel
+
+    CreateNewEmployee : Enter employe details
+
+}
+
+Authenticate --> Authenticate : Wrong password
+
+
+Authenticate --> MainMenu : User Logs in
+
+LoggedIn --> [*] : user logs out
+
+
+@enduml
+
+
+@startuml GetListOfAllBuildings
+
+[*] --> Authenticate
+
+state LoggedIn{
+
+    MainMenu : Options dependant on user type
+
+    MainMenu --> BuildingsMenu : selects
+
+    BuildingsMenu --> MainMenu : Back
+
+    BuildingsMenu --> BuildingsMenu : Select list of all buildings
+
+
+}
+
+Authenticate --> Authenticate : Wrong password
+
+
+Authenticate --> MainMenu : User Logs in
+
+LoggedIn --> [*] : user logs out
+
+
+
+
+@enduml
