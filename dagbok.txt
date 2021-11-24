@@ -63,4 +63,16 @@ reiknum ekki með að þeir verði með í verkefninu.
 
 _____________________________________________________________
 
+24/11/2021
+Morgunfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Töluðum áfram um klasaritið og ákváðum að það þyrfti eiginlega
+að gera það tvisvar, einusinni "venjulegt" og svo aftur í 
+þriggja laga hönnun. Töluðum svo aðeins um use case og að para
+kröfur saman í use case þannig að þau væru ekki of aðskilin.
+Ákváðum að halda áfram í okkar verkefnum.
+
+_____________________________________________________________
 
