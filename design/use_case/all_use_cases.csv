@@ -1,0 +1,35 @@
+Nr, Lýsing, Forgangur
+1, Innskrá notanda , A 
+2, Nýskrá notanda , A 
+3, Nýskrá fasteign , A 
+4, Breyta upplýsingum notanda , A 
+5, Breyta upplýsingum fasteignar , A 
+6, Nýskrá verktaka , B 
+7, Breyta upplýsingum verktaka , B 
+8, Bæta við athugasemdum um verk þear lokað er beiðni , B 
+9, Leita að starfsmanni , A 
+10, Leita að fasteign , A 
+11, Leita að fasteign eftir auðkenni , A
+12, Leita að verkbeiðni eftir númeri , A 
+13, Leita að verkbeiðni eftir verktaka , B 
+14, Leita að þóknun verktaka í verkbeiðni , B 
+15, Prenta upplýsingar notanda , A 
+16, Prenta upplýsingar fasteignar , A 
+17, Prenta alla starfsmenn , A 
+18, Prenta alla starfsmenn sem uppfylla skilyrði , A 
+19, Prenta allar fasteignir , A 
+20, Prenta allar fasteignir sem uppfylla skilyrði , A     
+21, Prenta allar verkbeiðnir , A 
+22, Prenta allar opnar verkbeiðnir , A 
+23, Prenta allar verkbeiðnir fyrir ákveðna fasteign , A 
+24, Prenta allar skýrslur fyrir ákveðna fasteign , A 
+25, Prenta allar verkbeiðnir frá starfsmanni , A 
+26, Prenta skrá yfir áfangastaði NaN Air , A 
+27, Prenta upplýsingar verktaka , B 
+28, Prenta viðhaldsverkefni eftir staðsetningu og dagsetningu , B 
+29, Stofna verkbeiðni , A 
+30, Breyta verkbeiðni , A 
+31, Skrá verkskýrslu á opna verkbeiðni , A 
+32, Merkja verkbeiðni sem tilbúna fyrir lokun , A 
+33, Samþykkja verkskýrslu/Loka verkbeiðni , A 
+34, Merkja verkbeiðni sem endurtekið verkefni , B 
