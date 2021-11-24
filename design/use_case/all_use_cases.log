@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.8.29)  24 NOV 2021 13:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.8.29)  24 NOV 2021 14:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -36,7 +36,7 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count175
 \l__pdf_internal_box=\box45
 )
-No file all_use_cases.aux.
+(./all_use_cases.aux)
 \openout1 = `all_use_cases.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
@@ -58,7 +58,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 5.
 
-Overfull \hbox (12.98064pt too wide) in paragraph at lines 5--78
+Overfull \hbox (12.98064pt too wide) in paragraph at lines 5--80
 [][] 
  []
 
@@ -66,8 +66,8 @@ Overfull \hbox (12.98064pt too wide) in paragraph at lines 5--78
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./all_use_cases.aux) ) 
 Here is how much of TeX's memory you used:
- 592 strings out of 481239
- 8088 string characters out of 5920377
+ 594 strings out of 481239
+ 8124 string characters out of 5920377
  245564 words of memory out of 5000000
  15936 multiletter control sequences out of 15000+600000
  533101 words of font info for 25 fonts, out of 8000000 for 9000
@@ -76,7 +76,7 @@ Here is how much of TeX's memory you used:
 {/u
 sr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texmf/fonts
 /type1/public/cm-super/sfrm1000.pfb>
-Output written on all_use_cases.pdf (1 page, 23999 bytes).
+Output written on all_use_cases.pdf (1 page, 24229 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  8 compressed objects within 1 object stream
