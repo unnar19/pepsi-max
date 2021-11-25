@@ -21,14 +21,23 @@ do
     # Replace alignment section with special parameters
     sed -i 's/|l|l|/|c|p{10cm}|/' 2_USE/use_case_$i.tex &&
 
-    # Add caption and label entry to .tex
-    echo '\caption{Use case '"$i"'}\label{tab:use_case_'"$i"'}' >> 2_USE/use_case_$i.tex
-
-    # Append table to main table file
-    tail -n +4 2_USE/use_case_$i.tex >> all_tables.tex
-
     # Compile pdf
-    pdflatex -halt-on-error -output-directory 3_VIEW 2_USE/use_case_$i.tex
+    pdflatex -halt-on-error -output-directory 3_VIEW 2_USE/use_case_$i.tex &&
+
+    # copy table to temp file
+    tail -n +4 2_USE/use_case_$i.tex > tex_format.tex
+
+    # Delete \end{document} for correct placement of \¢aption
+    head -n -1 tex_format.tex | sponge tex_format.tex &&
+
+    # Add caption and label entry to .tex
+    echo '\caption{Use case '"$i"'}\label{tab:use_case_'"$i"'}' >> tex_format.tex &&
+
+    # Reenter \end{document} to file
+    echo '\end{document}' >> tex_format.tex &&
+    
+    # Append to main file
+    cat tex_format.tex >> all_tables.tex
 done
 
 # Replace document entries in main file
