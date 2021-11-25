@@ -1,10 +1,10 @@
 Nafn,Prenta allar verkbeiðnir frá starfsmanni
 Nr,27
 Forgangur,A
-Lýsing,
-Leikarar,
+Lýsing,Leita að verkbeiðnum sem hafa auðkenni starfsmanns í viðeigandi reit
+Leikarar,Yfirmaður eða starfsmaður
 Forsendur,
 Staða fyrir,
 Staða eftir,
-Röð aðgerða,
+Röð aðgerða,Notandi velur verkbeiðnir. Notandi velur sía. Notandi slær inn auðkenni starfsmanns í viðeigandi reit. Notandi velur leita.
 Alt röð aðgerða,

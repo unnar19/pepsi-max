@@ -1,10 +1,10 @@
 Nafn,Setja forgang á verkbeiðni
 Nr,9
 Forgangur,B
-Lýsing,
-Leikarar,
+Lýsing,Yfirmaður velur forgang verkbeiðnar við stofnun hennar
+Leikarar,Yfirmaður
 Forsendur,
-Staða fyrir,
-Staða eftir,
-Röð aðgerða,
+Staða fyrir,aðalvalmynd
+Staða eftir,upplýsingasíða verkbeiðnar
+Röð aðgerða,Yfirmaður velur verkbeiðnir. Yfirmaður velur nýskrá. Yfirmaður fyllir inn nauðsynlegar upplýsingar verkbeiðnar. Yfirmaður velur forgang verkbeiðnar. Yfirmaður velur vista.
 Alt röð aðgerða,
