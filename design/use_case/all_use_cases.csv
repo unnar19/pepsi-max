@@ -1,41 +1,41 @@
-Nr, LÃ½sing, Forgangur
-1, InnskrÃ¡ notanda , A 
-2, NÃ½skrÃ¡ notanda , A 
-3, NÃ½skrÃ¡ fasteign , A 
-4, Breyta upplÃ½singum notanda , A 
-5, Breyta upplÃ½singum fasteignar , A 
-6, NÃ½skrÃ¡ verktaka , B 
-7, Breyta upplÃ½singum verktaka , B 
-8,Bæta viğ athugasemdum um verk şegar beiğni er lokağ, B 
-9,Setja forgang á verkbeiğni, B
-10,Breyta forgangi á verkbeiğni, B
-11, Leita aÃ° starfsmanni , A 
-12, Leita aÃ° fasteign , A 
-13, Leita aÃ° fasteign eftir auÃ°kenni , A
-14, Leita aÃ° verkbeiÃ°ni eftir nÃºmeri , A 
-15, Leita aÃ° verkbeiÃ°ni eftir verktaka , B 
-16, Leita aÃ° Ã¾Ã³knun verktaka Ã­ verkbeiÃ°ni , B 
-17, Prenta upplÃ½singar notanda , A 
-18, Prenta upplÃ½singar fasteignar , A 
-19, Prenta alla starfsmenn , A 
-20, Prenta alla starfsmenn sem uppfylla skilyrÃ°i , A 
-21, Prenta allar fasteignir , A 
-22, Prenta allar fasteignir sem uppfylla skilyrÃ°i , A     
-23, Prenta allar verkbeiÃ°nir , A 
-24, Prenta allar opnar verkbeiÃ°nir , A 
-25, Prenta allar verkbeiÃ°nir fyrir Ã¡kveÃ°na fasteign , A 
-26, Prenta allar skÃ½rslur fyrir Ã¡kveÃ°na fasteign , A 
-27, Prenta allar verkbeiÃ°nir frÃ¡ starfsmanni , A 
-28, Prenta skrÃ¡ yfir Ã¡fangastaÃ°i NaN Air , A 
-29, Prenta upplÃ½singar verktaka , B 
-30, Prenta viÃ°haldsverkefni eftir staÃ°setningu og dagsetningu , B 
-31,Prenta allt viğhald á ákveğinni fasteign á ákveğnu tímabili, B
-32,Prenta öll verk ákveğins verktaka á ákveğnu tímabili, B
-33,Prenta öll verk ákveğins starfsmanns á ákveğnu tímabili, B
-34, Stofna verkbeiÃ°ni , A 
-35, Breyta verkbeiÃ°ni , A 
-36, SkrÃ¡ verkskÃ½rslu Ã¡ opna verkbeiÃ°ni , A 
-37, Merkja verkbeiÃ°ni sem tilbÃºna fyrir lokun , A 
-38, SamÃ¾ykkja verkskÃ½rslu/Loka verkbeiÃ°ni , A 
-39, Merkja verkbeiÃ°ni sem endurtekiÃ° verkefni , B 
-40,Merkja verkbeiğni eftir şriggja flokka forgangsröğun, B
+Nr,Lısing,Forgangur
+1,Innskrá notanda,A
+2,Nıskrá notanda,A
+3,Nıskrá fasteign,A
+4,Breyta upplısingum notanda,A
+5,Breyta upplısingum fasteignar,A
+6,Nıskrá verktaka,B
+7,Breyta upplısingum verktaka,B
+8,Bæta viğ athugasemdum um verk şegar beiğni er lokağ,B
+9,Setja forgang á verkbeiğni,B
+10,Breyta forgangi á verkbeiğni,B
+11,Leita ağ starfsmanni,A
+12,Leita ağ fasteign,A
+13,Leita ağ fasteign eftir auğkenni,A
+14,Leita ağ verkbeiğni eftir númeri,A
+15,Leita ağ verkbeiğni eftir verktaka,B
+16,Leita ağ şóknun verktaka í verkbeiğni,B
+17,Prenta upplısingar notanda,A
+18,Prenta upplısingar fasteignar,A
+19,Prenta alla starfsmenn,A
+20,Prenta alla starfsmenn sem uppfylla skilyrği,A
+21,Prenta allar fasteignir,A
+22,Prenta allar fasteignir sem uppfylla skilyrği,A
+23,Prenta allar verkbeiğnir,A
+24,Prenta allar opnar verkbeiğnir,A
+25,Prenta allar verkbeiğnir fyrir ákveğna fasteign,A
+26,Prenta allar skırslur fyrir ákveğna fasteign,A
+27,Prenta allar verkbeiğnir frá starfsmanni,A
+28,Prenta skrá yfir áfangastaği NaN Air,A
+29,Prenta upplısingar verktaka,B
+30,Prenta viğhaldsverkefni eftir stağsetningu og dagsetningu,B
+31,Prenta allt viğhald á ákveğinni fasteign á ákveğnu tímabili,B
+32,Prenta öll verk ákveğins verktaka á ákveğnu tímabili,B
+33,Prenta öll verk ákveğins starfsmanns á ákveğnu tímabili,B
+34,Stofna verkbeiğni,A
+35,Breyta verkbeiğni,A
+36,Skrá verkskırslu á opna verkbeiğni,A
+37,Merkja verkbeiğni sem tilbúna fyrir lokun,A
+38,Samşykkja verkskırslu/Loka verkbeiğni,A
+39,Merkja verkbeiğni sem endurtekiğ verkefni,B
+40,Merkja verkbeiğni eftir şriggja flokka forgangsröğun,B

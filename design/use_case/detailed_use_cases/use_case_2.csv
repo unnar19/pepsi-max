@@ -1,10 +1,10 @@
-Nafn ; ,Yfirmaður skráir nýjan starfsmann
-Nr. ;  ,2
-Forgangur ; ,A
-LÃ½sing ; ,Yfirmaður ræður starfsmann og setur hann í kerfið. Hann áttar sig svo á því að símanúmer gleymdist svo hann bætir því við
-Leikarar ; ,"Yfirmaður, Starfsmaður"
-Forsendur ; ,Yfirmaður hefur aðgang að kerfinu
-StaÃ°a fyrir ; ,"Slökt á kerfinu, starfsmaður ekki skráður"
-StaÃ°a eftir ; ,Starfsmaður skráður með rétt símanúmer
-RÃ¶Ã° aÃ°gerÃ°a ; ,"Yfirmaður skráir sig inn. Yfirmaður fer í starfsmannaskrá, yfirmaður skráir nýjann stafsmann og staðfestir að upplýsingar séu réttar"
-Alt rÃ¶Ã° aÃ°gerÃ°a ; ,-
+Nafn,Yfirmaður skráir nýjan starfsmann
+Nr,2
+Forgangur,A
+Lýsing,Yfirmaður ræður starfsmann og setur hann í kerfið. Hann áttar sig svo á því að símanúmer gleymdist svo hann bætir því við
+Leikarar,"Yfirmaður, Starfsmaður"
+Forsendur,Yfirmaður hefur aðgang að kerfinu
+Staða fyrir,"Slökt á kerfinu, starfsmaður ekki skráður"
+Staða eftir,Starfsmaður skráður með rétt símanúmer
+Röð aðgerða,"Yfirmaður skráir sig inn. Yfirmaður fer í starfsmannaskrá, yfirmaður skráir nýjann stafsmann og staðfestir að upplýsingar séu réttar"
+Alt röð aðgerða,-

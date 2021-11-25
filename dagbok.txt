@@ -76,3 +76,12 @@ kröfur saman í use case þannig að þau væru ekki of aðskilin.
 
 _____________________________________________________________
 
+24/11/2021
+
+Kvöldfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Gekk fínt í dag. Var bara mjög mikið af því sama og í gær
+Tókum smá umræður um TUI-ið og Eyþór setti upp kerfi til að gera 
+Latax töflunar úr CSV.

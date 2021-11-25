@@ -1,10 +1,10 @@
-Nafn ; 
-Nr. ;  
-Forgangur ; 
-LÃ½sing ; 
-Leikarar ; 
-Forsendur ; 
-StaÃ°a fyrir ; 
-StaÃ°a eftir ; 
-RÃ¶Ã° aÃ°gerÃ°a ; 
-Alt rÃ¶Ã° aÃ°gerÃ°a ; 
+Nafn,Leita ağ starfsmanni 
+Nr,11 og 14
+Forgangur,A
+Lısing,Leita ağ starfsmanni og fá upplısingar um hann
+Leikarar,Yfirmağur eğa starfsmağur
+Forsendur,Notandi er skráğur inn
+Stağa fyrir,Notandi hefur litlar upplısingar um starfsmann
+Stağa eftir,Notandi sér allar upplısingar um starfsmann
+Röğ ağgerğa,Notandi velur starfsmenn. Notandi velur leit. Notandi slær inn upplısingar um starfsmann (hluta af nafni eğa kennitölu). Velur leita og fær upplısingar um starfsmann
+Alt röğ ağgerğa,Notandi velur starfsmenn. Notandi velur leit. Notandi slær inn upplısingar um starfsmann (hluta af nafni eğa kennitölu). Notandi velur leita. Notandi fær lista af starfsmönnum sem uppfylla leitarskilyrği. Notandi velur starfsmann og fær upplısingar um hann.
