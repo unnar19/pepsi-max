@@ -1,0 +1,108 @@
+@startuml airline
+hide empty methods
+hide empty members
+
+
+package UI <<Rectangle>> {
+
+    class MainUI
+
+    class EmployeeUI 
+
+    class SearchUI
+
+    class Work_orderUI
+
+
+    class Real_estateUI
+
+    class ListUI 
+
+    
+    MainUI -Down- EmployeeUI
+    MainUI -Down-  Work_orderUI
+    MainUI -Down-  SearchUI
+    MainUI -Down-  ListUI
+    MainUI -Down-  Real_estateUI
+
+
+}
+
+
+SearchUI -Down- wrapper1
+Work_orderUI -Down- wrapper1
+EmployeeUI -Down- wrapper1
+Real_estateUI -Down- wrapper1
+Real_estateUI -Down- wrapper1
+
+
+
+
+class "Logic_wrapper" as wrapper1
+
+
+package Logic <<Rectangle>> {
+
+
+    class Reports 
+
+    class Employee 
+
+    class Work_order 
+
+    class Real_estate 
+
+    class Search
+
+    class Listing{
+
+    }
+
+    class Search
+
+    Search -right-|> Listing
+
+    wrapper1 -Down- Reports
+    wrapper1 -Down- Employee
+    wrapper1 -Down- Work_order
+    wrapper1 -Down- Listing
+    wrapper1 -Down- Search
+    wrapper1 -Down- Real_estate
+
+}
+
+class "Storage_wrapper"  as wrapper2
+
+
+
+package Storage <<Rectangle>> {
+
+    Reports -Down- wrapper2
+    Employee -Down- wrapper2
+    Work_order -Down- wrapper2
+    Listing -Down- wrapper2
+    Buildings -Down- wrapper2
+    Real_estate -Down- wrapper2
+
+
+    class Log_Employee
+    class Log_work_orders
+    class Log_contractors
+    class Log_maintenance
+    class Log_buildings
+    class Log_reports
+
+    wrapper2 -Down- Log_reports
+    wrapper2 -Down- Log_Employee
+    wrapper2 -Down- Log_work_orders
+    wrapper2 -Down- Log_contractors
+    wrapper2 -Down- Log_maintenance
+    wrapper2 -Down- Log_buildings
+
+}
+
+
+@enduml
+
+
+

@@ -85,3 +85,31 @@ Mættir: Eyþór, Ísak, Jón og Unnar
 Gekk fínt í dag. Var bara mjög mikið af því sama og í gær
 Tókum smá umræður um TUI-ið og Eyþór setti upp kerfi til að gera 
 Latax töflunar úr CSV.
+
+_____________________________________________________________
+
+25/11/2021
+
+Morgunfundur
+
+Mættir: Eyþór, Ísak, Jón og Unnar
+
+Í raun bara mjög svipað og síðustu daga. Erum með verkefnalista
+fyrir daginn. Jón ætlar að halda áfram í þriggja laga Klasaritinu
+Unnar í wireframe-inu og happy path. Ísak í klassíska klasaritinu
+og Eyþór í use case. 
+
+_____________________________________________________________
+25/11/2021
+
+Kvöldfundur
+
+Mættir: Eyþór, Ísak, Jón, Unnar og Stefán
+
+Tókum smá verkefna niðurbrot á það sem eftir var. Notkunar-
+tilvikin eru tilbúin og núna er Unnar að grinda í wireframe
+og Ísak og jón alveg að klára Class diagr. Stefán fór að skrifa
+í skýrslunni og Eyþór að vinna í state diagrams
+
+
+_____________________________________________________________

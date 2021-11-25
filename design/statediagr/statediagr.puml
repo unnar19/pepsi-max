@@ -1,8 +1,18 @@
 @startuml CreateUser
 
-[*] --> Authenticate
+state NotLoggedIn{
+    
+    [*] --> Authenticate
+
+    Authenticate --> Authenticate : Wrong password
+
+}
+
+
 
 state LoggedIn{
+
+    Authenticate --> MainMenu : User Logs in
 
     MainMenu --> EmployeMenu : select Employe
 
@@ -17,12 +27,11 @@ state LoggedIn{
 
 }
 
-Authenticate --> Authenticate : Wrong password
 
-
-Authenticate --> MainMenu : User Logs in
-
+    
 LoggedIn --> [*] : user logs out
+
+
 
 
 @enduml
@@ -30,7 +39,7 @@ LoggedIn --> [*] : user logs out
 
 @startuml GetListOfAllBuildings
 
-[*] --> Authenticate
+[*] --> NotLoggedIn
 
 state LoggedIn{
 
@@ -44,10 +53,10 @@ state LoggedIn{
     
 }
 
-Authenticate --> Authenticate : Wrong password
+NotLoggedIn --> NotLoggedIn : Wrong password
 
 
-Authenticate --> MainMenu : User Logs in
+NotLoggedIn --> MainMenu : User Logs in
 
 LoggedIn --> [*] : user logs out
 
