@@ -1,0 +1,26 @@
+@startuml
+
+title RegisterContractor (6)
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> ContractorMenu : Select contractors
+    ContractorMenu --> ContractorRegistration : Select register
+
+    ContractorRegistration : Input contractor information
+
+    ContractorRegistration --> ContractorMenu : New contractor registered [select register]
+
+    ContractorMenu --> [*]
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

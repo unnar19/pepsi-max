@@ -1,0 +1,24 @@
+@startuml
+
+title Search real estate (12)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> RealEstateMenu : Select real estates
+    RealEstateMenu --> RealEstateSearchMenu : Select search
+    RealEstateSearchMenu --> RealEstateMenu : Apply filter / Results
+    RealEstateMenu --> RealEstate : Select real estate
+    RealEstate --> [*]
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

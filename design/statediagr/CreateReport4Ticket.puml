@@ -1,0 +1,27 @@
+@startuml
+
+title Create report for ticket (35)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> TicketSearchMenu : Select search
+    TicketSearchMenu --> TicketMenu : Apply filter / Results
+    TicketMenu --> Ticket : Select ticket
+    Ticket --> CreateReportMenu : Create report
+    CreateReportMenu : Write report
+    CreateReportMenu --> Ticket : Submit report
+    Ticket --> [*]
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

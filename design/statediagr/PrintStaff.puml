@@ -17,3 +17,5 @@ EmployeeMenu -> [*]
 }
 
 LoggedIn -> [*] : Log out
+
+@enduml

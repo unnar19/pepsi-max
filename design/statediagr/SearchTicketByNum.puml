@@ -1,0 +1,24 @@
+@startuml
+
+title Search tickets by number (13)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> TicketSearchMenu : Select search
+    TicketSearchMenu --> TicketMenu : Apply filter / Results
+    TicketMenu --> Ticket : Select ticket
+    Ticket --> [*]
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml
