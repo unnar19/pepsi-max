@@ -1,0 +1,381 @@
+
+ 				NaN Air | Dividing by zero every day!												
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Log-in										
+										
+	1. Email	[empty]								
+	2. Password     [empty]
+	3. Log-in	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Please select an option
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 1
+
+
+
+ 				NaN Air | Dividing by zero every day!												
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Log-in										
+										
+	1. Email	[empty]								
+	2. Password     [empty]
+	3. Log-in	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Enter email address
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: unnar19@ru.is
+
+
+
+ 				NaN Air | Dividing by zero every day!												
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Log-in										
+										
+	1. Email	[unnar19@ru.is]								
+	2. Password     [empty]
+	3. Log-in	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Please select an option
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 2
+
+
+ 				NaN Air | Dividing by zero every day!												
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Log-in										
+										
+	1. Email	[unnar19@ru.is]								
+	2. Password     [empty]
+	3. Log-in	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Enter password
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: password123
+
+
+
+ 				NaN Air | Dividing by zero every day!												
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Log-in										
+										
+	1. Email	[unnar19@ru.is]								
+	2. Password     [***********]
+	3. Log-in	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Please select an option
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 2
+
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu										
+										
+	1. Employees								
+	2. Real Estate
+	3. Maintenance
+	4. Contractors
+	5. Log-out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Please select an option
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 1
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees 				| Name				| Email				| SSN		| Phone		| Location		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Search		[empty]		| Aleqa Hammond			  aleqah@nanair.com		  9974385674	  18974		  Nuuk
+	2. Filters				| Anders Olsen			  anderso@nanair.com		  4351990763	  293409	  Nuuk
+	3. Select user				| Andy Aitken			  aitken@nanair.com		  1114323656	  903845	  Tingwall
+	4. Next page				| Anker Eli Petersen		  akkeri@nanair.com		  8109424014	  90238490	  Tórshavn
+	5. Previous page			| Aqqaluaq B. Egede		  aqqbeg@nanair.com		  8810062876	  23984		  Kulusuk
+	6. Back					| Bárður Oskarsson		  bardur@nanair.com		  8927696236	  829374982	  Tórshavn
+						| Bentiaraq Ottosen		  ottosen@nanair.com		  6304927572	  9834		  Kulusuk
+						| Charlie Adams			  chadams@nanair.com		  1374084127	  293084	  Tingwall
+						| Eyþór Mikael Eyþórsson	  eythor@nanair.com		  7457255474	  283974892	  Reykjavík
+						| Graham Alexander		  kilograham@nanair.com		  6723561593	  937792	  Tingwall
+						| Haakon Glucksburg		  haaaakon@nanair.com		  7179109095	  239748	  Longyearbyen
+						| Hanni Bjartahlíð		  hanni@nanair.com		  1493599774	  29308490	  Tórshavn
+						| Harald Glucksburg		  theking@nanair.com		  1688094730	  98724		  Longyearbyen
+						| Ísak Maron Hannesson		  isakmaron@nanair.com		  6477135101	  283974923	  Reykjavík
+						| Jón Evert Pálsson		  jonevert@nanair.com		  2046354746 	  8297348	  Reykjavík
+						| Kim Kielsen			  mrkielsen@nanair.com		  2533580965	  238974982	  Nuuk
+						| Livar Nysted			  livarliver@nanair.com		  8828414139	  893724	  Tórshavn
+						| Sonja Glucksburg		  mcsonja@nanair.com		  8652863704	  237498	  Longyearbyen
+						| Steve Archibald		  verybald@nanair.com		  7801318382	  84703		  Tingwall
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select an option			| Page 1 of 2 | Filters: [all]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 2
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees > Filters			| Name				| Email				| SSN		| Phone		| Location		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Kulusuk		( )		| Aleqa Hammond			  aleqah@nanair.com		  9974385674	  18974		  Nuuk
+	2. Longyearbyen		( )		| Anders Olsen			  anderso@nanair.com		  4351990763	  293409	  Nuuk
+	3. Nuuk			( )		| Andy Aitken			  aitken@nanair.com		  1114323656	  903845	  Tingwall
+	4. Reykjavík		( )		| Anker Eli Petersen		  akkeri@nanair.com		  8109424014	  90238490	  Tórshavn
+	5. Tingwall		( )		| Aqqaluaq B. Egede		  aqqbeg@nanair.com		  8810062876	  23984		  Kulusuk
+	6. Tórshavn		( )		| Bárður Oskarsson		  bardur@nanair.com		  8927696236	  829374982	  Tórshavn
+	7. Back					| Bentiaraq Ottosen		  ottosen@nanair.com		  6304927572	  9834		  Kulusuk
+						| Charlie Adams			  chadams@nanair.com		  1374084127	  293084	  Tingwall
+						| Eyþór Mikael Eyþórsson	  eythor@nanair.com		  7457255474	  283974892	  Reykjavík
+						| Graham Alexander		  kilograham@nanair.com		  6723561593	  937792	  Tingwall
+						| Haakon Glucksburg		  haaaakon@nanair.com		  7179109095	  239748	  Longyearbyen
+						| Hanni Bjartahlíð		  hanni@nanair.com		  1493599774	  29308490	  Tórshavn
+						| Harald Glucksburg		  theking@nanair.com		  1688094730	  98724		  Longyearbyen
+						| Ísak Maron Hannesson		  isakmaron@nanair.com		  6477135101	  283974923	  Reykjavík
+						| Jón Evert Pálsson		  jonevert@nanair.com		  2046354746 	  8297348	  Reykjavík
+						| Kim Kielsen			  mrkielsen@nanair.com		  2533580965	  238974982	  Nuuk
+						| Livar Nysted			  livarliver@nanair.com		  8828414139	  893724	  Tórshavn
+						| Sonja Glucksburg		  mcsonja@nanair.com		  8652863704	  237498	  Longyearbyen
+						| Stefán Jóhann Brynjólfsson	  stebbi69@nanair.com		  7801318382	  84703123	  Reykjavík
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select a filter				| Page 1 of 2 | Filters: [all]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 4
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees > Filters			| Name				| Email				| SSN		| Phone		| Location		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Kulusuk		( )		| Eyþór Mikael Eyþórsson	  eythor@nanair.com		  7457255474	  283974892	  Reykjavík
+	2. Longyearbyen		( )		| Ísak Maron Hannesson		  isakmaron@nanair.com		  6477135101	  283974923	  Reykjavík
+	3. Nuuk			( )		| Jón Evert Pálsson		  jonevert@nanair.com		  2046354746 	  8297348	  Reykjavík
+	4. Reykjavík		(X)		| Stefán Jóhann Brynjólfsson	  stebbi69@nanair.com		  7801318382	  84703123	  Reykjavík
+	5. Tingwall		( )		| Unnar Freyr Arnþórsson	   unnarf@nanair.com		  5217891342	  287394237	  Reykjavík
+	6. Tórshavn		( )		| 
+	7. Back					| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select a filter				| Page 1 of 1 | Filters: ['Reykjavík']
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 7
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees				| Name				| Email				| SSN		| Phone		| Location		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Search		[empty]		| Eyþór Mikael Eyþórsson	  eythor@nanair.com		  7457255474	  283974892	  Reykjavík
+	2. Filters				| Ísak Maron Hannesson		  isakmaron@nanair.com		  6477135101	  283974923	  Reykjavík
+	3. Select user				| Jón Evert Pálsson		  jonevert@nanair.com		  2046354746 	  8297348	  Reykjavík
+	4. Next page				| Stefán Jóhann Brynjólfsson	  stebbi69@nanair.com		  7801318382	  84703123	  Reykjavík
+	5. Previous page			| Unnar Freyr Arnþórsson	   unnarf@nanair.com		  5217891342	  287394237	  Reykjavík
+	6. Back					| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select an option			| Page 1 of 1 | Filters: ['Reykjavík']
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 3
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees > Select employee		| Name				| Email				| SSN		| Phone		| Location		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Eyþór				| Eyþór Mikael Eyþórsson	  eythor@nanair.com		  7457255474	  283974892	  Reykjavík
+	2. Ísak					| Ísak Maron Hannesson		  isakmaron@nanair.com		  6477135101	  283974923	  Reykjavík
+	3. Jón 					| Jón Evert Pálsson		  jonevert@nanair.com		  2046354746 	  8297348	  Reykjavík
+	4. Stefán 				| Stefán Jóhann Brynjólfsson	  stebbi69@nanair.com		  7801318382	  84703123	  Reykjavík
+	5. Unnar 				| Unnar Freyr Arnþórsson	   unnarf@nanair.com		  5217891342	  287394237	  Reykjavík
+	6. Back					| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select an employee			| Page 1 of 1 | Filters: ['Reykjavík']
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 2
+
+
+
+
+ 				NaN Air | Dividing by zero every day!									Logged in as: Unnar Freyr
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Menu > Employees >> Ísak			| Employee information		
+						|----------------------------------------------------------------------------------------------------------------
+	1. Edit employee			| 	  		  	  	  
+	2. Reports				| Name: 	Ísak Maron Hannesson	
+	3. Back					| Email:	isakmaron@nanair.com
+						| SSN: 		647713-5101
+		 				| Phone:	+354 283974923
+						| 		+354 5812345
+						| 
+						| Location: 	Reykjavík
+						| Country:	Iceland
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						| 
+						|
+------------------------------------------------|----------------------------------------------------------------------------------------------------------------
+ Please select an option			| There are 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Input: 
+
+
+
+
