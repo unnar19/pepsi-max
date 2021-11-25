@@ -8,9 +8,7 @@ package Airline {
         make_new_work_order()
         change_work_order()
         approve_work_report()
-        approve_maintainance_report()
-        file_maintainance_schedule()
-        change_maintainance_schedule()
+        approve_maintenance_report()
         file_contractor()
         change_contractor()
         file_contractor_log()
@@ -27,7 +25,7 @@ package Airline {
         login()
         logout()
         file_work_report()
-        file_maintainance_report()
+        file_maintenance_report()
         complete_work_order()
         list_employees()
         search_employee()
@@ -49,8 +47,9 @@ package Airline {
     }
     class Real_estate {
         location: string
+        address: string
         id: int
-        maintainance_info: string
+        maintenance_info: string
     }
     class Work_order {
         id: int
@@ -59,8 +58,10 @@ package Airline {
         employees: list
         start_date: string
         importance: string
+        status: string
+        is_recurring: bool
     }
-    class Maintainance_report {
+    class Maintenance_report {
         id: string
         real_estate_id: list
         work_description: string
@@ -71,15 +72,8 @@ package Airline {
         evaluation_of_contractor: string
         start_date: string
         time_period: string
-        schedule_project: bool
-        maintainance_schedule_id: int
-    }
-    class Maintainance_schedule {
-        id: int
-        location: string
-        real_estate_id: list
-        maintainance_reports: list
-        schedule: string
+        status: string
+        was_recurring: bool
     }
     class Contractor {
         id: int
@@ -89,10 +83,32 @@ package Airline {
         opening_hours: string
         location: string
     }
+    class Search {
+        search_string: string
+        --
+        search()
+    }
+    class Listing {
+        filter: string
+        --
+        get_data()
+    }
+    class Recurring_work_order {
+        recurring_work_orders: list
+        --
+        renew_work_order()
+    }
+
 Manager --|> Employee
 Destination "1" <-- "*" Real_estate
 Destination "1" <-- "1" Manager
 Destination "1" <-- "*" Employee
 Destination "1" <-- "*" Contractor
+Work_order "1" -- "0..1" Maintenance_report
+Work_order "*" -- "*" Employee
+Work_order <|-- Recurring_work_order
+Listing <|-- Search
+Search <.. Employee
+Listing <.. Employee
 }
 @enduml
