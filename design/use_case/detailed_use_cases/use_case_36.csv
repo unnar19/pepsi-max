@@ -1,10 +1,10 @@
-Nafn
-Nr
-Forgangur
-Lýsing
-Leikarar
-Forsendur
-Staða fyrir
-Staða eftir
-Röð aðgerða
-Alt röð aðgerða
+Nafn,Skrá verkskýrslu á opna verkbeiðni
+Nr,36
+Forgangur,A
+Lýsing,Starfsmaður fyllir út verkskýrslu fyrir opna verkbeiðni þegar búið er að uppfylla verkkröfur.
+Leikarar,Starfsmaður
+Forsendur,Búið er að nýskrá verkbeiðni
+Staða fyrir,Verkbeiðni er opin og ósnert
+Staða eftir,Búið er að fylla í verkskýrslu fyrir verkbeiðni.
+Röð aðgerða,Starfsmaður velur verkbeiðnir. Starfsmaður velur opna verkbeiðni. Starfsmaður velur að breyta verkskýrslu. Starfsmaður fyllir út verkskýrslu. Starfsmaður velur að vista.
+Alt röð aðgerða,Starfsmaður velur að merkja verkbeiðni sem tilbúna til lokunar af yfirmanni.

@@ -1,10 +1,10 @@
-Nafn
-Nr
-Forgangur
-Lýsing
-Leikarar
-Forsendur
-Staða fyrir
-Staða eftir
-Röð aðgerða
-Alt röð aðgerða
+Nafn,Merkja verkbeiðni sem tilbúna fyrir lokun.
+Nr,37
+Forgangur,A
+Lýsing,Starfsmaður merkir við verkbeiðni að hún sé tilbúin fyrir lokun af yfirmanni
+Leikarar,Starfsmaður
+Forsendur,Búið er að nýskrá verkbeiðni. Búið er að fylla út verkskýrslu.
+Staða fyrir,Verkbeiðni er opin
+Staða eftir,Verkbeiðni er opin og tilbúin til lokunar
+Röð aðgerða,Starfsmaður velur verkbeiðnir. Starfsmaður velur opna verkbeiðni. Starfsmaður velur að verkbeiðni sé tilbúin til lokunar.
+Alt röð aðgerða,
