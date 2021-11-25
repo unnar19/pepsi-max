@@ -1,9 +1,6 @@
 @startuml airline
-package airline {
-    class ui_layer
-    class logic_layer
-    class storage_layer
-    class manager {
+package Airline {
+    class Manager {
         file_new_employee()
         change_employee()
         file_new_real_estate()
@@ -18,7 +15,7 @@ package airline {
         change_contractor()
         file_contractor_log()
     }
-    class employee {
+    class Employee {
         name: string
         ssn: int
         address: string
@@ -43,71 +40,59 @@ package airline {
         Search_contractor_log()
         list_contractor_log()
     }
-    class destination {
+    class Destination {
         location: string
         airport: string
         phone: int
         opening_hours: string
         manager: string
     }
-    class real_estate {
+    class Real_estate {
         location: string
-        real_estate_id: int
+        id: int
+        maintainance_info: string
     }
-    class work_order {
-        work_order_id: int
+    class Work_order {
+        id: int
         real_estate_id: list
+        work_description: string
         employees: list
-        repeat_project: string
         start_date: string
         importance: string
     }
-    class work_report {
-        work_report_id: string
+    class Maintainance_report {
+        id: string
         real_estate_id: list
+        work_description: string
         employees: list
-    }
-    class maintainance_report {
-        maintainance_report_id: string
-        real_estate_id: list
-        work_decription: string
-        repeat_maintainance: string
-        employees: list
-        price: float
-        contractors: list
+        total_price: float
+        contractor_id: list
         contractor_pay: float
-        evaluation_by_manager: string
+        evaluation_of_contractor: string
         start_date: string
         time_period: string
+        schedule_project: bool
+        maintainance_schedule_id: int
     }
-    class maintainance_schedule {
+    class Maintainance_schedule {
+        id: int
+        location: string
         real_estate_id: list
         maintainance_reports: list
         schedule: string
     }
-    class contractor {
-        contractor_id: int
+    class Contractor {
+        id: int
         name: string
         contact: string
         phone: int
         opening_hours: string
         location: string
     }
-    class contractor_log {
-        maintainance_report_id: string
-        desctiption_of_work: string
-        real_estate_id: list
-        contractor_id: int
-    }
-logic_layer -- manager
-logic_layer -- employee
-logic_layer -- contractor
-storage_layer -- real_estate
-storage_layer -- destination
-storage_layer -- work_order
-storage_layer -- work_report
-storage_layer -- maintainance_report
-storage_layer -- maintainance_schedule
-storage_layer -- contractor_log
+Manager --|> Employee
+Destination "1" <-- "*" Real_estate
+Destination "1" <-- "1" Manager
+Destination "1" <-- "*" Employee
+Destination "1" <-- "*" Contractor
 }
 @enduml
