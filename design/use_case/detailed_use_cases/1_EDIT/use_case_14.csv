@@ -1,0 +1,10 @@
+Nafn,Leita að verkbeiðni eftir númeri
+Nr,14
+Forgangur,A
+Lýsing,Notandi leitar að verkbeiðni eftir númerinu sem verkbeiðnin hefur
+Leikarar,Yfirmenn og almennir starfsmenn
+Forsendur,Notandi er skráður inn
+Staða fyrir,aðalvalmynd
+Staða eftir,upplýsingasíða verkbeiðnar
+Röð aðgerða,Notandi velur verkbeiðnir. Notandi velur sía. Notandi slær númeri inn í viðeigandi dálk. Notandi velur leita. Notandi velur verkbeiðni.
+Alt röð aðgerða,-

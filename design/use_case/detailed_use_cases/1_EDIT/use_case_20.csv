@@ -1,0 +1,10 @@
+Nafn,Prenta alla starfsmenn sem uppfylla skilyrði
+Nr,20
+Forgangur,A
+Lýsing,Prentar út lista af starfsmönnum sem uppfylla valin skilyrði
+Leikarar,Yfirmaður eða starfsmaður
+Forsendur,Notandi er skráður inn
+Staða fyrir,Notandi vill síaðann lista af starfsmönnum
+Staða eftir,Notandi sér síaðann lista af starfsmönnum
+Röð aðgerða,Notandi velur starfsmenn. Notandi velur að sía. Notandi setur skilyrðin sín inn. Notandi velur leita.
+Alt röð aðgerða,

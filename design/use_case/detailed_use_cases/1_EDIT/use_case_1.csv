@@ -1,0 +1,10 @@
+Nafn,Innskrá notanda
+Nr,1
+Forgangur,A
+Lýsing,Notandi (starfsmaður eða yfirmaður) skráir sig innmeð lykilorði og notandanafni
+Leikarar,Notandi
+Forsendur,Notandi er skráður
+Staða fyrir,Notandi er ekki innskráður
+Staða eftir,Notandi er innskráður
+Röð aðgerða,Notandi slær inn notandanafn. Notandi slær inn lykilorð. Notandi ýtir á ’Enter’. Upplýsingar eru réttar.
+Alt röð aðgerða,Notandi slær inn notandanafn. Notandi slær inn lykilorð. Notandi ýtir á ’Enter’. Upplýsingar eru rangar. Notandi endurtekur röð aðgerða.

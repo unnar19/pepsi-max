@@ -1,0 +1,10 @@
+Nafn,Bæta við athugasemdum um verk þegar beiðni er lokað
+Nr,8
+Forgangur,B
+Lýsing,Notandi bætir við athugasemd við verkbeiðni eftir að hafa farið yfir verkskýrslu
+Leikarar,Yfirmaður
+Forsendur,Starfsmaður er búinn að bæta verkskýrslu við verkbeiðni og merkja beiðni sem tilbúna til lokunar
+Staða fyrir,aðalvalmynd
+Staða eftir,upplýsingasíða verkbeiðnar
+Röð aðgerða,Yfirmaður velur verkbeiðnir. Yfirmaður velur tilbúna verkbeiðni. Yfirmaður fer yfir skýrslu. Yfirmaður velur samþykkja skýrslu. Yfirmaður bætir við athugasemd í viðeigandi reit. Yfirmaður velur loka beiðni.
+Alt röð aðgerða,
