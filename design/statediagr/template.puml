@@ -1,0 +1,18 @@
+@startuml SearchEmployee
+
+title Name (Use case no.)
+
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

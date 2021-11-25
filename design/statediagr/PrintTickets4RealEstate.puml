@@ -1,0 +1,29 @@
+@startuml SearchEmployee
+
+title Print all tickets for real estate (24)
+
+hide empty description
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> RealEstateMenu : select real estates
+    RealEstateMenu --> RealEstateSearchMenu : select search
+    RealEstateSearchMenu --> RealEstateMenu : apply filters
+    RealEstateMenu --> RealEstate : select real estate
+    RealEstate --> TicketMenu : select tickets / filtered ticket view
+
+    MainMenu --> TicketMenu : select tickets
+    TicketMenu --> TicketSearchMenu : select search
+    TicketSearchMenu --> TicketMenu : apply filters
+
+    TicketMenu --> [*]
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

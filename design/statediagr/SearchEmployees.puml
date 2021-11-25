@@ -1,0 +1,30 @@
+@startuml SearchEmployee
+
+title Find employee (11)
+
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+[*] -> MainMenu
+
+MainMenu -> EmployeeMenu: select employees
+EmployeeMenu --> SearchMenu: select search
+
+SearchMenu : Input search string
+
+SearchMenu --> EmployeeMenu: select enter
+
+EmployeeMenu --> Employee: select employee
+
+Employee : View employee
+
+Employee -> [*]
+
+}
+LoggedIn -> [*] : Log out
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+title Print Employees (18)
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+
+[*] -> MainMenu
+
+MainMenu --> EmployeeMenu : select employees
+
+EmployeeMenu -> [*]
+
+}
+
+LoggedIn -> [*] : Log out

@@ -1,0 +1,25 @@
+@startuml
+
+title Print Searched Staff (19)
+
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+
+[*] -> MainMenu 
+
+MainMenu -> EmployeeMenu : select employees
+
+EmployeeMenu -> EmployeeSearchMenu : select filter
+
+EmployeeSearchMenu -> EmployeeMenu : select search
+
+EmployeeSearchMenu : Type filters
+
+EmployeeMenu --> [*]
+}
+
+LoggedIn -> [*] : Log out
