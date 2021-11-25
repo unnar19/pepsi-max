@@ -1,0 +1,26 @@
+@startuml 
+
+title Add comment to ticket (8)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> Ticket : Select ready ticket
+    Ticket --> Report : Select report
+    Report --> Ticket : Accept report
+    Ticket --> Comment : Close ticket
+    Comment --> TicketMenu : Submit comment
+    TicketMenu --> [*]
+    
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

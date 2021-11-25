@@ -1,7 +1,8 @@
-@startuml SearchEmployee
+@startuml 
 
 title Name (Use case no.)
 
+hide empty description
 
 [*] -> Authenticate
 Authenticate --> Authenticate: Wrong Password

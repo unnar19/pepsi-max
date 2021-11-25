@@ -1,0 +1,24 @@
+@startuml 
+
+title Print employee tickets during period (33)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> TicketSearchMenu : Select search
+    TicketSearchMenu --> TicketMenu : Filters applied to employee and period
+    TicketMenu --> [*]
+
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

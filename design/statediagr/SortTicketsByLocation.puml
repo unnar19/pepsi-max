@@ -1,0 +1,22 @@
+@startuml 
+
+title Sort tickets by location and date (30)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> TicketSortMenu : Select sort
+    TicketSortMenu --> TicketMenu : Apply sort by location
+    TicketMenu --> [*]
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml

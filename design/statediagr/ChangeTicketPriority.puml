@@ -1,0 +1,27 @@
+@startuml 
+
+title Change ticket priority (10)
+
+hide empty description
+
+[*] -> Authenticate
+Authenticate --> Authenticate: Wrong Password
+Authenticate --> LoggedIn
+
+state LoggedIn{
+    
+    [*] -> MainMenu
+    MainMenu --> TicketMenu : Select tickets
+    TicketMenu --> Ticket : Select ticket
+    Ticket --> TicketEditable : Select edit
+    TicketEditable --> Ticket : Make changes
+    Ticket --> TicketMenu : Save changes
+    TicketMenu --> [*]
+
+    Ticket : Display info
+
+}
+
+LoggedIn -> [*] : Log out
+
+@enduml
