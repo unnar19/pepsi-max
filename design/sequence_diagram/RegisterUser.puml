@@ -1,0 +1,156 @@
+@startuml
+title Register User (3)
+
+actor Boss as Boss
+boundary UI as UI
+control LogicWrapper as W1
+participant Logic as Logic
+control DataWrapper as W2
+participant Models as Models
+
+
+activate UI #LightYellow
+
+loop unsuccessful authentication
+Boss -> UI : Submit credentials
+UI -> W1 : Request cred authentication
+activate W1 #LightYellow
+W1 -> W1 : Authenticate requester
+Activate W1 #DarkSalmon
+W1 -> Logic : Request cred authentication
+activate Logic #LightYellow
+Logic -> W2 : Authenticate username
+activate Logic #DarkSalmon
+activate W2 #LightYellow
+W2 -> W2 : Authenticate requester
+activate W2 #DarkSalmon
+W2 -> Models : Authenticate username
+activate Models #LightYellow
+Models -> Models : Search instances
+
+alt incorrect username
+
+Models -->> W2 : User not found
+W2 -->> Logic : User not found
+Logic -->> W1 : Return error
+W1 -->> UI : Return error
+UI -->> Boss : Try again
+
+else incorrect password
+Models -->> W2 : Return password
+deactivate Models
+W2 -->> Logic : Return password
+deactivate W2
+deactivate W2
+Logic -> Logic : Authenticate password
+Logic -->> W1 : Return error
+deactivate Logic
+W1 -->> UI : Return error
+UI -->> Boss : Try again
+end
+
+end
+
+alt successful authentication
+Logic -> W2 : Request role
+activate Logic #DarkSalmon
+activate W2 #LightYellow
+W2 -> W2 : Authenticate requester
+activate W2 #DarkSalmon
+W2 -> Models : Request role
+activate Models #LightYellow
+Models -> Models : Search instances
+Models -->> W2 : Return role
+deactivate W2
+deactivate Models
+W2 -->> Logic : Return role
+deactivate Logic
+deactivate W2
+Logic -->> W1 : Return role
+deactivate Logic
+deactivate W1
+W1 -->> UI : Return role
+deactivate W1
+UI -->> Boss : User authenticated
+deactivate UI
+activate Boss #LightYellow
+UI -> UI : Display MainMenu
+activate UI #LightYellow
+end
+
+Boss -> UI : Select employees
+UI -> W1 : Request EmployeeMenu/Send role
+activate W1 #LightYellow
+W1 -> W1 : Authenticate requester
+activate W1 #DarkSalmon
+W1 -> Logic : Request EmployeeMenu/Send role
+activate Logic #LightYellow
+
+Logic -> Logic : Get role permissions
+activate Logic #DarkSalmon
+Logic -> W2 : Request permitted data
+activate W2 #LightYellow
+W2 -> W2 : Authenticate requester
+activate W2 #DarkSalmon
+W2 -> Models : Request permitted data
+activate Models #LightYellow
+Models -> Models : Search instances
+Models -->> W2 : Return permitted data
+deactivate W2
+deactivate Models
+W2 -->> Logic : Return permitted data
+deactivate Logic
+deactivate W2
+deactivate W2
+Logic -->> W1 : Return permitted data
+deactivate W1
+deactivate Logic
+W1 -->> UI : Return permitted data
+deactivate W1
+deactivate UI
+UI -> UI : Display EmployeeMenu for role
+activate UI #LightYellow
+
+Boss -> UI : Select register
+deactivate UI
+UI -> UI : Display RegisterEmployee page
+activate UI #LightYellow
+Boss -> UI : Submit EmployeeData
+UI -> W1 : Submit EmployeeData
+activate W1 #LightYellow
+W1 -> W1 : Authenticate requester
+activate W1 #DarkSalmon
+W1 -> Logic : Submit EmployeeData
+activate Logic #LightYellow
+Logic -> W2 : Register NewEmployee
+activate Logic #DarkSalmon
+activate W2 #LightYellow
+W2 -> W2 : Authenticate requester
+activate W2 #DarkSalmon
+W2 -> Models : Register NewEmployee
+activate Models #LightYellow
+Models -> Models : Create instance
+Models -->> W2 : Return True
+deactivate Models
+deactivate W2
+W2 -->> Logic : Return True
+deactivate W2
+deactivate Logic
+Logic -->> W1 : Return True
+deactivate Logic
+deactivate W1
+W1 -->> UI : Return True
+deactivate W1
+deactivate UI
+UI -> UI : Display EmployeeData page
+activate UI #Red
+UI -> Boss : Employee registered
+deactivate UI
+deactivate Boss
+
+
+
+
+
+
+@enduml
