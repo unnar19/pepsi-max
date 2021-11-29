@@ -113,3 +113,20 @@ og Ísak og jón alveg að klára Class diagr. Stefán fór að skrifa
 
 
 _____________________________________________________________
+
+26/11/2021
+
+Hönnunarfundur
+
+Mættir: Eyþór, Ísak, Jón, Unnar og Stefán
+
+Alveg að verða búnir. Unnar er að klára happy path. Núna fara allir
+í að púsla saman skýrslu og fínpússa texta. Engar hönnunarákvarðanir 
+teknar á morgunfundi.
+
+_____________________________________________________________
+
+29/11/2021
+
+Morgunfundur
+
