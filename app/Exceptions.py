@@ -1,0 +1,2 @@
+class CouldNotAuthenticateUIException(Exception):
+    pass
