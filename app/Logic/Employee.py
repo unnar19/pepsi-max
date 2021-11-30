@@ -56,6 +56,9 @@ class Employee:
         """
         return self.data_wrapper.get_all_employee_fields(fields)
 
+    def register(self, data):
+        return self.data_wrapper.register_employee(data)
+
 
 
 
