@@ -38,7 +38,7 @@ destination_schema = {
 contractor_schema = {
     "type": "object",
     "data": {
-        "id": {"type": "int"},
+        "id": {"type": "number"},
         "name": {"type": "string"},
         "contact": {"type": "string"},
         "phone": {"type": "int"},
@@ -50,8 +50,8 @@ contractor_schema = {
 report_schema = {
     "type": "object",
     "data": {
-        "id": {"type": "int"},
-        "real_estate_id": {"type": "int"},
+        "id": {"type": "number"},
+        "real_estate_id": {"type": "list"},
         "work_description": {"type": "string"},
         "employees": {"type": "list"},
         "total_price": {"type": "float"},
@@ -68,8 +68,8 @@ report_schema = {
 ticket_schema = {
     "type": "object",
     "data": {
-        "id": {"type": "int"},
-        "real_estate_id": {"type": "int"},
+        "id": {"type": "number"},
+        "real_estate_id": {"type": "list"},
         "work_description": {"type": "string"},
         "employees": {"type": "list"},
         "start_date": {"type": "string"},
