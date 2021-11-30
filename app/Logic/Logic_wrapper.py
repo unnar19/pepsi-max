@@ -11,6 +11,7 @@ from Exceptions import *
 # methods are exposed. Hence, the logic wrapper controls
 # all communication between UI and Logic
 
+
 class Logic_wrapper:
     def __init__(self) -> None:
         self.employee = Employee()

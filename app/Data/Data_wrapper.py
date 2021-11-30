@@ -1,3 +1,10 @@
+from Log_employee import Log_employee
+from Log_building import Log_building
+from Log_contractor import Log_contractor
+from Log_maintenance import Log_maintenance
+from Log_work_order import Log_work_order
+
+
 import Log_employee
 
 class Data_wrapper:
