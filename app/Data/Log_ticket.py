@@ -1,3 +1,3 @@
-class Log_work_orders.py:
+class Log_ticket:
     def __init__(self) -> None:
         pass
