@@ -1,6 +1,11 @@
+# Files from .tex and .pdf generation
 *.aux
 *.log
 *.png
+
+# app pycache files
 app/Data/__pycache__/
 app/Logic/__pycache__/
 app/UI/__pycache__/
+app/venv/
+app/.DS_Store
