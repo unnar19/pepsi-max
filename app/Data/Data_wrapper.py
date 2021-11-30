@@ -5,18 +5,14 @@ from Log_maintenance import Log_maintenance
 from Log_work_order import Log_work_order
 
 
+import Log_employee
+
 class Data_wrapper:
     def __init__(self) -> None:
-        self.building = Log_buildings()
-        self.employee = Log_employee()
+        self.log_employee = Log_employee()
 
+    def authenticate_employee_username(self, username):
+        return self.log_employee.authenticate_username(username)
 
-    def instructions(self, instruction):
-        if instruction["instrcution"] == "log_person":
-            self.employee.write_to_file(instruction["data"])
-        
-    def write(self):
-        pass
-
-    def read(self):
-        pass
+    def get_all_employee_fields(self, fields):
+        return self.log_employee.get_all_from_fields(fields)
