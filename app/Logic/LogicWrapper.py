@@ -23,9 +23,9 @@ class LogicWrapper:
         except IncorrectCredentialsException:
             return False
 
-    def get_employee_list(self, fields: str):
+    def get_employee_list(self):
         """Request list of employees"""
-        return self.employee.get_list(fields)
+        return self.employee.get_list()
 
     def post_employee_data(self, data: str):
         """Register new employee"""

@@ -54,7 +54,7 @@ class Employee:
         Takes in array of fields e.g. {"fields": ["name", "location", "ssn"]}
         Returns array of employees with fields filled
         """
-        return self.data_wrapper.get_all_employee_fields(fields)
+        return self.data_wrapper.get_all_employees()
 
     def register(self, data):
         return self.data_wrapper.register_employee(data)

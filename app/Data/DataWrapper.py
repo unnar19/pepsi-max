@@ -14,5 +14,5 @@ class DataWrapper:
     def authenticate_employee_username(self, username):
         return self.log_employee.authenticate_username(username)
 
-    def get_all_employee_fields(self, fields):
-        return self.log_employee.get_all_from_fields(fields)
+    def get_all_employees(self):
+        return self.log_employee.get_all_employees_dict()
