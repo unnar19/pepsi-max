@@ -150,3 +150,16 @@ Eins og við var búist fór mikill tími í umræðu um hvernig
 best væri að nálgast þetta. Við komumst aðeins af stað með 
 forritun en restin fór í umræður og aðeins að endurhanna.
 
+_____________________________________________________________
+
+30/11/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Stefán
+
+Farið aðeins yfir stöðuna eftir fyrsta forritunardaginn.
+Þetta gengur bara nokkuð vel. Tókum ákvörðun um að klasar
+og skráarnöfn myndu vera í PascalCasing og breytur og 
+methood í snake_casing. Tókum líka ákvörðun um að Data
+-layer myndi taka inn json data og skila json data.
