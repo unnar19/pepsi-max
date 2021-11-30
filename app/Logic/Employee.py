@@ -47,34 +47,18 @@ class Employee:
                 return True
 
     def get_all(self):
-        """
-        ACCESSABLE TO ALL ROLES
-
-        Get all employee data from DL
-        """
         return self.data_wrapper.get_employees_all()
 
     def get(self, id_: str):
-        """
-        ACCESSABLE TO ALL ROLES
-        
-        Get data for employee with id: id_
-        """
         return self.data_wrapper.get_employee(id_)
 
     def post(self, data: str):
-        """
-        ACCESSABLE TO BOSS
-        """
         if self.__is_boss():
             return self.data_wrapper.post_employee(data)
         else:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
-        """
-        ACCESSABLE TO BOSS
-        """
         if self.__is_boss():
             return self.data_wrapper.put_employee(data)
         else:

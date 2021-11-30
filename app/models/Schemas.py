@@ -10,7 +10,7 @@ employee_schema = {
         "home_phone": {"type": "number"},
         "mobile_phone": {"type": "number"},
         "email": {"type": "string"},
-        "location": {"type": "string"}
+        "location": {"type": "string"},
     },
 }
 
@@ -20,7 +20,7 @@ real_estate_schema = {
         "id": {"type": "number"},
         "address": {"type": "string"},
         "location": {"type": "string"},
-        "maintenance_info": {"type": "string"}
+        "maintenance_info": {"type": "string"},
     },
 }
 
@@ -31,7 +31,7 @@ destination_schema = {
         "location": {"type": "string"},
         "phone": {"type": "int"},
         "opening_hours": {"type": "string"},
-        "manager": {"type": "string"}
+        "manager": {"type": "string"},
     },
 }
 
@@ -43,7 +43,8 @@ contractor_schema = {
         "contact": {"type": "string"},
         "phone": {"type": "int"},
         "opening_hours": {"type": "string"},
-        "location": {"type": "string"}
+        "location": {"type": "string"},
+        "tickets" : {"type": "list"},
     },
 }
 
@@ -69,6 +70,7 @@ ticket_schema = {
     "type": "object",
     "data": {
         "id": {"type": "number"},
+        "report_id": {"type": "number"},
         "real_estate_id": {"type": "list"},
         "work_description": {"type": "string"},
         "employees": {"type": "list"},
@@ -76,5 +78,6 @@ ticket_schema = {
         "importance": {"type": "string"},
         "status": {"type": "string"},
         "is_recurring": {"type": "bool"},
+        "comments": {"type": "list"},
     },
 }

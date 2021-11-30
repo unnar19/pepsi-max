@@ -1,3 +1,5 @@
+import Data.DataWrapper as DataWrapper
+
 class RealEstate:
     def __init__(self) -> None:
-        pass
+        self.data_wrapper = DataWrapper()
