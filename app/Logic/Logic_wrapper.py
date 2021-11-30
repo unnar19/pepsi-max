@@ -13,27 +13,16 @@ from Exceptions import *
 
 class Logic_wrapper:
     def __init__(self) -> None:
-        self.id = 'LW'
-        
+        pass
 
-    def __authenticate_requester(self, requester_id, receiver):
-        """
-        Each Logic class only accepts requests from certain UI classes
-        This function checks if requester_id is in receiver whitelist
+    def authenticate_employee(self, credentials: str):
+        """Credentials contain username-field and password-field"""
+        try:
+            return Employee.authenticate(credentials)
+        except IncorrectCredentialsException:
+            return False
 
-        TAKES IN:
-        Receiving_class, Requester_ID
-
-        RETURNS:
-        Bool
-        """
-        return receiver._whitelisted(requester_id)
-
-    def _authenticate_user(self, requester_id, credentials):
-        """Credentials are only for employees. If """
-        authenticated = self.__authenticate_requester(requester_id, Employee)
-        if authenticated:
-            return Employee._authenticate_user(self.id, credentials)
-        else:
-            raise CouldNotAuthenticateUIException(f'Authentication returned: {authenticated}')
+    def request_employee_list(self, id_: str):
+        """Request list of employees"""
+        return Employee.request_list(id_)
         
