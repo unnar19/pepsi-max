@@ -11,18 +11,18 @@ from Exceptions import *
 # methods are exposed. Hence, the logic wrapper controls
 # all communication between UI and Logic
 
+
 class Logic_wrapper:
     def __init__(self) -> None:
-        pass
+        self.employee = Employee()
 
-    def authenticate_employee(self, credentials: str):
+    def authenticate_employee_credentials(self, credentials: str):
         """Credentials contain username-field and password-field"""
         try:
-            return Employee.authenticate(credentials)
+            return self.employee.authenticate(credentials)
         except IncorrectCredentialsException:
             return False
 
     def request_employee_list(self, id_: str):
         """Request list of employees"""
-        return Employee.request_list(id_)
-        
+        return self.employee.request_list(id_)
