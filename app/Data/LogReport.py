@@ -1,3 +1,3 @@
-class Ticket:
+class LogReport:
     def __init__(self) -> None:
         pass

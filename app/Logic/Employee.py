@@ -1,4 +1,4 @@
-import Data.Data_wrapper as Data_wrapper
+import Data.DataWrapper as DataWrapper
 import json
 from Exceptions import *
 
@@ -8,7 +8,7 @@ class Employee:
     def __init__(self) -> None:
         self.id = None
         self.role = None
-        self.data_wrapper = Data_wrapper()
+        self.data_wrapper = DataWrapper()
 
     def authenticate(self, credentials: str):
         """
@@ -22,7 +22,7 @@ class Employee:
         ui_load = json.loads(credentials)
         username, password = ui_load['username'], ui_load['password']
 
-        # If username is registered, Data_wrapper._authenticate_user returns id and registered password
+        # If username is registered, DataWrapper._authenticate_user returns id and registered password
         data_load = json.loads(
             self.data_wrapper.get_employee(
                 json.dumps({"username":username})))
