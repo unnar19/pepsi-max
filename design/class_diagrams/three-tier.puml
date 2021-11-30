@@ -29,20 +29,19 @@ package UI <<Rectangle>> {
 }
 
 
-SearchUI -Down- wrapper1
-Work_orderUI -Down- wrapper1
-EmployeeUI -Down- wrapper1
-Real_estateUI -Down- wrapper1
-Real_estateUI -Down- wrapper1
 
 
 
-
-class "Logic_wrapper" as wrapper1
+class "Logic Wrapper" as wrapper1
 
 
 package Logic <<Rectangle>> {
 
+    SearchUI -Down- wrapper1
+    Work_orderUI -Down- wrapper1
+    EmployeeUI -Down- wrapper1
+    Real_estateUI -Down- wrapper1
+    ListUI -Down- wrapper1
 
     class Reports 
 
@@ -71,11 +70,11 @@ package Logic <<Rectangle>> {
 
 }
 
-class "Storage_wrapper"  as wrapper2
+class "Storage wrapper"  as wrapper2
 
 
 
-package Storage <<Rectangle>> {
+package Data <<Rectangle>> {
 
     Reports -Down- wrapper2
     Employee -Down- wrapper2
