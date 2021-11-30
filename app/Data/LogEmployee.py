@@ -23,6 +23,7 @@ class LogEmployee:
                 writer.writerow(dict(jsondata['data']))
         else:
             # TODO: setja propper error
+            # TODO: return-a status code fyrir UI -Eyþór
             raise ValueError()
 
     def validate_json(self, jsonData):
@@ -58,7 +59,7 @@ class LogEmployee:
         In order not to return plain dict of data
         returns: json dump of all employees
         """
-        employees = self.get_all_employees()
+        employees = self.get_all_employees_dict()
         return json.dumps(employees)
 
     def authenticate_emp(self, data):

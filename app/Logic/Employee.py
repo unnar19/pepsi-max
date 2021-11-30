@@ -4,7 +4,6 @@ from Exceptions import *
 
 class Employee:
 
-
     def __init__(self) -> None:
         self.id = None
         self.role = None
@@ -47,18 +46,42 @@ class Employee:
                 self.role = role
                 return True
 
-    def get_list(self, fields):
+    def get_all(self):
         """
         ACCESSABLE TO ALL ROLES
 
-        Takes in array of fields e.g. {"fields": ["name", "location", "ssn"]}
-        Returns array of employees with fields filled
+        Get all employee data from DL
         """
-        return self.data_wrapper.get_all_employees()
+        return self.data_wrapper.get_employees_all()
 
-    def register(self, data):
-        return self.data_wrapper.register_employee(data)
+    def get(self, id_: str):
+        """
+        ACCESSABLE TO ALL ROLES
+        
+        Get data for employee with id: id_
+        """
+        return self.data_wrapper.get_employee(id_)
 
+    def post(self, data: str):
+        """
+        ACCESSABLE TO BOSS
+        """
+        if self.__is_boss():
+            return self.data_wrapper.post_employee(data)
+        else:
+            raise UnauthorizedReguestException
+
+    def put(self, data: str):
+        """
+        ACCESSABLE TO BOSS
+        """
+        if self.__is_boss():
+            return self.data_wrapper.put_employee(data)
+        else:
+            raise UnauthorizedReguestException
+
+    def __is_boss(self):
+        return self.role == 'Boss'
 
 
 

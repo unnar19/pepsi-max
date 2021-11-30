@@ -17,3 +17,11 @@ class IncorrectIdException(IncorrectCredentialsException):
 class UnauthorizedReguestException(Exception):
     """Raise in LL only"""
     pass
+
+class DataNotFoundException(Exception):
+    """Raise in DL only"""
+    pass
+
+class IncorrectDataException(Exception):
+    """Raise in DL only"""
+    pass

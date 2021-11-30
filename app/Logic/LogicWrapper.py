@@ -1,8 +1,7 @@
+import json
 import Employee
-import Listing
 import RealEstate
 import Report
-import Search
 import Ticket
 from Exceptions import *
 
@@ -23,10 +22,26 @@ class LogicWrapper:
         except IncorrectCredentialsException:
             return False
 
-    def get_employee_list(self):
-        """Request list of employees"""
-        return self.employee.get_list()
+    def get_employees_all(self):
+        """Get json array of all employees"""
+        return self.employee.get_all()
+
+    def get_employee_data(self, id_: str):
+        """Get all jsondata for employee with id: id_"""
+        return self.employee.get(id_)
 
     def post_employee_data(self, data: str):
-        """Register new employee"""
-        return self.employee.register(data)
+        """Submit filled json schema for new employee"""
+        try:
+            return self.employee.create_new(data)
+        except UnauthorizedReguestException:
+            return False
+
+    def put_employee_data(self, data: str):
+        """Submit filled and modified json schema for registered employee"""
+        try:
+            return self.employee.update(data)
+        except UnauthorizedReguestException:
+            return False
+
+        
