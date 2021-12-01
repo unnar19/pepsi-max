@@ -1,5 +1,7 @@
 employee_schema = {
     "type": "object",
+    "key": "employee",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "role": {"type":"string"},
@@ -19,6 +21,8 @@ employee_schema = {
 
 real_estate_schema = {
     "type": "object",
+    "key": "real_estate",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "address": {"type": "string"},
@@ -31,6 +35,8 @@ real_estate_schema = {
 
 destination_schema = {
     "type": "object",
+    "key": "destination",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "airport": {"type": "string"},
@@ -43,6 +49,8 @@ destination_schema = {
 
 contractor_schema = {
     "type": "object",
+    "key": "contractor",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "name": {"type": "string"},
@@ -56,6 +64,8 @@ contractor_schema = {
 
 report_schema = {
     "type": "object",
+    "key": "report",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "ticket_id": {"type":"number"},
@@ -73,6 +83,8 @@ report_schema = {
 
 ticket_schema = {
     "type": "object",
+    "key": "ticket",
+    "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
         "report_id": {"type": "number"},
