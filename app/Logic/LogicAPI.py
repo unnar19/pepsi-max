@@ -14,10 +14,49 @@ from Exceptions import *
 
 class LogicAPI:
     def __init__(self) -> None:
-        self.employee = Employee()
-        self.real_estate = RealEstate()
-        self.ticket = Ticket()
-        self.contractor = Contractor()
+        self.__employee = Employee()
+        self.__real_estate = RealEstate()
+        self.__ticket = Ticket()
+        self.__contractor = Contractor()
+        self.__report = Report()
+        self.__class_map = {
+            "employee": self.__employee, \
+            "real_estate": self.__real_estate, \
+            "ticket": self.__ticket, \
+            "contractor": self.__contractor, \
+            "report": self.__report
+        }
+
+    ### CRUD METHODS
+
+    def __redirect_request(self, data):
+        """Parses key from request and returns corresponding LLclass"""
+        return self.__class_map[json.loads(data)["key"]]
+
+    def get_all(self, data: str):
+        try:
+            return self.__redirect_request(data).get_all()
+        except UnauthorizedReguestException:
+            return False
+
+
+    def get(self, data: str):
+        try:
+            return self.__redirect_request(data).get(data)
+        except UnauthorizedReguestException:
+            return False
+
+    def post(self, data: str):
+        try:
+            return self.__redirect_request(data).post(data)
+        except UnauthorizedReguestException:
+            return False
+
+    def put(self, data: str):
+        try:
+            return self.__redirect_request(data).put(data)
+        except UnauthorizedReguestException:
+            return False
 
     ### EMPLOYEE METHODS
 
@@ -28,82 +67,13 @@ class LogicAPI:
         except IncorrectCredentialsException:
             return False
 
-    def get_employees_all(self):
-        return self.employee.get_all()
-
-    def get_employee_data(self, id_: str):
-        return self.employee.get(id_)
-
-    def post_employee_data(self, data: str):
-        try:
-            return self.employee.create_new(data)
-        except UnauthorizedReguestException:
-            return False
-
-    def put_employee_data(self, data: str):
-        try:
-            return self.employee.update(data)
-        except UnauthorizedReguestException:
-            return False
-
     ### REAL ESTATE METHODS
 
-    def get_real_estates_all(self):
-        return self.real_estate.get_all()
-
-    def get_real_estate_data(self, id_: str):
-        return self.real_estate.get(id_)
-    
-    def post_real_estate_data(self, data: str):
-        try:
-            return self.real_estate.post(data)
-        except UnauthorizedReguestException:
-            return False
-
-    def put_real_estate_data(self, data: str):
-        try:
-            return self.real_estate.put(data)
-        except UnauthorizedReguestException:
-            return False
 
     ### TICKET METHODS
 
-    def get_tickets_all(self):
-        return self.ticket.get_all()
-
-    def get_ticket_data(self, id_: str):
-        return self.ticket.get(id_)
-    
-    def post_ticket_data(self, data: str):
-        try:
-            return self.ticket.post(data)
-        except UnauthorizedReguestException:
-            return False
-
-    def put_ticket_data(self, data: str):
-        try:
-            return self.ticket.put(data)
-        except UnauthorizedReguestException:
-            return False
 
     ### CONTRACTOR METHODS
 
-    def get_contractors_all(self):
-        return self.contractor.get_all()
-
-    def get_contractor_data(self, id_: str):
-        return self.contractor.get(id_)
-
-    def post_contractor_data(self, data: str):
-        try:
-            return self.contractor.post(data)
-        except UnauthorizedReguestException:
-            return False
-
-    def put_contractor_data(self, data: str):
-        try:
-            return self.contractor.put(data)
-        except UnauthorizedReguestException:
-            return False
 
     
