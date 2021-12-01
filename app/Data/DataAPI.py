@@ -8,7 +8,7 @@ from Exceptions import *
 
 import LogEmployee
 
-class DataWrapper:
+class DataAPI:
     def __init__(self) -> None:
         self.log_employee = LogEmployee()
 

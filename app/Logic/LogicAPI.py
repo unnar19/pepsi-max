@@ -12,7 +12,7 @@ from Exceptions import *
 # all communication between UI and Logic
 
 
-class LogicWrapper:
+class LogicAPI:
     def __init__(self) -> None:
         self.employee = Employee()
         self.real_estate = RealEstate()

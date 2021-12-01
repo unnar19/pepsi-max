@@ -1,9 +1,9 @@
-import Data.DataWrapper as DataWrapper
+import Data.DataAPI as DataAPI
 from Exceptions import *
 
 class RealEstate:
     def __init__(self) -> None:
-        self.data_wrapper = DataWrapper()
+        self.data_wrapper = DataAPI()
 
     def get_all(self):
         return self.data_wrapper.get_real_estates_all()
