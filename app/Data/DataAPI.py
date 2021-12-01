@@ -54,9 +54,10 @@ class DataAPI:
         except IncorrectDataException:
             return False
 
-    def authenticate_employee_username(self, username: str):
+    def authenticate_employee_username(self, data: str):
+        """data parameter is """
         try:
-            return self.log_employee.authenticate_username(username)
+            return self.log_employee.authenticate_username(data)
         except DataNotFoundException:
             return False
 

@@ -59,10 +59,10 @@ class LogicAPI:
 
     ### EMPLOYEE METHODS
 
-    def authenticate_employee(self, credentials: str):
+    def authenticate_employee(self, data: str):
         """Credentials contain username-field and password-field"""
         try:
-            return self.__employee.authenticate(credentials)
+            return self.__employee.authenticate(data)
         except IncorrectCredentialsException:
             return False
 
