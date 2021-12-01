@@ -2,6 +2,7 @@ employee_schema = {
     "type": "object",
     "data": {
         "id": {"type": "number"},
+        "role": {"type":"string"},
         "name": {"type": "string"},
         "username": {"type": "string"},
         "password": {"type": "string"},
@@ -11,6 +12,8 @@ employee_schema = {
         "mobile_phone": {"type": "number"},
         "email": {"type": "string"},
         "location": {"type": "string"},
+        "tickets": {"type":"array"},
+        "reports": {"type":"array"},
     },
 }
 
@@ -21,6 +24,8 @@ real_estate_schema = {
         "address": {"type": "string"},
         "location": {"type": "string"},
         "maintenance_info": {"type": "string"},
+        "tickets": {"type":"array"},
+        "reports": {"type":"array"},
     },
 }
 
@@ -52,7 +57,8 @@ report_schema = {
     "type": "object",
     "data": {
         "id": {"type": "number"},
-        "real_estate_id": {"type": "list"},
+        "ticket_id": {"type":"number"},
+        "real_estate_id": {"type": "number"},
         "work_description": {"type": "string"},
         "employees": {"type": "list"},
         "total_price": {"type": "float"},
@@ -61,7 +67,6 @@ report_schema = {
         "evaluation_of_contractor": {"type": "string"},
         "time_period": {"type": "string"},
         "status": {"type": "string"},
-        "was_recurring": {"type": "bool"},
     },
 }
 
