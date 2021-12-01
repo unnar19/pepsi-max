@@ -1,7 +1,6 @@
-id,name,username,password,ssn,address,home_phone,mobile_phone,email,location
-1,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-2,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-3,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-4,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-5,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-6,einar,einsi,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
+id,role,name,password,ssn,address,home_phone,mobile_phone,email,location,tickets,reports
+1,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+2,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+3,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+4,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+5,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
