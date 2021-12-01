@@ -32,6 +32,7 @@ real_estate_schema = {
 destination_schema = {
     "type": "object",
     "data": {
+        "id": {"type": "number"},
         "airport": {"type": "string"},
         "location": {"type": "string"},
         "phone": {"type": "int"},
