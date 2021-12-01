@@ -5,8 +5,6 @@ from Exceptions import *
 class Employee:
 
     def __init__(self) -> None:
-        self.id = None
-        self.role = None
         self.data_wrapper = DataWrapper()
 
     def authenticate(self, credentials: str):
@@ -38,13 +36,9 @@ class Employee:
             if password != registered_password:
                 raise IncorrectPasswordException
 
-            # If user is authenticated, Employee() instance is
-            # assigned ID and role. Method returns True
+            # If user is authenticated, method returns json(id_ , role)
             else:
-
-                self.id = id_
-                self.role = role
-                return True
+                return json.dumps({"id":id_, "role":role})
 
     def get_all(self):
         return self.data_wrapper.get_employees_all()
@@ -53,19 +47,20 @@ class Employee:
         return self.data_wrapper.get_employee(id_)
 
     def post(self, data: str):
-        if self.__is_boss():
+        if self.__is_boss(data):
             return self.data_wrapper.post_employee(data)
         else:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
-        if self.__is_boss():
+        if self.__is_boss(data):
             return self.data_wrapper.put_employee(data)
         else:
             raise UnauthorizedReguestException
 
-    def __is_boss(self):
-        return self.role == 'Boss'
+    def __is_boss(self, data: str):
+        # Maybe an id_ authentication, returning the role would be better here
+        return data['role'] == 'Boss'
 
 
 

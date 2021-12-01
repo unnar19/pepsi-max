@@ -1,0 +1,229 @@
+@startuml Class Diagram
+
+title Three Tier Class Design
+hide empty methods
+hide empty members
+
+
+package UI <<Rectangle>> {
+
+    class MainUI{
+        user_id: int
+        user_role: str
+        **authenticate()**
+        sort()
+        filter()
+        **register_employee()**
+        **update_employee()**
+        **register_real_estate()**
+        **update_real_estate()**
+        register_contractor()
+        update_contractor()
+        add_comment_to_ticket()
+        close_ticket()
+        register_ticket()
+        change_ticket_priority()
+
+
+    }
+
+
+
+}
+
+class "Logic API" as wrapper1{
+    class_map: dict
+    **authenticate()**
+    get_all()
+    get()
+    post()
+    put()
+}
+
+
+package Logic <<Rectangle>> {
+
+    MainUI -Down- wrapper1
+
+    class Contractor{
+        get_all()
+        get()
+        post()
+        put()
+        
+    }
+
+    class Employee{
+        **authenticate()**
+        get_all()
+        get()
+        post()
+        put()
+        
+    }
+
+    class RealEstate{
+        get_all()
+        get()
+        post()
+        put()
+        
+    }
+
+    class Report {
+        get_all()
+        get()
+        post()
+        put()
+        
+    }
+
+    class Ticket{
+        get_all()
+        get()
+        post()
+        put()
+        
+    } 
+
+    wrapper1 -Down- Report
+    wrapper1 -Down- Employee
+    wrapper1 -Down- Ticket
+    wrapper1 -Down- RealEstate
+    wrapper1 -Down- Contractor
+
+}
+
+class "DB API"  as wrapper2{
+    class_map: dict
+    **authenticate()**
+    get_all()
+    get()
+    post()
+    put()
+}
+
+
+
+package Data <<Rectangle>> {
+
+    Report -Down- wrapper2
+    Employee -Down- wrapper2
+    Ticket -Down- wrapper2
+    RealEstate -Down- wrapper2
+    Contractor -Down- wrapper2
+
+    wrapper2 -Down- LogReport
+    wrapper2 -Down- LogEmployee
+    wrapper2 -Down- LogTicket
+    wrapper2 -Down- LogContractor
+    wrapper2 -Down- LogRealEstate
+
+    class LogReport{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
+    class LogEmployee{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
+    class LogTicket{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
+    class LogContractor{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
+    class LogRealEstate{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
+
+}
+
+package DataModels <<Rectangle>> {
+    class EmployeeModel{
+        id: int
+        role: str
+        name: str
+        username: str
+        password: str
+        ssn: int
+        address: str
+        home_phone: int
+        mobile_phone: int
+        email: str
+        location: str
+        tickets: list
+        reports: list
+    }
+    class TicketModel{
+        id: int
+        report_id: int
+        real_estate_id: int
+        status: str
+        description: str
+        employees: list
+        start_date: str
+        close_date: str
+        priority: str
+        is_recurring: bool
+        comments: list
+
+
+    }
+    class ContractorModel{
+        id: int
+        name: str
+        contact: str
+        phone: str
+        opening_hours: str
+        location: str
+        tickets: list
+    }
+    class RealEstateModel{
+        id: int
+        address: str
+        location: str
+        maintenance_info: str
+        tickets: list
+
+
+    }
+    class ReportModel{
+        id: int
+        ticket_id: int
+        real_estate_id: int
+        status: str
+        employees: list
+        total_price: int
+        contractor_id: list
+        contractor_pay: int
+        contractor_comment: str
+        time_period: str
+    }
+
+
+}
+
+
+@enduml
+
+
+

@@ -75,7 +75,7 @@ ticket_schema = {
         "work_description": {"type": "string"},
         "employees": {"type": "list"},
         "start_date": {"type": "string"},
-        "importance": {"type": "string"},
+        "priority": {"type": "string"},
         "status": {"type": "string"},
         "is_recurring": {"type": "bool"},
         "comments": {"type": "list"},
