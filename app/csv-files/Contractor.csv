@@ -1,0 +1,3 @@
+id,name,contact,phone,opening_hours,location,tickets
+1,a_contractor,0,1234567,10-18,Nuuk,[some_work, more_work]
+2,huuuuuuu,pizzahut,7654321,9-19,Reykjavík,"['this_work', 'that_work']"

@@ -1,3 +1,3 @@
-class Log_work_orders.py:
+class LogReport:
     def __init__(self) -> None:
         pass
