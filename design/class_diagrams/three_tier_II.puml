@@ -12,7 +12,6 @@ package UI <<Rectangle>> {
         user_role: str
         **authenticate()**
         sort()
-        filter()
         **register_employee()**
         **update_employee()**
         **register_real_estate()**
@@ -21,8 +20,41 @@ package UI <<Rectangle>> {
         update_contractor()
         add_comment_to_ticket()
         close_ticket()
-        register_ticket()
-        change_ticket_priority()
+        **register_ticket()**
+        **update_ticket()**
+        **update_ticket(status)**
+        update_ticket(is_recurring)
+        update_ticket(priority)
+        **search_employee(id)**
+        **search_real_estate(id)**
+        **search_ticket(id)**
+        search_ticket(contractor)
+        get_report()
+        **get_employee()**
+        **get_real_estate()**
+        **get_all_employees()**
+        **filter_employees(location)**
+        **get_all_real_estates()**
+        **filter_real_estates(location)**
+        **get_all_tickets()**
+        **filter_tickets(status)**
+        **filter_tickets(real_estate)**
+        **filter_tickets(employee)**
+        filter_tickets(location, date)
+        filter_tickets(real_estate, date)
+        filter_tickets(contractor, date)
+        filter_tickets(employee, date)
+        **get_reports(real_estate)**
+        **get_all_destinations()**
+        get_contractor()
+        **register_report(ticket)**
+
+
+
+
+
+
+
 
 
     }
