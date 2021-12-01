@@ -17,14 +17,17 @@ class LogEmployee:
         """
         jsondata = json.loads(data)
         isvalid = self.validate_json(jsondata)
+        # set ID manually til að: not break unique contraint
+        nextid = self.get_next_id()
+        jsondata["data"]["id"] = nextid
         if isvalid:
             with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
                 writer.writerow(dict(jsondata['data']))
+            return(json.dumps({"type":True, "data": jsondata["data"]}))
         else:
             # TODO: setja propper error
-            # TODO: return-a status code fyrir UI -Eyþór
-            raise ValueError()
+            return(json.dumps({"type":False, "data": "Invalid schema"}))
 
     def validate_json(self, jsonData):
         """
@@ -62,28 +65,25 @@ class LogEmployee:
         employees = self.get_all_employees_dict()
         return json.dumps(employees)
 
-    def get_password(self, data):
-        """
-        returns: json object with bool plus emp Data
-        """
-        data = json.loads(data)
-        employees = self.get_all_employees_dict()
-        try:
-            employee = employees["data"][str(data["id"])]
-        except KeyError:
-            return json.dumps({"type":False, "data": ""})
-        return json.dumps({"type":True, "data": employee})
-       
 
-    def get_max_id(self):
+    def get_employee_by_id(self, data : json) -> json:
         """
-        returns maximum ID of employees
+        parameters: json {"id":id}
+        returns: json {"id":id, "data":{(all employee data with id)}
+        """
+        employees = self.get_all_employees_dict()
+        return employees["data"][data["id"]]
+
+
+    def get_next_id(self):
+        """
+        returns next ID for employees
         """
         max_id = 0
         employees = self.get_all_employees_dict()
         for employee in employees["data"]:
-            max_id = employee
-        return max_id
+            max_id = int(employee,10)
+        return int(max_id) +1
 
 
 if __name__ == "__main__":
