@@ -10,21 +10,21 @@ class Employee:
     def authenticate(self, data: str):
         """
         1. Parse json from UI
-        2. Check if username is registered
+        2. Check if email is registered
         3. Check if passwords match
         4. Return id
         """
         
         # Start by parsing json data
         ui_load = json.loads(data)
-        username, password = ui_load['data']['username'], ui_load['data']['password']
+        email, password = ui_load['data']['email'], ui_load['data']['password']
 
-        # If username is registered, DataAPI._authenticate_user returns id and registered password
+        # If email is registered, DataAPI._authenticate_user returns id and registered password
         data_load = json.loads(
             self.data_api.get_employee(
-                json.dumps({"username":username})))
+                json.dumps({"email":email})))
 
-        # If username is not registered, data_load['type'] = False
+        # If email is not registered, data_load['type'] = False
         if not data_load['type']:
             raise IncorrectUsernameException
         
@@ -37,7 +37,7 @@ class Employee:
 
             # If user is authenticated, method returns json(id_ , role)
             else:
-                return json.dumps({"id":id_, "role":role})
+                return json.dumps({"data":{"id":id_, "role":role}})
 
     def get_all(self, data: str):
         return self.data_api.get_all(data)
