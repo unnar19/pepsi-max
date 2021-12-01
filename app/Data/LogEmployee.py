@@ -3,7 +3,6 @@ import jsonschema
 from models.Schemas import employee_schema
 import csv
 
-
 class LogEmployee:
 
     def __init__(self) -> None:

@@ -4,6 +4,7 @@ from models.Schemas import destination_schema
 import csv
 
 class LogDestination:
+    
     def __init__(self) -> None:
         self.path = "csv-files/Destination.csv"
         self.fields = list(destination_schema["data"].keys())
