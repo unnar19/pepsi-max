@@ -217,8 +217,6 @@ package DataModels <<Rectangle>> {
         priority: str
         is_recurring: bool
         comments: list
-
-
     }
     class ContractorModel{
         id: int
@@ -235,8 +233,6 @@ package DataModels <<Rectangle>> {
         location: str
         maintenance_info: str
         tickets: list
-
-
     }
     class ReportModel{
         id: int
@@ -249,6 +245,15 @@ package DataModels <<Rectangle>> {
         contractor_pay: int
         contractor_comment: str
         time_period: str
+    }
+    class DestinationModel {
+        id: int
+        airport: string
+        location: string
+        phone: int
+        opening_hours: string
+        manager_id: int
+
     }
 
 
