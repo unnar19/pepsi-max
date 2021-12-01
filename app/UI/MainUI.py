@@ -1,4 +1,6 @@
 from FormatUI import FormatUI
+from Logic.LogicAPI import LogicAPI
+
 class MainUI:
     def __init__(self):
         self.isloggedin = False
@@ -25,6 +27,7 @@ if __name__ == "__main__":
             main.format.change_text_box(int(selection),text)
             main.format.print_screen()
         if selection == '3':
+            LogicAPI.authenticate_employee()
             main.isloggedin = True
     main.format.clear_screen()
     print('authenticate the user')
