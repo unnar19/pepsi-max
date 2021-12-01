@@ -61,7 +61,7 @@ class LogEmployee:
         employees = self.get_all_employees_dict()
         return json.dumps(employees)
 
-    def authenticate_emp(self, data):
+    def get_password(self, data):
         """
         returns: json object with bool plus emp Data
         """
@@ -70,11 +70,9 @@ class LogEmployee:
         try:
             employee = employees["data"][str(data["id"])]
         except KeyError:
-            return "Employee doesnt exist"
-        if str(employee["password"]) == str(data["password"]):
-            return json.dumps({"type":True, "data": employee})
-        else:
-            return json.dumps({"type":False})
+            return json.dumps({"type":False, "data": ""})
+        return json.dumps({"type":True, "data": employee})
+       
 
     def get_max_id(self):
         """

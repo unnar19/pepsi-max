@@ -5,9 +5,9 @@ from Exceptions import *
 class Employee:
 
     def __init__(self) -> None:
-        self.data_wrapper = DataAPI()
+        self.data_api = DataAPI()
 
-    def authenticate(self, credentials: str):
+    def authenticate(self, data: str):
         """
         1. Parse json from UI
         2. Check if username is registered
@@ -15,20 +15,19 @@ class Employee:
         4. Return id
         """
         
-        # Start by parsing json credentials
-        ui_load = json.loads(credentials)
+        # Start by parsing json data
+        ui_load = json.loads(data)
         username, password = ui_load['data']['username'], ui_load['data']['password']
 
         # If username is registered, DataAPI._authenticate_user returns id and registered password
         data_load = json.loads(
-            self.data_wrapper.get_employee(
+            self.data_api.get_employee(
                 json.dumps({"username":username})))
 
         # If username is not registered, data_load['type'] = False
         if not data_load['type']:
             raise IncorrectUsernameException
         
-        # If username is registered, data_load['type'] = 'object'
         else:
 
             # If passwords don't match, raise exception
@@ -41,20 +40,20 @@ class Employee:
                 return json.dumps({"id":id_, "role":role})
 
     def get_all(self, data: str):
-        return self.data_wrapper.get_all(data)
+        return self.data_api.get_all(data)
 
     def get(self, data: str):
-        return self.data_wrapper.get(data)
+        return self.data_api.get(data)
 
     def post(self, data: str):
         if self.__is_boss(data):
-            return self.data_wrapper.post(data)
+            return self.data_api.post(data)
         else:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
         if self.__is_boss(data):
-            return self.data_wrapper.put(data)
+            return self.data_api.put(data)
         else:
             raise UnauthorizedReguestException
 
