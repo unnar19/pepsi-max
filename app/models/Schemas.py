@@ -38,6 +38,7 @@ destination_schema = {
     "key": "destination",
     "role": {"type": "string"},
     "data": {
+        "id": {"type": "number"},
         "airport": {"type": "string"},
         "location": {"type": "string"},
         "phone": {"type": "int"},
