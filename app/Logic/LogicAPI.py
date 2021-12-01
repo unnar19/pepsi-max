@@ -1,9 +1,9 @@
 import json
-import Contractor
-import Employee
-import RealEstate
-import Report
-import Ticket
+from Contractor import Contractor
+from Employee import Employee
+from RealEstate import RealEstate
+from Report import Report
+from Ticket import Ticket
 from Exceptions import *
 
 # Logic_wrapper is a gateway between UI and Logic classes.
@@ -39,7 +39,6 @@ class LogicAPI:
         except UnauthorizedReguestException:
             return False
 
-
     def get(self, data: str):
         try:
             return self.__redirect_request(data).get(data)
@@ -63,7 +62,7 @@ class LogicAPI:
     def authenticate_employee(self, credentials: str):
         """Credentials contain username-field and password-field"""
         try:
-            return self.employee.authenticate(credentials)
+            return self.__employee.authenticate(credentials)
         except IncorrectCredentialsException:
             return False
 

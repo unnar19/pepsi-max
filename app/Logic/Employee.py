@@ -17,7 +17,7 @@ class Employee:
         
         # Start by parsing json credentials
         ui_load = json.loads(credentials)
-        username, password = ui_load['username'], ui_load['password']
+        username, password = ui_load['data']['username'], ui_load['data']['password']
 
         # If username is registered, DataAPI._authenticate_user returns id and registered password
         data_load = json.loads(
@@ -40,21 +40,21 @@ class Employee:
             else:
                 return json.dumps({"id":id_, "role":role})
 
-    def get_all(self):
-        return self.data_wrapper.get_employees_all()
+    def get_all(self, data: str):
+        return self.data_wrapper.get_all(data)
 
-    def get(self, id_: str):
-        return self.data_wrapper.get_employee(id_)
+    def get(self, data: str):
+        return self.data_wrapper.get(data)
 
     def post(self, data: str):
         if self.__is_boss(data):
-            return self.data_wrapper.post_employee(data)
+            return self.data_wrapper.post(data)
         else:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
         if self.__is_boss(data):
-            return self.data_wrapper.put_employee(data)
+            return self.data_wrapper.put(data)
         else:
             raise UnauthorizedReguestException
 
