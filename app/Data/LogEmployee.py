@@ -66,13 +66,13 @@ class LogEmployee:
         return json.dumps(employees)
 
 
-    def get_employee_by_id(self, data : json) -> json:
+    def get_employee_by_id(self, id : int) -> json:
         """
         parameters: json {"id":id}
         returns: json {"id":id, "data":{(all employee data with id)}
         """
         employees = self.get_all_employees_dict()
-        return employees["data"][data["id"]]
+        return json.dumps(employees["data"][id])
 
 
     def get_next_id(self):
@@ -84,6 +84,9 @@ class LogEmployee:
         for employee in employees["data"]:
             max_id = int(employee,10)
         return int(max_id) +1
+
+    def update_employee_tickets(self):
+        pass
 
 
 if __name__ == "__main__":
