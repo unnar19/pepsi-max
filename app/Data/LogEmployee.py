@@ -1,6 +1,7 @@
 import json
 import jsonschema
 from models.Schemas import employee_schema
+from Exceptions import *
 import csv
 
 class LogEmployee:

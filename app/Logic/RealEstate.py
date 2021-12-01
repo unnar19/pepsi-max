@@ -1,4 +1,4 @@
-import Data.DataAPI as DataAPI
+from Data.DataAPI import DataAPI
 from Exceptions import *
 
 class RealEstate:

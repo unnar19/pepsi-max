@@ -1,13 +1,10 @@
-from LogEmployee import LogEmployee
-from LogRealEstate import LogRealEstate
-from LogContractor import LogContractor
-from LogReport import LogReport
-from LogTicket import LogTicket
+from Data.LogEmployee import LogEmployee
+from Data.LogRealEstate import LogRealEstate
+from Data.LogContractor import LogContractor
+from Data.LogReport import LogReport
+from Data.LogTicket import LogTicket
 from Exceptions import *
 import json
-
-
-import LogEmployee
 
 class DataAPI:
     def __init__(self) -> None:
@@ -57,7 +54,7 @@ class DataAPI:
     def authenticate_employee_username(self, data: str):
         """data parameter is """
         try:
-            return self.log_employee.authenticate_username(data)
+            return self.__employee.authenticate_username(data)
         except DataNotFoundException:
             return False
 

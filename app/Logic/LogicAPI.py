@@ -1,9 +1,9 @@
 import json
-from Contractor import Contractor
-from Employee import Employee
-from RealEstate import RealEstate
-from Report import Report
-from Ticket import Ticket
+from Logic.Contractor import Contractor
+from Logic.Employee import Employee
+from Logic.RealEstate import RealEstate
+from Logic.Report import Report
+from Logic.Ticket import Ticket
 from Exceptions import *
 
 # Logic_wrapper is a gateway between UI and Logic classes.

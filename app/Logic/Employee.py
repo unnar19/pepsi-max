@@ -1,5 +1,5 @@
-import Data.DataAPI as DataAPI
 import json
+from Data.DataAPI import DataAPI
 from Exceptions import *
 
 class Employee:
@@ -21,7 +21,7 @@ class Employee:
 
         # If email is registered, DataAPI._authenticate_user returns id and registered password
         data_load = json.loads(
-            self.data_api.get_employee(
+            self.data_api.authenticate_employee_username(
                 json.dumps({"email":email})))
 
         # If email is not registered, data_load['type'] = False
