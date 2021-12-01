@@ -4,6 +4,7 @@ from models.Schemas import contractor_schema
 import csv
 
 class LogContractor:
+    
     def __init__(self) -> None:
         self.path = "csv-files/Contractor.csv"
         self.fields = list(contractor_schema["data"].keys())

@@ -3,14 +3,6 @@ import jsonschema
 from models.Schemas import real_estate_schema
 import csv
 
-
-# "type": "object",
-#     "data": {
-#         "id": {"type": "number"},
-#         "address": {"type": "string"},
-#         "location": {"type": "string"},
-#         "maintenance_info": {"type": "string"}
-
 class LogRealEstate:
     
     def __init__(self) -> None:
