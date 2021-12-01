@@ -76,7 +76,7 @@ class FormatUI:
         '''
         Prints the screen with the information provided to the class
         '''
-        top, mid, bottom, long, side, flat = '─','─','─','','',''
+        top, mid, bottom, long, side, flat = '─','─','─',' ',' ',''
         if self.preview_title:
             top, mid, bottom, long, side, flat = '┬','┼','┴','│','├','─'
 
