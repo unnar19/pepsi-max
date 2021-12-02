@@ -1,4 +1,2 @@
-id,address,destination,maintainance_info
-1,Nuuk Town,Nuuk,blabla
-2,bli,bla,blu3,huuuuuuu,pizzahut,cook da pizza
-3,huuuuuuu,pizzahut,cook da pizza
+id,real_estate_id,address,destination,maintenance_info,tickets,reports
+1,F199459,dingdong Road 5,UnnarMommyTown,put cat in washing mashine,,

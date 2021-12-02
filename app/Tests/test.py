@@ -47,7 +47,7 @@ class TestLogEmployee(unittest.TestCase):
 
         # 2. Kalla á LogicAPI.authenticate_employee og gefa honum json-data
         response = self.LLAPI.authenticate_employee(data) # <- þetta er json strengur
-        self.assertFalse(response)
+        self.assertTrue(response)
 
     def test_update_employee(self):
         employee_data = {"role": "Boss",
