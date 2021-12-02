@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import report_schema
+from Models.Schemas import report_schema
 import csv
 
 class LogReport:

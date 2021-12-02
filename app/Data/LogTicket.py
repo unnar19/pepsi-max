@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import ticket_schema
+from Models.Schemas import ticket_schema
 import csv
 
 class LogTicket:

@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import contractor_schema
+from Models.Schemas import contractor_schema
 import csv
 
 class LogContractor:

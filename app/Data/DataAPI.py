@@ -7,6 +7,7 @@ from Exceptions import *
 import json
 
 class DataAPI:
+
     def __init__(self) -> None:
         self.__employee = LogEmployee()
         self.__real_estate = LogRealEstate()
@@ -35,7 +36,7 @@ class DataAPI:
 
     def get(self, data: str):
         try:
-            return self.__redirect_request(data).get(data)
+            return self.__redirect_request(data).get()
         except DataNotFoundException:
             return False
 
@@ -54,7 +55,7 @@ class DataAPI:
     def authenticate_employee_username(self, data: str):
         """data parameter is """
         try:
-            return self.__employee.authenticate_username(data)
+            return self.__employee.get_all(data)
         except DataNotFoundException:
             return False
 

@@ -2,7 +2,7 @@ class IncorrectCredentialsException(Exception):
     """Raise in UI only"""
     pass
 
-class IncorrectUsernameException(IncorrectCredentialsException):
+class IncorrectEmailException(IncorrectCredentialsException):
     """Raise in LL only"""
     pass
 

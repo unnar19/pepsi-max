@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import employee_schema
+from Models.Schemas import employee_schema
 from Exceptions import *
 import csv
 
@@ -10,16 +10,18 @@ class LogEmployee:
         self.path = "csv-files/Employee.csv" #spurning ad hafa thetta ekki hardcoded herna?
         self.fields = list(employee_schema["data"].keys())
 
-    def create_new_employee(self, data : json):
+    def post(self, data : json):
         """
             Data: employee schema
             :return bool
         """
         jsondata = json.loads(data)
+        print(jsondata)
         isvalid = self.validate_json(jsondata)
         if isvalid:
             with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
+                print(self.fields)
                 writer.writerow(dict(jsondata['data']))
         else:
             # TODO: setja propper error
@@ -54,7 +56,7 @@ class LogEmployee:
                 ret["data"][id] = emp_dict
         return ret
 
-    def get_all_employees(self):
+    def get_all(self):
         """
         In order not to return plain dict of data
         returns: json dump of all employees

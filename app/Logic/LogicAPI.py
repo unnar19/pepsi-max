@@ -63,7 +63,9 @@ class LogicAPI:
         """Credentials contain username-field and password-field"""
         try:
             return self.__employee.authenticate(data)
-        except IncorrectCredentialsException:
+        except IncorrectEmailException:
+            return False
+        except IncorrectPasswordException:
             return False
 
     ### REAL ESTATE METHODS

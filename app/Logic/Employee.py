@@ -8,36 +8,37 @@ class Employee:
         self.data_api = DataAPI()
 
     def authenticate(self, data: str):
-        """
-        1. Parse json from UI
-        2. Check if email is registered
-        3. Check if passwords match
-        4. Return id
-        """
-        
-        # Start by parsing json data
-        ui_load = json.loads(data)
-        email, password = ui_load['data']['email'], ui_load['data']['password']
+        # Parse user input
+        ui_load = json.loads(data)['data']
+        ui_email, ui_password = ui_load['email'], ui_load['password']
 
-        # If email is registered, DataAPI._authenticate_user returns id and registered password
-        data_load = json.loads(
-            self.data_api.authenticate_employee_username(
-                json.dumps({"email":email})))
+        # Parse DB response
+        data_load = json.loads(self.get_all(data))['data']
 
-        # If email is not registered, data_load['type'] = False
-        if not data_load['type']:
-            raise IncorrectUsernameException
-        
+        id_ = ''
+
+        for key, val in data_load.items():
+            if val['email'] == ui_email:
+                id_ = key
+                password = val['password']
+                role = val['role']
+                name = val['name']
+                break
+
+        if not id_:
+            raise IncorrectEmailException
+
+        elif ui_password != password:
+            raise IncorrectCredentialsException
+
         else:
+            return json.dumps({"data": {"name": name, "role": role, "id":id_}})
 
-            # If passwords don't match, raise exception
-            id_, role, registered_password = data_load['data']['id'], data_load['data']['role'], data_load['data']['password']
-            if password != registered_password:
-                raise IncorrectPasswordException
 
-            # If user is authenticated, method returns json(id_ , role)
-            else:
-                return json.dumps({"data":{"id":id_, "role":role}})
+
+        
+        
+
 
     def get_all(self, data: str):
         return self.data_api.get_all(data)
@@ -59,7 +60,7 @@ class Employee:
 
     def __is_boss(self, data: str):
         # Maybe an id_ authentication, returning the role would be better here
-        return data['role'] == 'Boss'
+        return json.loads(data)['role'] == 'Boss'
 
 
 

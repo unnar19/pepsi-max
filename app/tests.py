@@ -1,7 +1,7 @@
 from Logic.LogicAPI import LogicAPI
 import json
 
-def test_authenticate_employee():
+def test_authenticate_employee(unnar_logic_api):
     data_dict = {
         "key": "employee", # Verður að vera svo LogicAPI sendi á réttan database
         "data": {
@@ -11,8 +11,8 @@ def test_authenticate_employee():
     }
 
 
-    email = str()
-    password = int()
+    email = "Einar@kingsi.is"
+    password = "12345"
 
     data_dict['data']['email'] = email
     data_dict['data']['password'] = password
@@ -22,7 +22,6 @@ def test_authenticate_employee():
     data = json.dumps(data_dict)
 
     # 2. Kalla á LogicAPI.authenticate_employee og gefa honum json-data
-    unnar_logic_api = LogicAPI()
     response = unnar_logic_api.authenticate_employee(data) # <- þetta er json strengur
 
     response_dict = json.loads(response) # <- þetta er dictionary
@@ -34,5 +33,25 @@ def test_authenticate_employee():
     name = response_dict['data']['name']
     isloggedin = True
 
+def test_register_employee(unnar_logic_api):
+    employee_data = {"role": "Boss",
+    "key": "employee",
+    "data": {
+        "role": "Employee",
+        "name": "Jón",
+        "password": "yummy",
+        "ssn": "1112922559",
+        "address": "Kárastígur 5",
+        "home_phone": "5812345",
+        "mobile_phone": "8885555",
+        "email": "jon@ru.is",
+        "location": "Reykjavík",
+        }
+    }
+    unnar_logic_api.post(json.dumps(employee_data))
+
+
 if __name__ == '__main__':
-    test_authenticate_employee()
+    unnar_logic_api = LogicAPI()
+    test_authenticate_employee(unnar_logic_api)
+    test_register_employee(unnar_logic_api)
