@@ -1,4 +1,4 @@
-from FormatUI import FormatUI
+from UI.FormatUI import FormatUI
 
 class InteractionsUI:
     def __init__(self):
