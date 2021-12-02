@@ -11,5 +11,6 @@ app/Models/__pycache__/
 app/Tests/__pycache__/
 app/__pycache__/
 app/env/
+app/venv/
 app/.DS_Store
 .DS_Store
