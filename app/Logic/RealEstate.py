@@ -5,14 +5,20 @@ class RealEstate:
     def __init__(self) -> None:
         self.data_wrapper = DataAPI()
 
-    def get_all(self):
-        return self.data_wrapper.get_real_estates_all()
+    def get_all(self, data: str):
+        return self.data_api.get_all(data)
 
-    def get(self, id_: str):
-        return self.data_wrapper.get_real_estate(id_)
+    def get(self, data: str):
+        return self.data_api.get(data)
 
     def post(self, data: str):
-        return self.data_wrapper.post_real_estate(data)
+        if self.__is_boss(data):
+            
+            if self.__is_new(data):
+                return self.data_api.post(data)
+            
+            else:
+                raise EmailAlreadyExistsException
+        else:
+            raise UnauthorizedReguestException
 
-    def put(self, data: str):
-        return self.data_wrapper.put_real_estate(data)

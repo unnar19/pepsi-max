@@ -113,9 +113,9 @@ if __name__ == "__main__":
         login_screen.preview_comment = 'Preview footer'
 
         login_screen.print_screen()
-        ret = login_screen.get_input('Input')
-        login_screen.change_text_box(int(ret),'nice')
-        login_screen.print_screen()
+        #ret = login_screen.get_input('Input')
+        #login_screen.change_text_box(int(ret),'nice')
+        #login_screen.print_screen()
         break
         
     
