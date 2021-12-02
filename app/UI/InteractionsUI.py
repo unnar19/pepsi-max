@@ -10,7 +10,7 @@ class InteractionsUI:
     def check_type_of_input(self, input_str):
         if input_str.isdigit():
             input_int = int(input_str)-1
-            if input_int <= len(self.format.commands):
+            if input_int < len(self.format.commands) and input_int >= 0:
                 list_of_options = list(self.format.commands)
                 if self.format.commands[list_of_options[input_int]][1] == self.format.styles[1]: # Command
                     return input_int, 1
@@ -21,7 +21,7 @@ class InteractionsUI:
                 else: # Textbox
                     return input_int, 0
             else:
-                print('number not in range of options') #number not in range of options
+                return None, 'Input out of range' #number not in range of options
         else: 
-            print('not a menu selection') #not a menu selection
+            return None, 'Invalid input' #not a menu selection
 
