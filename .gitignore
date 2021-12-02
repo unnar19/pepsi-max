@@ -4,6 +4,8 @@
 *.png
 
 # app pycache files
+
+*/__pycache__/*
 app/Data/__pycache__/
 app/Logic/__pycache__/
 app/UI/__pycache__/
