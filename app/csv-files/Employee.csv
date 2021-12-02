@@ -1,4 +1,4 @@
-id,role,name,password,ssn,address,home_phone,mobile_phone,email,location,tickets,reports
+id,role,name,password,ssn,address,home_phone,mobile_phone,email,destination,tickets,reports
 1,employee,Eyþór Mikael,12345,15555555,Njálsgata 19,3333,333333,mcshit@ru.is,Reykjavík,[],[]
 2,employee,Eyþór Mikael,12345,15555555,Njálsgata 19,3333,333333,mcshit@ru.is,Reykjavík,[],[]
 3,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
@@ -10,3 +10,4 @@ id,role,name,password,ssn,address,home_phone,mobile_phone,email,location,tickets
 9,employee,Jón,yummy,1112922559,Kárastígur 5,5812345,8885555,jon@ru.is,Reykjavík,[],[]
 10,employee,Jón,yummy,1112922559,Kárastígur 5,5812345,8885555,jon@ru.is,Reykjavík,[],[]
 11,employee,Jón,yummy,1112922559,Kárastígur 5,5812345,8885555,jon19@ru.is,Reykjavík,[],[]
+12,employee,Jón,yummy,1112922559,Kárastígur 5,5812345,8885555,yummy19@ru.is,Reykjavík,[],[]

@@ -3,6 +3,7 @@ from Data.LogRealEstate import LogRealEstate
 from Data.LogContractor import LogContractor
 from Data.LogReport import LogReport
 from Data.LogTicket import LogTicket
+from Data.LogDestination import LogDestination
 from Exceptions import *
 import json
 
@@ -14,12 +15,14 @@ class DataAPI:
         self.__ticket = LogTicket()
         self.__contractor = LogContractor()
         self.__report = LogReport()
+        self.__destination = LogDestination()
         self.__class_map = {
             "employee": self.__employee, \
             "real_estate": self.__real_estate, \
             "ticket": self.__ticket, \
             "contractor": self.__contractor, \
-            "report": self.__report
+            "report": self.__report, \
+            "destination": self.__destination
         }
 
     ### CRUD METHODS

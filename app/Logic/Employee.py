@@ -45,7 +45,7 @@ class Employee:
             else:
                 raise EmailAlreadyExistsException
         else:
-            raise UnauthorizedReguestException
+            raise UnauthorizedRequestException
 
     def put(self, data: str):
         """
@@ -82,7 +82,7 @@ class Employee:
                     return response
 
         else:
-            raise UnauthorizedReguestException
+            raise UnauthorizedRequestException
 
     def __is_new(self, data: str):
         ui_load = json.loads(data)['data']

@@ -47,7 +47,7 @@ def test_register_employee(unnar_logic_api):
         "address": "Kárastígur 5",
         "home_phone": "5812345",
         "mobile_phone": "8885555",
-        "email": "jon19@ru.is",
+        "email": "yummy19@ru.is",
         "location": "Reykjavík",
         "tickets": "[]",
         "reports": "[]",
