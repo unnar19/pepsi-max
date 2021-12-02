@@ -155,12 +155,14 @@ package Data <<Rectangle>> {
     Ticket -Down- wrapper2
     RealEstate -Down- wrapper2
     Contractor -Down- wrapper2
+    Destination -Down- wrapper2
 
     wrapper2 -Down- LogReport
     wrapper2 -Down- LogEmployee
     wrapper2 -Down- LogTicket
     wrapper2 -Down- LogContractor
     wrapper2 -Down- LogRealEstate
+    wrapper2 -Down- LogDestination
 
     class LogReport{
         dir: str
