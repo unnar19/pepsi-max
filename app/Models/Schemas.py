@@ -24,6 +24,7 @@ real_estate_schema = {
     "role": {"type": "string"},
     "data": {
         "id": {"type": "number"},
+        "real_estate_id": {"type": "string"},
         "address": {"type": "string"},
         "destination": {"type": "string"},
         "maintenance_info": {"type": "string"},

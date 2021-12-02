@@ -104,7 +104,7 @@ class Base:
 
     def __is_boss(self, data: str):
         # Maybe an id_ authentication, returning the role would be better here
-        return json.loads(data)['role'] == 'Boss'
+        return json.loads(data)['role'] == 'boss'
 
 
 
