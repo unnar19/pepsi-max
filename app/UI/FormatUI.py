@@ -29,7 +29,7 @@ class FormatUI:
 
     def change_text_box(self, num, some_str):
         key_list = list(self.commands)
-        self.commands[key_list[num-1]][1] = f'[{some_str}]'
+        self.commands[key_list[num]][1] = f'[{some_str}]'
 
     def edit_commands(self, new_commands):
         '''
@@ -56,12 +56,6 @@ class FormatUI:
         '''
         self.comment = new_comment
         return self.comment
-
-    def get_input(self, prompt_str):
-        '''
-        Returns input from user
-        '''
-        return input(f' {prompt_str}: ')
 
     def clear_screen(self):
         '''
@@ -113,7 +107,6 @@ if __name__ == "__main__":
         login_screen.preview_comment = 'Preview footer'
 
         login_screen.print_screen()
-        #ret = login_screen.get_input('Input')
         #login_screen.change_text_box(int(ret),'nice')
         #login_screen.print_screen()
         break
