@@ -48,7 +48,7 @@ def test_register_employee(unnar_logic_api):
         "home_phone": "5812345",
         "mobile_phone": "8885555",
         "email": "yummy19@ru.is",
-        "location": "Reykjavík",
+        "destination": "Reykjavík",
         "tickets": "[]",
         "reports": "[]",
         }
@@ -68,15 +68,30 @@ def test_update_employee(unnar_logic_api):
         "name": "Eyþór Mikael",
         "address": "Njálsgata 19",
         "email": "mcshit@ru.is",
-        "location": "Reykjavík",
+        "destination": "Reykjavík",
         }
     }
     response = unnar_logic_api.put(json.dumps(employee_data))
     if not response:
         print('Could not put')
 
+def test_register_real_estate(unnar_logic_api):
+    real_estate_data = {
+        "key": "real_estate",
+        "role": "role",
+        "data": {
+            "address": "dingdong Road 5",
+            "destination": "UnnarMommyTown",
+            "maintenance_info": "put cat in washing mashine",
+        },
+    }
+    response = unnar_logic_api.post(json.dumps(real_estate_data))
+    if not response:
+        print("Could not register")
+
 if __name__ == '__main__':
     unnar_logic_api = LogicAPI()
     test_authenticate_employee(unnar_logic_api)
     test_register_employee(unnar_logic_api)
     test_update_employee(unnar_logic_api)
+    test_register_real_estate(unnar_logic_api)

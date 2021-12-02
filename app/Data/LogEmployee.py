@@ -19,8 +19,8 @@ class LogEmployee(LogBase):
     def __is_empty(self):
         return super().__is_empty()
 
-    def __validate_json(self, jsonData):
-        return super().__validate_json(jsonData)
+    def __validate_json(self, data: str):
+        return super().__validate_json(data)
 
     def __get_all_dict(self) -> dict:
         return super().__get_all_dict()

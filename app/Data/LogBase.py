@@ -28,6 +28,10 @@ class LogBase:
             "path": "csv-files/Contractor.csv",
             "schema": contractor_schema,
         },
+        "destination": {
+            "path": "csv-files/Destination.csv",
+            "schema": destination_schema,
+        },
     }
 
 
@@ -36,9 +40,10 @@ class LogBase:
         # Path to .csv file
         log_key_dict = LogBase.path_and_schema[key]
         self.path = log_key_dict['path']
+        self.schema = log_key_dict['schema']
 
         # Fields in appropriate schema
-        self.fields = list(log_key_dict['schema']['data'].keys())
+        self.fields = list(self.schema['data'].keys())
 
     ### CRUD ###
 
@@ -113,7 +118,7 @@ class LogBase:
 
         # Use imported validation feature
         try:
-            jsonschema.validate(instance=jsonData, schema=employee_schema)
+            jsonschema.validate(instance=jsonData, schema=self.schema)
             return True
 
         # Raise custom Exception for proper error handling
