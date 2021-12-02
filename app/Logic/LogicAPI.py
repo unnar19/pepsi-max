@@ -50,6 +50,8 @@ class LogicAPI:
             return self.__redirect_request(data).post(data)
         except UnauthorizedReguestException:
             return False
+        except EmailAlreadyExistsException:
+            return False
 
     def put(self, data: str):
         try:

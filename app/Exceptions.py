@@ -18,6 +18,9 @@ class UnauthorizedReguestException(Exception):
     """Raise in LL only"""
     pass
 
+class EmailAlreadyExistsException(Exception):
+    pass
+
 class DataNotFoundException(Exception):
     """Raise in DL only"""
     pass

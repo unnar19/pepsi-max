@@ -38,7 +38,12 @@ class Employee:
 
     def post(self, data: str):
         if self.__is_boss(data):
-            return self.data_api.post(data)
+            
+            if self.__is_new(data):
+                return self.data_api.post(data)
+            
+            else:
+                raise EmailAlreadyExistsException
         else:
             raise UnauthorizedReguestException
 
@@ -47,6 +52,21 @@ class Employee:
             return self.data_api.put(data)
         else:
             raise UnauthorizedReguestException
+
+    def __is_new(self, data: str):
+        ui_load = json.loads(data)['data']
+        email = ui_load['email']
+
+        # Parse DB response
+        data_load = json.loads(self.get_all(data))['data']
+
+        # Search submitted email address in DB
+        for val in data_load.values():
+            if val['email'] == email:
+                return False
+
+        return True
+
 
     def __is_boss(self, data: str):
         # Maybe an id_ authentication, returning the role would be better here
