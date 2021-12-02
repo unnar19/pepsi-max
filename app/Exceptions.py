@@ -14,6 +14,9 @@ class IncorrectIdException(IncorrectCredentialsException):
     """Raise in LL only"""
     pass
 
+class NoIdException(Exception):
+    pass
+
 class UnauthorizedReguestException(Exception):
     """Raise in LL only"""
     pass

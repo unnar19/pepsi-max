@@ -59,7 +59,24 @@ def test_register_employee(unnar_logic_api):
         print('Could not register')
         return False
 
+def test_update_employee(unnar_logic_api):
+    employee_data = {"role": "Boss",
+    "key": "employee",
+    "data": {
+        "id": '2',
+        "role": "employee",
+        "name": "Eyþór Mikael",
+        "address": "Njálsgata 19",
+        "email": "mcshit@ru.is",
+        "location": "Reykjavík",
+        }
+    }
+    response = unnar_logic_api.put(json.dumps(employee_data))
+    if not response:
+        print('Could not put')
+
 if __name__ == '__main__':
     unnar_logic_api = LogicAPI()
     test_authenticate_employee(unnar_logic_api)
     test_register_employee(unnar_logic_api)
+    test_update_employee(unnar_logic_api)

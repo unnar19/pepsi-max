@@ -58,6 +58,10 @@ class LogicAPI:
             return self.__redirect_request(data).put(data)
         except UnauthorizedReguestException:
             return False
+        except NoIdException:
+            return False
+        except IncorrectDataException:
+            return False
 
     ### EMPLOYEE METHODS
 

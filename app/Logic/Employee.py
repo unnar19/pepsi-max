@@ -48,8 +48,39 @@ class Employee:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
+        """
+        Data argument should only contain data from 1 employee
+
+        Put requests must come with an ID
+        """
+
         if self.__is_boss(data):
-            return self.data_api.put(data)
+            
+            # Parse user input
+            ui_load = json.loads(data)['data']
+
+            # Validate input
+            if self.__valid_put_data(ui_load):
+
+                # Parse DB response
+                data_load = json.loads(self.get_all(data))['data']
+
+                # Replace employee data
+                id_ = ui_load['id']
+
+                for key, val in ui_load.items():
+                    data_load[id_][key] = val
+
+                # Send fixed data to DL to be written
+                fixed_data = json.dumps({"key": "employee", "data": data_load})
+                response = json.loads(self.data_api.put(fixed_data))
+
+                # Return fixed data to UI to be displayed
+                if response['type']:
+                    response['data'] = data_load[id_]
+
+                    return response
+
         else:
             raise UnauthorizedReguestException
 
@@ -66,6 +97,28 @@ class Employee:
                 return False
 
         return True
+
+    def __valid_put_data(self, ui_load: dict):
+        """Validates that ui_load contains data for 1 employee and that an id is provided"""
+        
+        # Check if id is key in main dict
+        try:
+            id_ = ui_load['id']
+
+            # Check if id is empty
+            if not id_:
+                raise NoIdException
+
+            # ui_load is valid for put request
+            else:
+                return True
+
+        # Raise custom Exception
+        except KeyError:
+            raise IncorrectDataException
+
+
+        
 
 
     def __is_boss(self, data: str):

@@ -1,6 +1,6 @@
 id,role,name,password,ssn,address,home_phone,mobile_phone,email,location,tickets,reports
-1,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
-2,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+1,employee,Eyþór Mikael,12345,15555555,Njálsgata 19,3333,333333,mcshit@ru.is,Reykjavík,[],[]
+2,employee,Eyþór Mikael,12345,15555555,Njálsgata 19,3333,333333,mcshit@ru.is,Reykjavík,[],[]
 3,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
 4,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
 5,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
