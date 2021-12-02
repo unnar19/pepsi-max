@@ -55,9 +55,11 @@ def test_register_employee(unnar_logic_api):
     }
 
     response = unnar_logic_api.post(json.dumps(employee_data))
+    print(response)
     if not response:
         print('Could not register')
         return False
+
 
 def test_update_employee(unnar_logic_api):
     employee_data = {"role": "Boss",

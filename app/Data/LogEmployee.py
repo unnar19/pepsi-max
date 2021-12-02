@@ -113,7 +113,7 @@ class LogEmployee:
         load = json.loads(data)
 
         # Validate data from LL
-        if self.validate_json(load):
+        if self.__validate_json(load):
 
             # Delete csv-file
             os.remove(self.path)
