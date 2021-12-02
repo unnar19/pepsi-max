@@ -4,11 +4,15 @@
 *.png
 
 # app pycache files
+
+*/__pycache__/*
 app/Data/__pycache__/
 app/Logic/__pycache__/
 app/UI/__pycache__/
 app/Models/__pycache__/
 app/Tests/__pycache__/
+app/__pycache__/
+app/env/
 app/venv/
 app/.DS_Store
 .DS_Store

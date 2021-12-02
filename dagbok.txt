@@ -163,3 +163,17 @@ Farið aðeins yfir stöðuna eftir fyrsta forritunardaginn.
 og skráarnöfn myndu vera í PascalCasing og breytur og 
 methood í snake_casing. Tókum líka ákvörðun um að Data
 -layer myndi taka inn json data og skila json data.
+
+_____________________________________________________________
+
+01/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Héldum áfram með verkefnið í dag. Þurftum aðeins að 
+breyta Datalayer og Logic Layer frá í gær afþví að
+það var að brjóta þriggja laga hönnunina. Héldum áfram
+í sömu hlutverkum og í gær. 
+

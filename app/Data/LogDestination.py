@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import destination_schema
+from Models.Schemas import destination_schema
 import csv
 
 class LogDestination:
@@ -16,6 +16,9 @@ class LogDestination:
         """
         jsondata = json.loads(data)
         isvalid = self.validate_json(jsondata)
+        # set ID manually til að: not break unique contraint
+        nextid = self.get_next_id()
+        jsondata["data"]["id"] = nextid
         if isvalid:
             with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
@@ -60,15 +63,23 @@ class LogDestination:
         destinations = self.get_all_destinations_dict()
         return json.dumps(destinations)
 
-    def get_max_id(self):
+    def get_destination_by_id(self, id : int) -> json:
         """
-        returns maximum ID of destinations
+        parameters: json {"id":id}
+        returns: json {"id":id, "data":{(all destination data with id)}
+        """
+        destinations = self.get_all_destinations_dict()
+        return json.dumps(destinations["data"][id])
+
+    def get_next_id(self):
+        """
+        returns next ID for destinations
         """
         max_id = 0
-        destination = self.get_all_destinations_dict()
-        for destination in destination["data"]:
-            max_id = destination
-        return max_id
+        destinations = self.get_all_destinations_dict()
+        for destinations in destinations["data"]:
+            max_id = int(destinations,10)
+        return int(max_id) +1
 
 if __name__ == "__main__":
     pass

@@ -6,8 +6,9 @@ emp = LogEmployee()
 
 data = {"type":"dict",
         "data": {
+            "id": 1,
             "role": "boss",
-            "name":"einar",
+            "name":"Eyþór",
             "password": "12345",
             "ssn":15555555,
             "address": "einarville",
@@ -20,4 +21,4 @@ data = {"type":"dict",
     }}
 
 
-emp.create_new_employee(json.dumps(data))
+emp.overwrite(json.dumps(data))

@@ -50,11 +50,17 @@ class LogicAPI:
             return self.__redirect_request(data).post(data)
         except UnauthorizedReguestException:
             return False
+        except EmailAlreadyExistsException:
+            return False
 
     def put(self, data: str):
         try:
             return self.__redirect_request(data).put(data)
         except UnauthorizedReguestException:
+            return False
+        except NoIdException:
+            return False
+        except IncorrectDataException:
             return False
 
     ### EMPLOYEE METHODS
@@ -63,7 +69,9 @@ class LogicAPI:
         """Credentials contain username-field and password-field"""
         try:
             return self.__employee.authenticate(data)
-        except IncorrectCredentialsException:
+        except IncorrectEmailException:
+            return False
+        except IncorrectPasswordException:
             return False
 
     ### REAL ESTATE METHODS

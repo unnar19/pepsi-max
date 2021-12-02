@@ -1,6 +1,6 @@
 import json
 import jsonschema
-from models.Schemas import real_estate_schema
+from Models.Schemas import real_estate_schema
 import csv
 
 class LogRealEstate:

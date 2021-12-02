@@ -8,36 +8,27 @@ class Employee:
         self.data_api = DataAPI()
 
     def authenticate(self, data: str):
-        """
-        1. Parse json from UI
-        2. Check if email is registered
-        3. Check if passwords match
-        4. Return id
-        """
-        
-        # Start by parsing json data
-        ui_load = json.loads(data)
-        email, password = ui_load['data']['email'], ui_load['data']['password']
+        # Parse user input
+        ui_load = json.loads(data)['data']
+        email, password = ui_load['email'], ui_load['password']
 
-        # If email is registered, DataAPI._authenticate_user returns id and registered password
-        data_load = json.loads(
-            self.data_api.authenticate_employee_username(
-                json.dumps({"email":email})))
+        # Parse DB response
+        data_load = json.loads(self.get_all(data))['data']
 
-        # If email is not registered, data_load['type'] = False
-        if not data_load['type']:
-            raise IncorrectUsernameException
-        
-        else:
+        # Search submitted email address in DB
+        for key, val in data_load.items():
+            if val['email'] == email:
 
-            # If passwords don't match, raise exception
-            id_, role, registered_password = data_load['data']['id'], data_load['data']['role'], data_load['data']['password']
-            if password != registered_password:
-                raise IncorrectPasswordException
+                # Check password
+                if password != val["password"]:
+                    raise IncorrectPasswordException
 
-            # If user is authenticated, method returns json(id_ , role)
-            else:
-                return json.dumps({"data":{"id":id_, "role":role}})
+                # Return session variables
+                else:
+                    return json.dumps({"data": {"name": val["name"], "role": val["role"], "id":key}})
+
+        # Email not found..
+        raise IncorrectEmailException
 
     def get_all(self, data: str):
         return self.data_api.get_all(data)
@@ -47,19 +38,92 @@ class Employee:
 
     def post(self, data: str):
         if self.__is_boss(data):
-            return self.data_api.post(data)
+            
+            if self.__is_new(data):
+                return self.data_api.post(data)
+            
+            else:
+                raise EmailAlreadyExistsException
         else:
             raise UnauthorizedReguestException
 
     def put(self, data: str):
+        """
+        Data argument should only contain data from 1 employee
+
+        Put requests must come with an ID
+        """
+
         if self.__is_boss(data):
-            return self.data_api.put(data)
+            
+            # Parse user input
+            ui_load = json.loads(data)['data']
+
+            # Validate input
+            if self.__valid_put_data(ui_load):
+
+                # Parse DB response
+                data_load = json.loads(self.get_all(data))['data']
+
+                # Replace employee data
+                id_ = ui_load['id']
+
+                for key, val in ui_load.items():
+                    data_load[id_][key] = val
+
+                # Send fixed data to DL to be written
+                fixed_data = json.dumps({"key": "employee", "data": data_load})
+                response = json.loads(self.data_api.put(fixed_data))
+
+                # Return fixed data to UI to be displayed
+                if response['type']:
+                    response['data'] = data_load[id_]
+
+                    return response
+
         else:
             raise UnauthorizedReguestException
 
+    def __is_new(self, data: str):
+        ui_load = json.loads(data)['data']
+        email = ui_load['email']
+
+        # Parse DB response
+        data_load = json.loads(self.get_all(data))['data']
+
+        # Search submitted email address in DB
+        for val in data_load.values():
+            if val['email'] == email:
+                return False
+
+        return True
+
+    def __valid_put_data(self, ui_load: dict):
+        """Validates that ui_load contains data for 1 employee and that an id is provided"""
+        
+        # Check if id is key in main dict
+        try:
+            id_ = ui_load['id']
+
+            # Check if id is empty
+            if not id_:
+                raise NoIdException
+
+            # ui_load is valid for put request
+            else:
+                return True
+
+        # Raise custom Exception
+        except KeyError:
+            raise IncorrectDataException
+
+
+        
+
+
     def __is_boss(self, data: str):
         # Maybe an id_ authentication, returning the role would be better here
-        return data['role'] == 'Boss'
+        return json.loads(data)['role'] == 'Boss'
 
 
 
