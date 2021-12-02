@@ -9,6 +9,7 @@ app/Logic/__pycache__/
 app/UI/__pycache__/
 app/Models/__pycache__/
 app/Tests/__pycache__/
-app/venv/
+app/__pycache__/
+app/env/
 app/.DS_Store
 .DS_Store

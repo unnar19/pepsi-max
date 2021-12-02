@@ -6,7 +6,6 @@ employee_schema = {
         "id": {"type": "number"},
         "role": {"type":"string"},
         "name": {"type": "string"},
-        "username": {"type": "string"},
         "password": {"type": "string"},
         "ssn": {"type": "number"},
         "address": {"type": "string"},

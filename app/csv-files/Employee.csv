@@ -1,11 +1,6 @@
-id,name,role,password,ssn,address,home_phone,mobile_phone,email,location
-1,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-2,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-3,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-4,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-5,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-6,einar,Employee,12345,15555555,einarville,3333,333333,Einar@kingsi.is,whoville
-7,Unnar,Boss,cumlord,69696969,cumtown,5812345,6976868,cum@address.is,cumcity
-,Employee,Jón,,yummy,1112922559,Kárastígur 5,5812345,8885555,jon@ru.is,Reykjavík,,
-,Employee,Jón,,yummy,1112922559,Kárastígur 5,5812345,8885555,jon@ru.is,Reykjavík,,
-,Employee,Jón,,yummy,1112922559,Kárastígur 5,5812345,8885555,jon@ru.is,Reykjavík,,
+id,role,name,password,ssn,address,home_phone,mobile_phone,email,location,tickets,reports
+1,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+2,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+3,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+4,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
+5,boss,einar,12345,15555555,einarville,3333,333333,einskikingsi@kingshit.com,whoville,[],[]
