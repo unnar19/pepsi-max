@@ -177,3 +177,17 @@ breyta Datalayer og Logic Layer frá í gær afþví að
 það var að brjóta þriggja laga hönnunina. Héldum áfram
 í sömu hlutverkum og í gær. 
 
+_____________________________________________________________
+
+02/12/2021
+
+Fundur
+
+Mættir: Allir
+
+Eyþór setti upp data layer apann með CRUD methoods þannig það 
+þurfti aðeins að restructure-a kóðan. Við settum upp verkaskiptingu 
+fyrir daginn þannig að Eyþór heldur áfram í cruddinu, Unnar í UI,
+Jón ætlar að koma Ísaki inní testin og leyfa honum að eiga það
+svo og svo ætlar Jón að fara í logic layer. Stefán ætlar að koma
+sér inn í CRUD-ið og heyra svo í okkur þegar það er komið
