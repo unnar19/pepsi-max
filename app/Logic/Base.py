@@ -2,33 +2,15 @@ import json
 from Data.DataAPI import DataAPI
 from Exceptions import *
 
-class Employee:
+class Base:
 
-    def __init__(self) -> None:
+    def __init__(self, key, identifier) -> None:
         self.data_api = DataAPI()
+        self.key = key
+        self.identifier = identifier
 
-    def authenticate(self, data: str):
-        # Parse user input
-        ui_load = json.loads(data)['data']
-        email, password = ui_load['email'], ui_load['password']
 
-        # Parse DB response
-        data_load = json.loads(self.get_all(data))['data']
-
-        # Search submitted email address in DB
-        for key, val in data_load.items():
-            if val['email'] == email:
-
-                # Check password
-                if password != val["password"]:
-                    raise IncorrectPasswordException
-
-                # Return session variables
-                else:
-                    return json.dumps({"data": {"name": val["name"], "role": val["role"], "id":key}})
-
-        # Email not found..
-        raise IncorrectEmailException
+    ### CRUD ###
 
     def get_all(self, data: str):
         return self.data_api.get_all(data)
@@ -49,7 +31,7 @@ class Employee:
 
     def put(self, data: str):
         """
-        Data argument should only contain data from 1 employee
+        Data argument should only contain data from 1 item
 
         Put requests must come with an ID
         """
@@ -65,14 +47,14 @@ class Employee:
                 # Parse DB response
                 data_load = json.loads(self.get_all(data))['data']
 
-                # Replace employee data
+                # Replace item data
                 id_ = ui_load['id']
 
                 for key, val in ui_load.items():
                     data_load[id_][key] = val
 
                 # Send fixed data to DL to be written
-                fixed_data = json.dumps({"key": "employee", "data": data_load})
+                fixed_data = json.dumps({"key": self.key, "data": data_load})
                 response = json.loads(self.data_api.put(fixed_data))
 
                 # Return fixed data to UI to be displayed
@@ -84,16 +66,19 @@ class Employee:
         else:
             raise UnauthorizedRequestException
 
+
+    ### HELPERS ###
+
     def __is_new(self, data: str):
         ui_load = json.loads(data)['data']
-        email = ui_load['email']
+        identifier = ui_load[self.identifier]
 
         # Parse DB response
         data_load = json.loads(self.get_all(data))['data']
 
-        # Search submitted email address in DB
+        # Search submitted identifier address in DB
         for val in data_load.values():
-            if val['email'] == email:
+            if val[self.identifier] == identifier:
                 return False
 
         return True
@@ -116,10 +101,6 @@ class Employee:
         # Raise custom Exception
         except KeyError:
             raise IncorrectDataException
-
-
-        
-
 
     def __is_boss(self, data: str):
         # Maybe an id_ authentication, returning the role would be better here

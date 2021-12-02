@@ -1,3 +1,3 @@
-id,airport,location,phone,opening_hours,manager
-1,Nuuk Airport,Nuuk,1234567,00-00,Bruce Lee
+id,airport,country,phone,opening_hours,manager
+1,Nuuk Airport,Greenland,1234567,00-00,Bruce Lee
 2,huuuuuuu,Hell,7654321,9-19,Steven Segal

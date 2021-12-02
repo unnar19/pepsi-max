@@ -33,18 +33,20 @@ package UI <<Rectangle>> {
         **get_employee()**
         **get_real_estate()**
         **get_all_employees()**
-        **filter_employees(location)**
+        **filter_employees(destination)**
         **get_all_real_estates()**
-        **filter_real_estates(location)**
+        **filter_real_estates(destination)**
         **get_all_tickets()**
         **filter_tickets(status)**
         **filter_tickets(real_estate)**
         **filter_tickets(employee)**
-        filter_tickets(location, date)
+        filter_tickets(destination, date)
         filter_tickets(real_estate, date)
         filter_tickets(contractor, date)
         filter_tickets(employee, date)
         **get_reports(real_estate)**
+        **register_destination()**
+        **update_destination()**
         **get_all_destinations()**
         get_contractor()
         **register_report(ticket)**
@@ -117,12 +119,21 @@ package Logic <<Rectangle>> {
         put()
         
     } 
+    
+    class Destination{
+        get_all()
+        get()
+        post()
+        put()
+        
+    }
 
     wrapper1 -Down- Report
     wrapper1 -Down- Employee
     wrapper1 -Down- Ticket
     wrapper1 -Down- RealEstate
     wrapper1 -Down- Contractor
+    wrapper1 -Down- Destination
 
 }
 
@@ -144,12 +155,14 @@ package Data <<Rectangle>> {
     Ticket -Down- wrapper2
     RealEstate -Down- wrapper2
     Contractor -Down- wrapper2
+    Destination -Down- wrapper2
 
     wrapper2 -Down- LogReport
     wrapper2 -Down- LogEmployee
     wrapper2 -Down- LogTicket
     wrapper2 -Down- LogContractor
     wrapper2 -Down- LogRealEstate
+    wrapper2 -Down- LogDestination
 
     class LogReport{
         dir: str
@@ -186,6 +199,13 @@ package Data <<Rectangle>> {
         create_instance()
         update_instance()
     }
+    class LogDestination{
+        dir: str
+        get_all_instances()
+        get_instance()
+        create_instance()
+        update_instance()
+    }
 
 }
 
@@ -201,7 +221,7 @@ package DataModels <<Rectangle>> {
         home_phone: int
         mobile_phone: int
         email: str
-        location: str
+        destination: str
         tickets: list
         reports: list
     }
@@ -224,13 +244,13 @@ package DataModels <<Rectangle>> {
         contact: str
         phone: str
         opening_hours: str
-        location: str
+        destination: str
         tickets: list
     }
     class RealEstateModel{
         id: int
         address: str
-        location: str
+        destination: str
         maintenance_info: str
         tickets: list
     }
@@ -249,7 +269,7 @@ package DataModels <<Rectangle>> {
     class DestinationModel {
         id: int
         airport: string
-        location: string
+        country: string
         phone: int
         opening_hours: string
         manager_id: int
