@@ -4,6 +4,7 @@ from Logic.Employee import Employee
 from Logic.RealEstate import RealEstate
 from Logic.Report import Report
 from Logic.Ticket import Ticket
+from Logic.Destination import Destination
 from Exceptions import *
 
 # Logic_wrapper is a gateway between UI and Logic classes.
@@ -19,12 +20,14 @@ class LogicAPI:
         self.__ticket = Ticket()
         self.__contractor = Contractor()
         self.__report = Report()
+        self.__destination = Destination()
         self.__class_map = {
             "employee": self.__employee, \
             "real_estate": self.__real_estate, \
             "ticket": self.__ticket, \
             "contractor": self.__contractor, \
-            "report": self.__report
+            "report": self.__report, \
+            "destination": self.__destination
         }
 
     ### CRUD METHODS
@@ -36,19 +39,19 @@ class LogicAPI:
     def get_all(self, data: str):
         try:
             return self.__redirect_request(data).get_all()
-        except UnauthorizedReguestException:
+        except UnauthorizedRequestException:
             return False
 
     def get(self, data: str):
         try:
             return self.__redirect_request(data).get(data)
-        except UnauthorizedReguestException:
+        except UnauthorizedRequestException:
             return False
 
     def post(self, data: str):
         try:
             return self.__redirect_request(data).post(data)
-        except UnauthorizedReguestException:
+        except UnauthorizedRequestException:
             return False
         except EmailAlreadyExistsException:
             return False
@@ -56,7 +59,7 @@ class LogicAPI:
     def put(self, data: str):
         try:
             return self.__redirect_request(data).put(data)
-        except UnauthorizedReguestException:
+        except UnauthorizedRequestException:
             return False
         except NoIdException:
             return False
@@ -81,6 +84,9 @@ class LogicAPI:
 
 
     ### CONTRACTOR METHODS
+
+
+    ### DESTINATION METHODS
 
 
     

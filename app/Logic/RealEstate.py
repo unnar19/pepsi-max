@@ -20,5 +20,5 @@ class RealEstate:
             else:
                 raise EmailAlreadyExistsException
         else:
-            raise UnauthorizedReguestException
+            raise UnauthorizedRequestException
 
