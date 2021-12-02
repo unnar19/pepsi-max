@@ -1,3 +1,1 @@
-id,ticket_id,real_estate_id,work_description,employees,total_price,contractor_id,contractor_pay,evaluation_of_contractor,time_period,status
-1,0,1,some work,"['this dude', 'that dude']",one MILLION dollars,0,1€,good stuff,1. may - 4. may,dun
-2,0,2,this is a job,"['Gísli', 'Eikríkur', 'Helgi']",3.5,0,2,very bad,all day,done
+id,ticket_id,real_estate_id,work_description,employees,destination,total_price,contractor_id,contractor_pay,evaluation_of_contractor,time_period,status
