@@ -20,4 +20,4 @@ data = {"type":"dict",
     }}
 
 
-emp.create_new_employee(json.dumps(data))
+emp.post(json.dumps(data))

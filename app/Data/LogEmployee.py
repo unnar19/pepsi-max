@@ -16,7 +16,6 @@ class LogEmployee:
             :return bool
         """
         jsondata = json.loads(data)
-        print(jsondata)
         isvalid = self.validate_json(jsondata)
         # set ID manually til að: not break unique contraint
         nextid = self.get_next_id()
@@ -24,7 +23,6 @@ class LogEmployee:
         if isvalid:
             with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
-                print(self.fields)
                 writer.writerow(dict(jsondata['data']))
             return(json.dumps({"type":True, "data": jsondata["data"]}))
         else:

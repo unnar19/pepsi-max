@@ -24,6 +24,9 @@ def test_authenticate_employee(unnar_logic_api):
     # 2. Kalla á LogicAPI.authenticate_employee og gefa honum json-data
     response = unnar_logic_api.authenticate_employee(data) # <- þetta er json strengur
 
+    if not response:
+        print('Try again later')
+        return False    
     response_dict = json.loads(response) # <- þetta er dictionary
 
 
@@ -37,7 +40,7 @@ def test_register_employee(unnar_logic_api):
     employee_data = {"role": "Boss",
     "key": "employee",
     "data": {
-        "role": "Employee",
+        "role": "employee",
         "name": "Jón",
         "password": "yummy",
         "ssn": "1112922559",
@@ -46,12 +49,15 @@ def test_register_employee(unnar_logic_api):
         "mobile_phone": "8885555",
         "email": "jon@ru.is",
         "location": "Reykjavík",
+        "tickets": "[]",
+        "reports": "[]",
         }
     }
-    unnar_logic_api.post(json.dumps(employee_data))
+
+    return unnar_logic_api.post(json.dumps(employee_data))
 
 
 if __name__ == '__main__':
     unnar_logic_api = LogicAPI()
     test_authenticate_employee(unnar_logic_api)
-    test_register_employee(unnar_logic_api)
+    print(test_register_employee(unnar_logic_api))
