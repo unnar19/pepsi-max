@@ -8,11 +8,13 @@ class MainUI:
         self.isloggedin = False
         self.emp = EmployeeUI()
     
-        while (not self.isloggedin):
+        while True:
             self.isloggedin = self.emp.login_screen()
-        while self.isloggedin:
-            os.system('cls')
-            print('main menu')
+
+            while self.isloggedin:
+                os.system('cls')
+                print('main menu')
+                break
             break
 
 if __name__ == "__main__":
