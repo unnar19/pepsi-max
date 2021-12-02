@@ -28,13 +28,13 @@ class LogEmployee:
             jsondata["data"]["id"] = nextid
 
         # Validate data from LL
-        if self.validate_json(jsondata):
+        if self.__validate_json(jsondata):
 
             with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
 
                 # Write header if DB is empty
-                if self.is_empty():
+                if self.__is_empty():
                     writer.writeheader()
 
                 writer.writerow(dict(jsondata['data']))
@@ -42,11 +42,11 @@ class LogEmployee:
             return(json.dumps({"type":True, "data": jsondata["data"]}))
 
 
-    def is_empty(self):
+    def __is_empty(self):
         """Returns true if csv-file is empty"""
         return os.stat(self.path).st_size == 0
 
-    def validate_json(self, jsonData):
+    def __validate_json(self, jsonData):
         """
             jsonData: Json object to validate
             :return bool 
@@ -120,14 +120,9 @@ class LogEmployee:
 
             for key in load['data'].keys():
                 self.post(json.dumps({"data":load['data'][key]}))
-            # with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
-            #     writer = csv.DictWriter(csvfile, fieldnames=self.fields)
-            #     writer.writeheader()
-            #     writer.writerow(dict(load['data']))
 
             # Return status code True, but response data is stored in LL
             return(json.dumps({"type":True, "data": None}))
-
 
 if __name__ == "__main__":
     pass
