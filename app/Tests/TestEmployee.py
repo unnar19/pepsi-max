@@ -91,6 +91,18 @@ class TestEmployee(unittest.TestCase):
         res = self.LL.put(put_data_2)
         self.assertFalse(res)
 
+    def test_delete_emp(self):
+        put_data_delete = json.dumps({"role": "boss",
+                        "key": "",
+                        "data": {
+                            "id": str(self.id),
+                            }
+                        })
+        res = self.LL.put(put_data_delete)
+        print("Type of response in put: "+str(type(res)))
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
