@@ -1,102 +1,33 @@
-from Logic.LogicAPI import LogicAPI
+"""
+    Even though the package used is called unittest the tests 
+    This file runs (see sub test files in app/tests) should
+    not be regarded as unit tests, they are more of a integration
+    tests as the requests sent here go all the way from logicAPI
+    down to the Data layer.
+
+    If integration tests fail it can be hell to debug so write them carefully
+"""
+
+from json import encoder
+from Tests import TestEmployee
+from Tests import TestRealEstate
+from Tests import TestTicket
+from Tests import TestDestination
+from Tests import TestContractor
+from Tests import TestReport
+import unittest
 import json
 
-def test_authenticate_employee(unnar_logic_api):
-    data_dict = {
-        "key": "employee", # Verður að vera svo LogicAPI sendi á réttan database
-        "data": {
-            "email": "ChangeMe", # Gögnin sem þú þarft að senda til að auðkenna
-            "password": "ChangeMe", # -||-
-        },
-    }
-
-
-    email = "Einar@kingsi.is"
-    password = "12345"
-
-    data_dict['data']['email'] = email
-    data_dict['data']['password'] = password
-
-    # 1. formatta data_dict sem json
-
-    data = json.dumps(data_dict)
-
-    # 2. Kalla á LogicAPI.authenticate_employee og gefa honum json-data
-    response = unnar_logic_api.authenticate_employee(data) # <- þetta er json strengur
-
-    if not response:
-        print('Could not authenticate')
-        return False    
-    response_dict = json.loads(response) # <- þetta er dictionary
-
-
-    # Vista öll þessi gögn í UI!! Mikilvægt <3
-    id = response_dict['data']['id']
-    role = response_dict['data']['role']
-    name = response_dict['data']['name']
-    isloggedin = True
-
-def test_register_employee(unnar_logic_api):
-    employee_data = {"role": "Boss",
-    "key": "employee",
-    "data": {
-        "role": "employee",
-        "name": "Jón",
-        "password": "yummy",
-        "ssn": "1112922559",
-        "address": "Kárastígur 5",
-        "home_phone": "5812345",
-        "mobile_phone": "8885555",
-        "email": "yummy19@ru.is",
-        "destination": "Reykjavík",
-        "tickets": "[]",
-        "reports": "[]",
-        }
-    }
-
-    response = unnar_logic_api.post(json.dumps(employee_data))
-    if not response:
-        print('Could not register')
-        return False
-
-
-def test_update_employee(unnar_logic_api):
-    employee_data = {"role": "Boss",
-    "key": "employee",
-    "data": {
-        "id": '2',
-        "role": "employee",
-        "name": "Eyþór Mikael",
-        "address": "Njálsgata 19",
-        "email": "mcshit@ru.is",
-        "destination": "Reykjavík",
-        }
-    }
-    response = unnar_logic_api.put(json.dumps(employee_data))
-    if not response:
-        print('Could not put')
-
-def test_register_real_estate(unnar_logic_api):
-    real_estate_data = {
-        "key": "real_estate",
-        "role": "boss",
-        "data": {
-            "address": "dingdong Road 5",
-            "real_estate_id": "F199459",
-            "destination": "UnnarMommyTown",
-            "maintenance_info": "put cat in washing mashine",
-            "tickets": "[]",
-            "reports": "[]",
-        },
-    }
-    response = unnar_logic_api.post(json.dumps(real_estate_data))
-    if not response:
-        print("Could not register")
-
-if __name__ == '__main__':
-    unnar_logic_api = LogicAPI()
-    test_authenticate_employee(unnar_logic_api)
-    test_register_employee(unnar_logic_api)
-    test_update_employee(unnar_logic_api)
-    test_register_real_estate(unnar_logic_api)
-    # test_update_real_estate(unnar_logic_api)
+if __name__ == "__main__":
+    print("-"*27+" Employee Tests " +"-"*27)
+    unittest.main(defaultTest="TestEmployee", exit=False)
+    print("-"*26+" RealEstate Tests " +"-"*26)
+    unittest.main(defaultTest="TestRealEstate", exit=False)
+    print("-"*28+" Ticket Tests " +"-"*28)
+    unittest.main(defaultTest="TestTicket", exit=False)
+    print("-"*28+" Report Tests " +"-"*28)
+    unittest.main(defaultTest="TestTicket", exit=False)
+    print("-"*26+" Destination Tests " +"-"*25)
+    unittest.main(defaultTest="TestTicket", exit=False)
+    print("-"*26+" Contractor Tests " +"-"*26)
+    unittest.main(defaultTest="TestTicket", exit=False)

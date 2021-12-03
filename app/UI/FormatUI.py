@@ -6,7 +6,7 @@ class FormatUI:
         FormatUI is a class used to format the information on-screen 
         such as commands, styles of inputs and preview.
         '''
-        self.title =            'NaN-Air | Dividing by zero every day!'
+        self.title =            f'{"":<40}NaN-Air | Dividing by zero every day!'
         self.line =             '─'*120
         self.subtitle =         'Location in program'
         self.commands =         {'First command': [],'Second command': [],'Third command':[]}
@@ -78,7 +78,7 @@ class FormatUI:
 
         # Prints the header
         print()
-        print(f'{self.title:>79}')
+        print(self.title)
         print(f'{self.line[:self.divider_loc]}{top}{self.line[self.divider_loc+1:]}')
         print(f' {self.subtitle:<47}{"":<2}{long} {self.preview_title}')
         print(f'{side:>51}{flat*69}')
