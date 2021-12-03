@@ -3,6 +3,18 @@ from Logic.LogicAPI import LogicAPI
 import json
 
 
+new_real_estate = json.dumps({ "role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "real_estate_id": "blalba",
+                            "address": "pound town",
+                            "destination": "Nuuk",
+                            "maintenance_info": "blibli",
+                            "tickets": "[]",
+                            "reports": "[]"
+                        }
+                    })
+
 class TestRealEstate(unittest.TestCase):
 
     @classmethod
@@ -16,7 +28,8 @@ class TestRealEstate(unittest.TestCase):
 
 
     def test_post_real_estate(self):
-        pass
+        res = self.LL.post(new_real_estate)
+        self.assertTrue(res)
 
     def test_put_real_estate(self):
         pass
