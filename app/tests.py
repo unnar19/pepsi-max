@@ -55,7 +55,6 @@ def test_register_employee(unnar_logic_api):
     }
 
     response = unnar_logic_api.post(json.dumps(employee_data))
-    print(response)
     if not response:
         print('Could not register')
         return False
@@ -80,11 +79,14 @@ def test_update_employee(unnar_logic_api):
 def test_register_real_estate(unnar_logic_api):
     real_estate_data = {
         "key": "real_estate",
-        "role": "role",
+        "role": "boss",
         "data": {
             "address": "dingdong Road 5",
+            "real_estate_id": "F199459",
             "destination": "UnnarMommyTown",
             "maintenance_info": "put cat in washing mashine",
+            "tickets": "[]",
+            "reports": "[]",
         },
     }
     response = unnar_logic_api.post(json.dumps(real_estate_data))
@@ -97,3 +99,4 @@ if __name__ == '__main__':
     test_register_employee(unnar_logic_api)
     test_update_employee(unnar_logic_api)
     test_register_real_estate(unnar_logic_api)
+    # test_update_real_estate(unnar_logic_api)

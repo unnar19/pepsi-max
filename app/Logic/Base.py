@@ -61,7 +61,7 @@ class Base:
                 if response['type']:
                     response['data'] = data_load[id_]
 
-                    return response
+                    return json.dumps(response)
 
         else:
             raise UnauthorizedRequestException
