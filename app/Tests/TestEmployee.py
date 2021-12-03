@@ -61,7 +61,9 @@ class TestEmployee(unittest.TestCase):
             þannig að næst þegar þetta keyrir þá er sá gæji "ekki til"
         """
         self.LL = LogicAPI()
-        res = json.loads(self.LL.post(new_emp1))["data"]["id"]
+        res = self.LL.post(new_emp1)
+        print("Type of response in post: "+str(type(res)))
+        res = json.loads(res)["data"]["id"]
         self.id = res
 
 
@@ -80,6 +82,7 @@ class TestEmployee(unittest.TestCase):
                             }
                         })
         res = self.LL.put(put_data_1)
+        print("Type of response in put: "+str(type(res)))
         self.assertTrue(res["type"])
 
 
