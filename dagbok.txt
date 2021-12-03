@@ -191,3 +191,17 @@ fyrir daginn þannig að Eyþór heldur áfram í cruddinu, Unnar í UI,
 Jón ætlar að koma Ísaki inní testin og leyfa honum að eiga það
 svo og svo ætlar Jón að fara í logic layer. Stefán ætlar að koma
 sér inn í CRUD-ið og heyra svo í okkur þegar það er komið
+
+_____________________________________________________________
+
+03/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Töluðum um Crud methoodin og það var ákveðið að bæta við Delete
+Methoodi í logic layer sem notar put methoodið í data layer. 
+Ákváðum að Ísak myndi halda áfram að vera Test master, Unnar UI-sensei
+Jón og Eyþór Logic-liege
+
