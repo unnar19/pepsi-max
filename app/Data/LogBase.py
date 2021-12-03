@@ -74,7 +74,7 @@ class LogBase:
         # Validate data from LL
         if self.__validate_json(jsondata):
 
-            with open(self.path, 'a', newline='', encoding='utf-8') as csvfile:
+            with open(self.path, 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fields)
 
                 # Write header if DB is empty
@@ -102,6 +102,8 @@ class LogBase:
 
             # Return status code True, but response data is stored in LL
             return(json.dumps({"type":True, "data": None}))
+
+
 
 
     ### HELPERS ###

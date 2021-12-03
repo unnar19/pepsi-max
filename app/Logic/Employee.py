@@ -18,6 +18,9 @@ class Employee(Base):
 
     def put(self, data: str):
         return super().put(data)
+    
+    def delete(self, data: str):
+        return super().delete(data)
 
     def authenticate(self, data: str):
         # Parse user input
