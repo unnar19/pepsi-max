@@ -10,10 +10,16 @@
 
 from json import encoder
 from Tests import TestEmployee
+from Tests import TestRealEstate
+from Tests import TestTicket
 import unittest
 import json
 
 if __name__ == "__main__":
-
+    print("-"*27+" Employee Tests " +"-"*27)
     unittest.main(defaultTest="TestEmployee", exit=False)
+    print("-"*26+" RealEstate Tests " +"-"*26)
+    unittest.main(defaultTest="TestRealEstate", exit=False)
+    print("-"*28+" Ticket Tests " +"-"*28)
+    unittest.main(defaultTest="TestTicket", exit=False)
 
