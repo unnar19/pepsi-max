@@ -18,4 +18,4 @@ app/.DS_Store
 .DS_Store
 
 #csv files for database
-app/csv-files/*
+app/csv-files/
