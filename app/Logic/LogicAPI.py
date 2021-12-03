@@ -43,12 +43,18 @@ class LogicAPI:
             return False
 
     def get(self, data: str):
+        """
+        
+        """
         try:
             return self.__redirect_request(data).get(data)
         except UnauthorizedRequestException:
             return False
 
     def post(self, data: str):
+        """
+        
+        """
         try:
             return self.__redirect_request(data).post(data)
         except UnauthorizedRequestException:
