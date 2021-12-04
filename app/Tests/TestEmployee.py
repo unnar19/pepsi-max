@@ -61,10 +61,8 @@ class TestEmployee(unittest.TestCase):
             þannig að næst þegar þetta keyrir þá er sá gæji "ekki til"
         """
         self.LL = LogicAPI()
-        res = self.LL.post(new_emp1)
-        print("Type of response in post: "+str(type(res)))
-        res = json.loads(res)["data"]["id"]
-        self.id = res
+        res = json.loads(self.LL.post(new_emp1))
+        self.id = res["data"]["id"]
 
 
     def test_post_employee(self):
@@ -81,8 +79,7 @@ class TestEmployee(unittest.TestCase):
                             "email": "post_test@ru.is",
                             }
                         })
-        res = self.LL.put(put_data_1)
-        print("Type of response in put: "+str(type(res)))
+        res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
 
 
@@ -90,6 +87,18 @@ class TestEmployee(unittest.TestCase):
         """We try to change employee details as regular employee"""
         res = self.LL.put(put_data_2)
         self.assertFalse(res)
+
+
+    def test_delete_emp(self):
+        put_data_delete = json.dumps({"role": "boss",
+                        "key": "employee",
+                        "data": {
+                            "id": str(self.id),
+                            }
+                        })
+        res = self.LL.put(put_data_delete)
+        print("Type of response in put: "+str(type(res)))
+
 
 
 if __name__ == '__main__':

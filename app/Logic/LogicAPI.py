@@ -29,6 +29,7 @@ class LogicAPI:
             "report": self.__report, \
             "destination": self.__destination
         }
+        self.__exception_return = {"type": False}
 
     ### CRUD METHODS
 
@@ -40,7 +41,7 @@ class LogicAPI:
         try:
             return self.__redirect_request(data).get_all()
         except UnauthorizedRequestException:
-            return False
+            return json.dumps(self.__exception_return)
 
     def get(self, data: str):
         """
@@ -49,7 +50,7 @@ class LogicAPI:
         try:
             return self.__redirect_request(data).get(data)
         except UnauthorizedRequestException:
-            return False
+            return json.dumps(self.__exception_return)
 
     def post(self, data: str):
         """
@@ -58,19 +59,33 @@ class LogicAPI:
         try:
             return self.__redirect_request(data).post(data)
         except UnauthorizedRequestException:
-            return False
+            return json.dumps(self.__exception_return)
         except EmailAlreadyExistsException:
-            return False
+            return json.dumps(self.__exception_return)
 
     def put(self, data: str):
         try:
             return self.__redirect_request(data).put(data)
         except UnauthorizedRequestException:
-            return False
+            return json.dumps(self.__exception_return)
         except NoIdException:
-            return False
+            return json.dumps(self.__exception_return)
         except IncorrectDataException:
-            return False
+            return json.dumps(self.__exception_return)
+
+    def delete(self, data: json) -> json:
+        """deletes employe with id in json"""
+        try:
+            return self.__redirect_request(data).delete(data)
+        except UnauthorizedRequestException:
+            return json.dumps(self.__exception_return)
+        except NoIdException:
+            return json.dumps(self.__exception_return)
+        except IncorrectDataException:
+            return json.dumps(self.__exception_return)
+        except IncorrectIdException:
+            return json.dumps(self.__exception_return)
+            
 
     ### EMPLOYEE METHODS
 
@@ -79,9 +94,9 @@ class LogicAPI:
         try:
             return self.__employee.authenticate(data)
         except IncorrectEmailException:
-            return False
+            return json.dumps(self.__exception_return)
         except IncorrectPasswordException:
-            return False
+            return json.dumps(self.__exception_return)
 
     ### REAL ESTATE METHODS
 
