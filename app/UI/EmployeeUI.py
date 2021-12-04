@@ -1,10 +1,10 @@
-from UI.InteractionsUI import InteractionsUI
+from UI.ScreensUI import ScreensUI
 from Logic.LogicAPI import LogicAPI
 import json
 
 class EmployeeUI:
     def __init__(self) -> None:
-        self.screen = InteractionsUI()
+        self.screen = ScreensUI()
         self.logic_api = LogicAPI()
 
     def authenticate_login(self, email, password):

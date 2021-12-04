@@ -4,7 +4,7 @@ class FormatUI:
     def __init__(self):
         '''
         FormatUI is a class used to format the information on-screen 
-        such as commands, styles of inputs and preview.
+        such as commands, styles of inputs and preview and prints.
         '''
         self.title =            f'{"":<40}NaN-Air | Dividing by zero every day!'
         self.line =             '─'*120
@@ -20,6 +20,9 @@ class FormatUI:
         self.apply_styles([0,1,2])
         self.set_size_of_terminal()
 
+    def reset_title(self):
+        self.title = f'{"":<40}NaN-Air | Dividing by zero every day!'
+
     def set_size_of_terminal(self):
         if os.name == 'nt':
             pass
@@ -27,9 +30,24 @@ class FormatUI:
         else:
             os.system('resize -s 120 30')
 
-    def change_text_box(self, num, some_str):
+    def update_check_box(self, num):
         key_list = list(self.commands)
-        self.commands[key_list[num]][1] = f'[{some_str}]'
+        if self.commands[key_list[num]][0] == 2:
+            self.commands[key_list[num]][0] = 3
+            self.commands[key_list[num]][1] = self.styles[3]
+        elif self.commands[key_list[num]][0] == 3:
+            self.commands[key_list[num]][0] = 2
+            self.commands[key_list[num]][1] = self.styles[2]
+
+    def update_text_box(self, num, some_str):
+        '''
+        Updates the text box, given the index and the input_str
+        '''
+        key_list = list(self.commands)
+        if some_str == '':
+            self.commands[key_list[num]][1] = '[empty]'
+        else:
+            self.commands[key_list[num]][1] = f'[{some_str}]'
 
     def edit_commands(self, new_commands):
         '''
@@ -49,13 +67,6 @@ class FormatUI:
             self.commands[key].append(style_list[i])
             self.commands[key].append(self.styles[style_list[i]])
         return style_list
-    
-    def edit_comment(self, new_comment):
-        '''
-        Changes the comment above the input to give feedback to user
-        '''
-        self.comment = new_comment
-        return self.comment
 
     def clear_screen(self):
         '''
@@ -85,7 +96,11 @@ class FormatUI:
 
         # Prints command row lines
         for index, key in enumerate(self.commands.keys()):
-            print(f'{index+1:>10}. {key:<15}{self.commands[key][1]:<21}{"":<2}{long}')
+            extra = self.commands[key][1]
+            if self.commands[key][0] == 0: # print shorter text box if neccesary
+                if len(extra) > 21:
+                    extra = extra[:17] + '...]'
+            print(f'{index+1:>10}. {key:<15}{extra:<21}{"":<2}{long}')
 
         # Prints the rows below the command rows
         for _ in range(len(self.commands),self.max_lines):
@@ -95,20 +110,3 @@ class FormatUI:
         print(f'{self.line[:self.divider_loc]}{mid}{self.line[self.divider_loc+1:]}')
         print(f' {self.comment:<47}{"":<2}{long} {self.preview_comment}')
         print(f'{self.line[:self.divider_loc]}{bottom}{self.line[self.divider_loc+1:]}')
-
-if __name__ == "__main__":
-    # Making the log-in screen to test
-    login_screen = FormatUI()
-    while True:  
-        login_screen.subtitle = 'Log-in screen'
-        login_screen.edit_commands(['Email','Password','Log-in'])
-        login_screen.apply_styles([0,0,1])
-        login_screen.preview_title = 'Preview header'
-        login_screen.preview_comment = 'Preview footer'
-
-        login_screen.print_screen()
-        #login_screen.change_text_box(int(ret),'nice')
-        #login_screen.print_screen()
-        break
-        
-    
