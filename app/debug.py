@@ -54,5 +54,6 @@ LL = LogicAPI()
 
 getAll = json.dumps({"key":"employee","filter":"destination", "filter_value":"Reykjavík"})
 
-res = LL.post(new_emp1)
+res = LL.get_all(getAll)
 
+print(json.loads(res))
