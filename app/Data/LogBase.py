@@ -37,6 +37,7 @@ class LogBase:
     def __init__(self, key) -> None:
         # Parse path and schema for key
         log_key_dict = LogBase.__path_and_schema[key]
+        self.__key = key
         self.__path = log_key_dict['path']
         self.__schema = log_key_dict['schema']
 
@@ -50,12 +51,13 @@ class LogBase:
         Read dict from DB
         Return json
         """
+
         all_items = self.__get_all_dict()
         return json.dumps(all_items)
 
     def post(self, data : json) -> json:
         """
-        Write new row to db
+        WRITE INTERFACE TO DB
         """
 
         # Parse load from LL
@@ -69,7 +71,7 @@ class LogBase:
             ll_load["data"]["id"] = nextid
 
         # Validate data from LL
-        if self.__validate_json(ll_load):
+        if self.__validate_json(ll_load, 'POST'):
 
             with open(self.__path, 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.__fields)
@@ -80,6 +82,7 @@ class LogBase:
 
                 writer.writerow(dict(ll_load['data']))
 
+            # After POST, UI displays POSTED DATA
             return(json.dumps({"type":True, "data": ll_load["data"]}))
 
     def put(self, data: json) -> json:
@@ -91,7 +94,7 @@ class LogBase:
         ll_load = json.loads(data)
 
         # Validate data from LL
-        if self.__validate_json(ll_load):
+        if self.__validate_json(ll_load, 'PUT'):
 
             # Delete csv-file
             os.remove(self.__path)
@@ -99,9 +102,8 @@ class LogBase:
             for key in ll_load['data'].keys():
                 self.post(json.dumps({"data":ll_load['data'][key]}))
 
-            # Return status code True, but response data is stored in LL
-            return(json.dumps({"type":True, "data": None}))
-
+            # Return status code True, and POSTED DATA
+            return(json.dumps({"type":True, "data": ll_load["data"]}))
 
 
 
@@ -114,7 +116,7 @@ class LogBase:
 
         return os.stat(self.__path).st_size == 0
 
-    def __validate_json(self, ll_load: json) -> bool:
+    def __validate_json(self, ll_load: json, method: str) -> bool:
         """
         Returns true if load from LL matches self.__schema
         """
@@ -126,29 +128,30 @@ class LogBase:
 
         # Raise custom Exception for proper error handling
         except jsonschema.exceptions.ValidationError:
-            raise IncorrectDataException
+            raise IncorrectDataException(self.__key, method)
 
     def __get_all_dict(self) -> dict:
         """
-        Used by other functions in this class
-        in other languages would be "private"
-        :returns Dict of all items
+        READ INTERFACE TO DB
         """
-        ret = {"type": "dict", "data": {}}
-        with open(self.__path, newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                id = row["id"]
-                csv_dict = {}
-                for key in row:
-                    csv_dict[key]=row[key]
-                ret["data"][id] = csv_dict
-        return ret
+        if self.__is_empty():
+            raise DatabaseEmptyException(self.__key, 'GET_ALL')
+        else:
+            ret = {"type": "dict", "data": {}}
+            with open(self.__path, newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    id = row["id"]
+                    csv_dict = {}
+                    for key in row:
+                        csv_dict[key]=row[key]
+                    ret["data"][id] = csv_dict
+            return ret
 
 
     def __get_next_id(self) -> int:
         """
-        returns next ID for item
+        Returns ID for next row
         """
         max_id = 0
         items = self.__get_all_dict()

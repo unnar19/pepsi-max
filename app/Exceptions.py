@@ -1,33 +1,77 @@
-class IncorrectCredentialsException(Exception):
-    """Raise in UI only"""
-    pass
+### DATA
 
-class IncorrectEmailException(IncorrectCredentialsException):
-    """Raise in LL only"""
-    pass
+class DataLayerException(Exception):
+    def __init__(self, key: str, method: str, type: str) -> None:
+        self.class_ = key
+        self.method = method
+        self.type = type
 
-class IncorrectPasswordException(IncorrectCredentialsException):
-    """Raise in LL only"""
-    pass
+    def __str__(self) -> str:
+        return f'{self.type}: method {self.method} failed in {self.class_} database'
 
-class IncorrectIdException(IncorrectCredentialsException):
-    """Raise in LL only"""
-    pass
+class DatabaseEmptyException(DataLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'DatabaseEmpty')
 
-class NoIdException(Exception):
-    pass
+    def __str__(self) -> str:
+        return super().__str__()
 
-class UnauthorizedRequestException(Exception):
-    """Raise in LL only"""
-    pass
+class IncorrectDataException(DataLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'IncorrectData')
 
-class EmailAlreadyExistsException(Exception):
-    pass
+    def __str__(self) -> str:
+        return super().__str__()
 
-class DataNotFoundException(Exception):
-    """Raise in DL only"""
-    pass
+### LOGIC
 
-class IncorrectDataException(Exception):
-    """Raise in DL only"""
-    pass
+class LogicLayerException(Exception):
+    def __init__(self, key: str, method: str, type: str) -> None:
+        self.class_ = key
+        self.method = method
+        self.type = type
+
+    def __str__(self) -> str:
+        return f'{self.type}: method {self.method} failed in {self.class_} backend'
+
+class DataAlreadyExistsException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'DataAlreadyExists')
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class UnauthorizedRequestException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'UnauthorizedRequest')
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class IncorrectIdException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'IncorrectID')
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class IncorrectCredentialsException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'IncorrectCredentials')
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class NoIdException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'NoID')
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class IncorrectInputException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'IncorrectInput')
+
+    def __str__(self) -> str:
+        return super().__str__()

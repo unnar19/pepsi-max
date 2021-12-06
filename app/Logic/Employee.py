@@ -36,19 +36,11 @@ class Employee(Base):
 
                 # Check password
                 if password != val["password"]:
-                    raise IncorrectPasswordException
+                    raise IncorrectCredentialsException(self.__key, 'AUTH')
 
                 # Return session variables
                 else:
                     return json.dumps({"data": {"name": val["name"], "role": val["role"], "id":key}})
 
         # Email not found..
-        raise IncorrectEmailException
-
-
-
-
-
-
-
-
+        raise IncorrectCredentialsException(self.__key, 'AUTH')

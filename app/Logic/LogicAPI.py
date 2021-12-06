@@ -29,13 +29,8 @@ class LogicAPI:
             "report": self.__report, \
             "destination": self.__destination
         }
-        self.__exception_return = {"type": False}
 
     ### CRUD METHODS
-
-    def __redirect_request(self, data):
-        """Parses key from data and returns corresponding LLclass"""
-        return self.__class_map[json.loads(data)["key"]]
 
     def get_all(self, data: json) -> json:
         """
@@ -43,8 +38,8 @@ class LogicAPI:
         """
         try:
             return self.__redirect_request(data).get_all()
-        except UnauthorizedRequestException:
-            return json.dumps(self.__exception_return)
+        except UnauthorizedRequestException as error:
+            return self.__format_error_message(error)
 
     def get(self, data: json) -> json:
         """
@@ -52,8 +47,8 @@ class LogicAPI:
         """
         try:
             return self.__redirect_request(data).get(data)
-        except UnauthorizedRequestException:
-            return json.dumps(self.__exception_return)
+        except UnauthorizedRequestException as error:
+            return self.__format_error_message(error)
 
     def post(self, data: json) -> json:
         """
@@ -62,10 +57,10 @@ class LogicAPI:
         """
         try:
             return self.__redirect_request(data).post(data)
-        except UnauthorizedRequestException:
-            return json.dumps(self.__exception_return)
-        except EmailAlreadyExistsException:
-            return json.dumps(self.__exception_return)
+        except UnauthorizedRequestException as error:
+            return self.__format_error_message(error)
+        except DataAlreadyExistsException as error:
+            return self.__format_error_message(error)
 
     def put(self, data: json) -> json:
         """
@@ -73,12 +68,12 @@ class LogicAPI:
         """
         try:
             return self.__redirect_request(data).put(data)
-        except UnauthorizedRequestException:
-            return json.dumps(self.__exception_return)
-        except NoIdException:
-            return json.dumps(self.__exception_return)
-        except IncorrectDataException:
-            return json.dumps(self.__exception_return)
+        except UnauthorizedRequestException as error:
+            return self.__format_error_message(error)
+        except NoIdException as error:
+            return self.__format_error_message(error)
+        except IncorrectDataException as error:
+            return self.__format_error_message(error)
 
     def delete(self, data: json) -> json:
         """
@@ -86,14 +81,30 @@ class LogicAPI:
         """
         try:
             return self.__redirect_request(data).delete(data)
-        except UnauthorizedRequestException:
-            return json.dumps(self.__exception_return)
-        except NoIdException:
-            return json.dumps(self.__exception_return)
-        except IncorrectDataException:
-            return json.dumps(self.__exception_return)
-        except IncorrectIdException:
-            return json.dumps(self.__exception_return)
+        except UnauthorizedRequestException as error:
+            return self.__format_error_message(error)
+        except NoIdException as error:
+            return self.__format_error_message(error)
+        except IncorrectDataException as error:
+            return self.__format_error_message(error)
+        except IncorrectIdException as error:
+            return self.__format_error_message(error)
+
+    ### HELPERS
+
+    def __redirect_request(self, data):
+        """Parses key from data and returns corresponding LLclass"""
+        return self.__class_map[json.loads(data)["key"]]
+
+    def __format_error_message(self, error):
+        """
+        Parses method and key from request
+        
+        Returns formatted error message
+        """
+        return json.dumps(
+            {"type": False, "message": str(error)}
+        )
             
 
     ### EMPLOYEE METHODS
@@ -101,24 +112,19 @@ class LogicAPI:
     def authenticate_employee(self, data: str):
         """
         Sends AUTH request to LL
-        
+
         Data field contains username-field and password-field
         """
         try:
             return self.__employee.authenticate(data)
-        except IncorrectEmailException:
-            return json.dumps(self.__exception_return)
-        except IncorrectPasswordException:
-            return json.dumps(self.__exception_return)
+        except IncorrectCredentialsException as error:
+            return self.__format_error_message(error)
 
     ### REAL ESTATE METHODS
 
-
     ### TICKET METHODS
 
-
     ### CONTRACTOR METHODS
-
 
     ### DESTINATION METHODS
 
