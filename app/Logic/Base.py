@@ -13,7 +13,17 @@ class Base:
     ### CRUD ###
 
     def get_all(self, data: json) -> json:
-        return self.__data_api.get_all(data)
+        filter_option = self.__wants_filter(data)
+        if not filter_option[0]:
+            return self.__data_api.get_all(data)
+        else:
+            all_data = json.loads(self.__data_api.get_all(data))
+            filtered_data = {}
+            for key, value in all_data["data"].items():
+                if value[filter_option[1]] == filter_option[2]:
+                    filtered_data[key] = value
+            return json.dumps(filtered_data)
+
 
     def get(self, data: json) -> json:
         pass
@@ -138,6 +148,16 @@ class Base:
         """Used in POST, PUT, DELETE exception handling"""
         return json.loads(data)['role'] == 'boss'
 
+    def __wants_filter(self, data: json) -> tuple:
+        """If 'filter' field is set we return the field to filter and value"""
+        ui_data = json.loads(data)
+        if "filter" in ui_data.keys():
+            filter = ui_data['filter']
+            filter_data = ui_data['filter_value']
+            return (True, filter, filter_data)
+
+        else:
+            return (False, 0)
 
 
 

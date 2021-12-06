@@ -51,10 +51,8 @@ LL = LogicAPI()
 
 
 
-res = LL.post(new_emp2)
 
-print(res)
+getAll = json.dumps({"key":"employee","filter":"destination", "filter_value":"Reykjavík"})
 
+res = LL.post(new_emp1)
 
-res = LL.delete(emp_delete)
-print(res)
