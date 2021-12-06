@@ -67,8 +67,8 @@ class TestEmployee(unittest.TestCase):
 
     def test_post_employee(self):
         """Try to post new employee that violates key constraint"""
-        res = self.LL.post(new_emp2)
-        self.assertFalse(res)
+        res = json.loads(self.LL.post(new_emp2))
+        self.assertFalse(res['type'])
 
     def test_put_employee(self):
         """We change the employee we made in setUp"""
@@ -85,8 +85,8 @@ class TestEmployee(unittest.TestCase):
 
     def test_put_employee_to_fail(self):
         """We try to change employee details as regular employee"""
-        res = self.LL.put(put_data_2)
-        self.assertFalse(res)
+        res = json.loads(self.LL.put(put_data_2))
+        self.assertFalse(res["type"])
 
 
     def test_delete_emp(self):
