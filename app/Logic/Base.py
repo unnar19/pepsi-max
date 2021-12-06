@@ -14,7 +14,17 @@ class Base:
     ### CRUD ###
 
     def get_all(self, data: json) -> json:
-        return self.__data_api.get_all(data)
+        filter_option = self.__wants_filter(data)
+        if not filter_option[0]:
+            return self.__data_api.get_all(data)
+        else:
+            all_data = json.loads(self.__data_api.get_all(data))
+            filtered_data = {}
+            for key, value in all_data["data"].items():
+                if value[filter_option[1]] == filter_option[2]:
+                    filtered_data[key] = value
+            return_data = {"type": "dict", "data" :filtered_data}
+            return json.dumps(return_data)
 
     def get(self, data: json) -> json:
         """
@@ -65,7 +75,6 @@ class Base:
 
                 # Replace item data
                 id_ = ui_load['id']
-
                 for key, val in ui_load.items():
                     data_load[id_][key] = val
 
@@ -88,7 +97,6 @@ class Base:
         only one entry
         uses put method in datalayer
         """
-
         if self.__is_boss(data):
             # parse json
             ui_load = json.loads(data)['data']
@@ -98,7 +106,6 @@ class Base:
                 data_load = json.loads(self.get_all(data))['data']
                 
                 id_ = ui_load['id']
-                
                 try:
                     # delete form data
                     del data_load[str(id_)]
@@ -108,7 +115,6 @@ class Base:
                 #make put request with all data exept given load
                 fixed_data = json.dumps({"key": self._key, "data": data_load})
                 response = json.loads(self.__data_api.put(fixed_data))
-
                 return json.dumps(response)
 
 
@@ -141,8 +147,13 @@ class Base:
         identifier = ui_load[self._identifier]
 
         # Parse DB response
-        data_load = json.loads(self.get_all(data))['data']
+    
+        data_load = json.loads(self.get_all(data))
 
+        if not data_load["type"]:
+            return True
+        
+        data_load = data_load["data"]
         # Search submitted identifier address in DB
         for val in data_load.values():
             if val[self._identifier] == identifier:
@@ -154,6 +165,16 @@ class Base:
         """Used in POST, PUT, DELETE exception handling"""
         return json.loads(data)['role'] == 'boss'
 
+    def __wants_filter(self, data: json) -> tuple:
+        """If 'filter' field is set we return the field to filter and value"""
+        ui_data = json.loads(data)
+        if "filter" in ui_data.keys():
+            filter = ui_data['filter']
+            filter_data = ui_data['filter_value']
+            return (True, filter, filter_data)
+
+        else:
+            return (False, 0)
 
 
 

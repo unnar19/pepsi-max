@@ -1,6 +1,9 @@
 import unittest
+from Data.LogRealEstate import LogRealEstate
 from Logic.LogicAPI import LogicAPI
 import json
+
+from Logic.RealEstate import RealEstate
 
 
 #this will pass in setUp
@@ -29,6 +32,8 @@ new_real_estate2 = json.dumps({ "role": "boss",
                             }
                         })
 
+id = "1"
+
 class TestRealEstate(unittest.TestCase):
 
     @classmethod
@@ -40,14 +45,14 @@ class TestRealEstate(unittest.TestCase):
             gæji "ekki til"
         """
         self.LL = LogicAPI()
-        res = json.loads(self.LL.post(new_real_estate1))["data"]["id"]
-        self.id = res
+        res = json.loads(self.LL.post(new_real_estate1))
+        self.id = res["data"]["id"]
 
 
     def test_post_real_estate(self):
         """Try to post new real estate that violates key constraint"""
-        res = self.LL.post(new_real_estate1)
-        self.assertFalse(res)
+        res = json.loads(self.LL.post(new_real_estate1))
+        self.assertFalse(res["type"])
 
     def test_put_real_estate(self):
         """We change the real estate we made in setUp"""
@@ -58,7 +63,19 @@ class TestRealEstate(unittest.TestCase):
                             "real_estate_id": "onlln",
                             }
                         })
-        res = self.LL.put(put_data_1)
+        res = json.loads(self.LL.put(put_data_1))
+        self.assertTrue(res["type"])
+
+    def test_put_real_estate(self):
+        """We change the real estate we made in setUp"""
+        put_data_1 = json.dumps({"role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "id": str(self.id),
+                            "real_estate_id": "blublu",
+                            }
+                        })
+        res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
 
     def test_put_real_estate_fail(self):
@@ -70,8 +87,8 @@ class TestRealEstate(unittest.TestCase):
                             "real_estate_id": "no id",
                             }
                         })
-        res = self.LL.put(put_data_2)
-        self.assertFalse(res)
+        res = json.loads(self.LL.put(put_data_2))
+        self.assertFalse(res["type"])
 
 if __name__ == '__main__':
     unittest.main()

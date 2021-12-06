@@ -45,8 +45,6 @@ package UI <<Rectangle>> {
         filter_tickets(contractor, date)
         filter_tickets(employee, date)
         **get_reports(real_estate)**
-        **register_destination()**
-        **update_destination()**
         **get_all_destinations()**
         get_contractor()
         **register_report(ticket)**

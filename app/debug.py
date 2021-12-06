@@ -1,12 +1,6 @@
 #this will pass in setUp
 
 import json
-put_data_delete = json.dumps({"role": "boss",
-                        "key": "employee",
-                        "data": {
-                            "id": str(1),
-                            }
-                        })
 
 from Logic.LogicAPI import LogicAPI
 
@@ -15,11 +9,56 @@ emp_delete = json.dumps({
 "key": "employee",
 "data": {
     "id": 1,
-    "name": "eeeee"
     }
 })
 
+new_emp1 = json.dumps({ "role": "boss",
+                        "key": "employee",
+                        "data": {
+                            "role": "employee",
+                            "name": "TestEmployee",
+                            "password": "TestPassword",
+                            "ssn": "0123456789",
+                            "address": "Hvergistræti 69",
+                            "home_phone": "5812345",
+                            "mobile_phone": "8885555",
+                            "email": "peee@ru.is",
+                            "destination": "Reykjavík",
+                            "tickets": "[]",
+                            "reports": "[]",
+                            }
+                        })
+
+new_emp2 = json.dumps({ "role": "boss",
+                        "key": "employee",
+                        "data": {
+                            "role": "employee",
+                            "name": "TestEmployee",
+                            "password": "TestPassword",
+                            "ssn": "0123456789",
+                            "address": "Hvergistræti 69",
+                            "home_phone": "5812345",
+                            "mobile_phone": "8885555",
+                            "email": "nnnnn@ru.is",
+                            "destination": "Reykjavík",
+                            "tickets": "[]",
+                            "reports": "[]",
+                            }
+                        })
+
+
 LL = LogicAPI()
 
-res = LL.delete(emp_delete)
 
+
+
+getAll = json.dumps({"key":"employee","filter":"destination", "filter_value":"Reykjavík"})
+
+
+res = LL.get_all(getAll)
+
+print(json.loads(res))
+
+res = LL.get_all(json.dumps({"key":"employee"}))
+
+print(res)
