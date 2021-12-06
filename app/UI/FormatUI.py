@@ -17,11 +17,17 @@ class FormatUI:
         self.preview_title =    ''
         self.preview_comment =  ''
         self.divider_loc =      50
+        self.listing_lis = self.empty_listing()
         self.apply_styles([0,1,2])
         self.set_size_of_terminal()
 
     def reset_title(self):
         self.title = f'{"":<40}NaN-Air | Dividing by zero every day!'
+
+    def empty_listing(self):
+        empty_lis = []
+        [empty_lis.append(['','','','']) for _ in range(self.max_lines)]
+        return empty_lis
 
     def set_size_of_terminal(self):
         if os.name == 'nt':
@@ -81,7 +87,7 @@ class FormatUI:
         '''
         Prints the screen with the information provided to the class
         '''
-        top, mid, bottom, long, side, flat = '─','─','─','','',''
+        top, mid, bottom, long, side, flat = '─','─','─',' ',' ',' '
         if self.preview_title:
             top, mid, bottom, long, side, flat = '┬','┼','┴','│','├','─'
 
@@ -99,12 +105,15 @@ class FormatUI:
             extra = self.commands[key][1]
             if self.commands[key][0] == 0: # print shorter text box if neccesary
                 if len(extra) > 21:
-                    extra = extra[:17] + '...]'
-            print(f'{index+1:>10}. {key:<15}{extra:<21}{"":<2}{long}')
+                    extra = extra[:17] + '...]'                             
+            
+            line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
+            print(f'{index+1:>10}. {key:<15}{extra:<21}{"":<2}{long} {line_in_list}')
 
         # Prints the rows below the command rows
-        for _ in range(len(self.commands),self.max_lines):
-            print(f'{long:>51}')
+        for index in range(len(self.commands),self.max_lines):
+            line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
+            print(f'{long:>51} {line_in_list}')
 
         # Prints the footer
         print(f'{self.line[:self.divider_loc]}{mid}{self.line[self.divider_loc+1:]}')
