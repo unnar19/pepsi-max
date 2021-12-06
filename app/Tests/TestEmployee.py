@@ -99,9 +99,21 @@ class TestEmployee(unittest.TestCase):
             "data":{"id": '13'}
         })
         res = json.loads(self.LL.get(data))
-        print(res)
         self.assertEqual(res['data']['name'], 'Charlie Adams')
 
+    def test_filter_employee(self):
+        data = json.dumps(
+            {
+                "key": "employee",
+                "filter": True,
+                "data": {
+                    "filter": "destination",
+                    "filter_value": "Cumtown"
+                }
+            }
+        )
+        res = json.loads(self.LL.get_all(data))
+        self.assertEqual(res['data']['20']['name'], 'Gunnar Rassahlíð')
 
     @classmethod
     def tearDownClass(self):

@@ -14,17 +14,28 @@ class Base:
     ### CRUD ###
 
     def get_all(self, data: json) -> json:
-        filter_option = self.__wants_filter(data)
-        if not filter_option[0]:
-            return self.__data_api.get_all(data)
-        else:
+        # Parse data from UI
+        ui_load = json.loads(data)
+
+        if self.__wants_filter(ui_load):
+
+            # Parse filter category and value from UI
+            filter_category, filter_value = ui_load['data']['filter'], ui_load['data']['filter_value']
+
+            # Parse all data from DL
             all_data = json.loads(self.__data_api.get_all(data))
+
+            # Collect data that fulfills filters
             filtered_data = {}
             for key, value in all_data["data"].items():
-                if value[filter_option[1]] == filter_option[2]:
+                if value[filter_category] == filter_value:
                     filtered_data[key] = value
-            return_data = {"type": "dict", "data" :filtered_data}
-            return json.dumps(return_data)
+
+            # Construct response
+            response = {"type": "dict", "data" :filtered_data}
+            return json.dumps(response)
+        else:
+            return self.__data_api.get_all(data)
 
     def get(self, data: json) -> json:
         """
@@ -164,16 +175,18 @@ class Base:
         """Used in POST, PUT, DELETE exception handling"""
         return json.loads(data)['role'] == 'boss'
 
-    def __wants_filter(self, data: json) -> tuple:
+    def __wants_filter(self, ui_load: json) -> tuple:
         """If 'filter' field is set we return the field to filter and value"""
-        ui_data = json.loads(data)
-        if "filter" in ui_data.keys():
-            filter = ui_data['filter']
-            filter_data = ui_data['filter_value']
-            return (True, filter, filter_data)
+        return 'filter' in ui_load.keys()
 
-        else:
-            return (False, 0)
+
+        # if "filter" in ui_data.keys():
+        #     filter = ui_data['filter']
+        #     filter_data = ui_data['filter_value']
+        #     return (True, filter, filter_data)
+
+        # else:
+        #     return (False, 0)
 
 
 
