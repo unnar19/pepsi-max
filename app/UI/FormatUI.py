@@ -16,6 +16,7 @@ class FormatUI:
         self.max_lines =        20
         self.preview_title =    ''
         self.preview_comment =  ''
+        self.profile = False
         self.divider_loc =      50
         self.listing_lis = self.empty_listing()
         self.apply_styles([0,1,2])
@@ -107,12 +108,19 @@ class FormatUI:
                 if len(extra) > 21:
                     extra = extra[:17] + '...]'                             
             
-            line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
+            if self.profile:
+                line_in_list = self.listing_lis[index][0]
+            else:
+                line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
+
             print(f'{index+1:>10}. {key:<15}{extra:<21}{"":<2}{long} {line_in_list}')
 
         # Prints the rows below the command rows
         for index in range(len(self.commands),self.max_lines):
-            line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
+            if self.profile:
+                line_in_list = self.listing_lis[index][0]
+            else:
+                line_in_list = f'{self.listing_lis[index][0]:<30}   {self.listing_lis[index][1]:<5}   {self.listing_lis[index][2]:<10}   {self.listing_lis[index][3]:<12}'
             print(f'{long:>51} {line_in_list}')
 
         # Prints the footer
