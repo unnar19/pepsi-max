@@ -34,27 +34,31 @@ class LogicAPI:
     ### CRUD METHODS
 
     def __redirect_request(self, data):
-        """Parses key from request and returns corresponding LLclass"""
+        """Parses key from data and returns corresponding LLclass"""
         return self.__class_map[json.loads(data)["key"]]
 
-    def get_all(self, data: str):
+    def get_all(self, data: json) -> json:
+        """
+        Sends GET ALL request to LL
+        """
         try:
             return self.__redirect_request(data).get_all()
         except UnauthorizedRequestException:
             return json.dumps(self.__exception_return)
 
-    def get(self, data: str):
+    def get(self, data: json) -> json:
         """
-        
+        Sends GET request to LL
         """
         try:
             return self.__redirect_request(data).get(data)
         except UnauthorizedRequestException:
             return json.dumps(self.__exception_return)
 
-    def post(self, data: str):
+    def post(self, data: json) -> json:
         """
-        
+        Sends POST request to LL
+
         """
         try:
             return self.__redirect_request(data).post(data)
@@ -63,7 +67,10 @@ class LogicAPI:
         except EmailAlreadyExistsException:
             return json.dumps(self.__exception_return)
 
-    def put(self, data: str):
+    def put(self, data: json) -> json:
+        """
+        Sends PUT request to LL
+        """
         try:
             return self.__redirect_request(data).put(data)
         except UnauthorizedRequestException:
@@ -74,7 +81,9 @@ class LogicAPI:
             return json.dumps(self.__exception_return)
 
     def delete(self, data: json) -> json:
-        """deletes employe with id in json"""
+        """
+        Sends DELETE request to LL
+        """
         try:
             return self.__redirect_request(data).delete(data)
         except UnauthorizedRequestException:
@@ -90,7 +99,11 @@ class LogicAPI:
     ### EMPLOYEE METHODS
 
     def authenticate_employee(self, data: str):
-        """Credentials contain username-field and password-field"""
+        """
+        Sends AUTH request to LL
+        
+        Data field contains username-field and password-field
+        """
         try:
             return self.__employee.authenticate(data)
         except IncorrectEmailException:
