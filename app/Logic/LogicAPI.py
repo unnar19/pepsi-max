@@ -37,7 +37,7 @@ class LogicAPI:
         Sends GET ALL request to LL
         """
         try:
-            return self.__redirect_request(data).get_all()
+            return self.__redirect_request(data).get_all(data)
         except UnauthorizedRequestException as error:
             return self.__format_error_message(error)
 
