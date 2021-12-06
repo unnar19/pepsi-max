@@ -49,7 +49,6 @@ class Base:
 
                 # Replace item data
                 id_ = ui_load['id']
-
                 for key, val in ui_load.items():
                     data_load[id_][key] = val
 
@@ -72,7 +71,6 @@ class Base:
         only one entry
         uses put method in datalayer
         """
-
         if self.__is_boss(data):
             # parse json
             ui_load = json.loads(data)['data']
@@ -82,17 +80,14 @@ class Base:
                 data_load = json.loads(self.get_all(data))['data']
                 
                 id_ = ui_load['id']
-                
                 try:
                     # delete form data
-                    del data_load[id_]
+                    del data_load[str(id_)]
                 except KeyError:
                     raise IncorrectIdException(self.__key, 'DELETE')
-
                 #make put request with all data exept given load
                 fixed_data = json.dumps({"key": self.__key, "data": data_load})
                 response = json.loads(self.__data_api.put(fixed_data))
-
                 return json.dumps(response)
 
 
@@ -125,8 +120,13 @@ class Base:
         identifier = ui_load[self.__identifier]
 
         # Parse DB response
-        data_load = json.loads(self.get_all(data))['data']
+    
+        data_load = json.loads(self.get_all(data))
 
+        if not data_load["type"]:
+            return True
+        
+        data_load = data_load["data"]
         # Search submitted identifier address in DB
         for val in data_load.values():
             if val[self.__identifier] == identifier:
