@@ -5,7 +5,7 @@ import json
 class Employee(Base):
     
     def __init__(self) -> None:
-        super().__init__("employee", "email")
+        return super().__init__("employee", "email", 'id')
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)
@@ -36,11 +36,11 @@ class Employee(Base):
 
                 # Check password
                 if password != val["password"]:
-                    raise IncorrectCredentialsException(self.__key, 'AUTH')
+                    raise IncorrectCredentialsException(self._key, 'AUTH')
 
                 # Return session variables
                 else:
                     return json.dumps({"data": {"name": val["name"], "role": val["role"], "id":key}})
 
         # Email not found..
-        raise IncorrectCredentialsException(self.__key, 'AUTH')
+        raise IncorrectCredentialsException(self._key, 'AUTH')

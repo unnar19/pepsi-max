@@ -4,10 +4,11 @@ from Exceptions import *
 
 class Base:
 
-    def __init__(self, key, identifier) -> None:
+    def __init__(self, key, identifier, unique_val=None) -> None:
         self.__data_api = DataAPI()
-        self.__key = key
-        self.__identifier = identifier
+        self._key = key
+        self._identifier = identifier
+        self._unique = unique_val
 
 
     ### CRUD ###
@@ -16,7 +17,22 @@ class Base:
         return self.__data_api.get_all(data)
 
     def get(self, data: json) -> json:
-        pass
+        """
+        Searches data_load for identifier
+        Identifier should be the key for each instance data value
+        """
+        ui_load = json.loads(data)['data']
+        try:
+            search_key = ui_load[self._identifier]
+        except KeyError:
+            search_key = ui_load[self._unique]
+
+        data_load = json.loads(self.get_all(data))['data']
+        print(data_load)
+        try:
+            return json.dumps(data_load[str(search_key)])
+        except KeyError:
+            raise NotFoundException(self._key, 'GET')
 
     def post(self, data: json) -> json:
         if self.__is_boss(data):
@@ -25,9 +41,9 @@ class Base:
                 return self.__data_api.post(data)
             
             else:
-                raise DataAlreadyExistsException(self.__key, 'POST')
+                raise DataAlreadyExistsException(self._key, 'POST')
         else:
-            raise UnauthorizedRequestException(self.__key, 'POST')
+            raise UnauthorizedRequestException(self._key, 'POST')
 
     def put(self, data: json) -> json:
         """
@@ -54,7 +70,7 @@ class Base:
                     data_load[id_][key] = val
 
                 # Send fixed data to DL to be written
-                fixed_data = json.dumps({"key": self.__key, "data": data_load})
+                fixed_data = json.dumps({"key": self._key, "data": data_load})
                 response = json.loads(self.__data_api.put(fixed_data))
 
                 # Return fixed data to UI to be displayed
@@ -64,7 +80,7 @@ class Base:
                     return json.dumps(response)
 
         else:
-            raise UnauthorizedRequestException(self.__key, 'PUT')
+            raise UnauthorizedRequestException(self._key, 'PUT')
 
     def delete(self, data : json) -> json:
         """
@@ -85,12 +101,12 @@ class Base:
                 
                 try:
                     # delete form data
-                    del data_load[id_]
+                    del data_load[str(id_)]
                 except KeyError:
-                    raise IncorrectIdException(self.__key, 'DELETE')
+                    raise IncorrectIdException(self._key, 'DELETE')
 
                 #make put request with all data exept given load
-                fixed_data = json.dumps({"key": self.__key, "data": data_load})
+                fixed_data = json.dumps({"key": self._key, "data": data_load})
                 response = json.loads(self.__data_api.put(fixed_data))
 
                 return json.dumps(response)
@@ -107,7 +123,7 @@ class Base:
 
             # Check if id is empty
             if not id_:
-                raise NoIdException(self.__key, method)
+                raise NoIdException(self._key, method)
 
             # ui_load is valid for put request
             else:
@@ -115,21 +131,21 @@ class Base:
 
         # Raise custom Exception
         except KeyError:
-            raise IncorrectInputException(self.__key, method)
+            raise IncorrectInputException(self._key, method)
 
     def __is_new(self, data: json) -> bool:
         """
         Used in POST exception handling
         """
         ui_load = json.loads(data)['data']
-        identifier = ui_load[self.__identifier]
+        identifier = ui_load[self._identifier]
 
         # Parse DB response
         data_load = json.loads(self.get_all(data))['data']
 
         # Search submitted identifier address in DB
         for val in data_load.values():
-            if val[self.__identifier] == identifier:
+            if val[self._identifier] == identifier:
                 return False
 
         return True

@@ -37,7 +37,7 @@ class LogBase:
     def __init__(self, key) -> None:
         # Parse path and schema for key
         log_key_dict = LogBase.__path_and_schema[key]
-        self.__key = key
+        self._key = key
         self.__path = log_key_dict['path']
         self.__schema = log_key_dict['schema']
 
@@ -128,7 +128,7 @@ class LogBase:
 
         # Raise custom Exception for proper error handling
         except jsonschema.exceptions.ValidationError:
-            raise IncorrectDataException(self.__key, method)
+            raise IncorrectDataException(self._key, method)
 
     def __get_all_dict(self) -> dict:
         """
@@ -136,7 +136,7 @@ class LogBase:
         """
         try:
             if self.__is_empty():
-                raise DatabaseEmptyException(self.__key, 'GET_ALL')
+                raise DatabaseEmptyException(self._key, 'GET_ALL')
             else:
                 ret = {"type": "dict", "data": {}}
                 with open(self.__path, newline='', encoding='utf-8') as csvfile:
@@ -149,7 +149,7 @@ class LogBase:
                         ret["data"][id] = csv_dict
                 return ret
         except FileNotFoundError:
-            raise DatabaseEmptyException(self.__key, 'GET_ALL')
+            raise DatabaseEmptyException(self._key, 'GET_ALL')
 
 
     def __get_next_id(self) -> int:
