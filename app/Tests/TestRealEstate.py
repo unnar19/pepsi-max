@@ -90,12 +90,5 @@ class TestRealEstate(unittest.TestCase):
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
 
-    # def test_get_all_real_estate(self):
-    #     res = self.LL.get_all()
-    #     self.assertTrue(res)
-
-    # def test_get_real_estate_by_id(self, id):
-    #     self.LL.get(id)
-
 if __name__ == '__main__':
     unittest.main()
