@@ -34,8 +34,7 @@ class InteractionsUI:
         request = json.dumps({'key': 'employee', 'filter': filter_type, 'filter_value': filter_str})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
-
-        print(response_dict)
+        
         employee_list = []
         for value in response_dict['data'].values():
             nested_emp_list = []

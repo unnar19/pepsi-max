@@ -142,9 +142,11 @@ class ScreensUI():
         self.format.comment = 'Select an option'
         list_of_comments = ['Enter search term']
         curr_page = 1
-        emp_list = self.inter.listing_all_employees()
+        self.emp_list = self.inter.listing_all_employees()
+        id_list = []
+        [id_list.append(employee[1])for employee in self.emp_list]
         # Make list for each screen
-        self.page_list = self.screen_lists_from_all(emp_list)
+        self.page_list = self.screen_lists_from_all(self.emp_list)
 
         while True:
             if self.filter_str == '':
@@ -175,13 +177,14 @@ class ScreensUI():
                     self.format.comment = 'Select a filter'
                     curr_page = 1
                     self.filter_screen()
+                    self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     self.format.comment = 'Select an option'
 
                 elif input_int == 2: # Select employee
                     self.format.comment = 'Enter ID of employee'
                     self.format.print_screen()
                     id_input = self.get_input('Input')
-                    if self.inter.check_id(id_input):
+                    if id_input in id_list:
                         self.profile_screen()
                     else:
                         self.format.comment = 'ID not valid, Select an option'
@@ -206,7 +209,8 @@ class ScreensUI():
                     return
 
     def profile_screen(self):
-        pass
+        print('poopy')
+        input('continue?')
 
     def filter_screen(self):
         self.format.subtitle = 'Menu > Employees > Filter'
@@ -220,6 +224,7 @@ class ScreensUI():
             self.filter_screen()
         elif input_int == 6: # Clear
             self.format.comment = 'Select an option'
+            self.page_list = self.screen_lists_from_all(self.emp_list)
             self.filter_str = ''
         elif input_int == 7: # Back
             self.format.comment = 'Select an option'
@@ -228,4 +233,4 @@ class ScreensUI():
             self.filter_str = list_of_commands[input_int]
             listing_list = self.inter.filter_listing(self.filter_str,'destination')
             self.page_list = self.screen_lists_from_all(listing_list)
-            self.format.preview_comment = f'Page 1 of 1 | Filter: [{self.filter_str}]'
+            
