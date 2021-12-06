@@ -64,14 +64,6 @@ class TestEmployee(unittest.TestCase):
         self.LL = LogicAPI()
         res = json.loads(self.LL.post(new_emp1))
         self.id = res["data"]["id"]
-
-
-    # def test_get_employee(self):
-    #     res = self.LL.get(json.dumps({
-    #         "key":"employee",
-    #         "data":{"id":self.id}
-    #     }))
-    #     self.assertEqual(res,new_emp1)
     
     def test_put_employee(self):
         """We change the employee we made in setUp"""
@@ -100,6 +92,15 @@ class TestEmployee(unittest.TestCase):
         """We try to change employee details as regular employee"""
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
+
+    def test_get_employee(self):
+        data = json.dumps({
+            "key":"employee",
+            "data":{"id": '13'}
+        })
+        res = json.loads(self.LL.get(data))
+        print(res)
+        self.assertEqual(res['data']['name'], 'Charlie Adams')
 
 
     @classmethod

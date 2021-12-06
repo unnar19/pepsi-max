@@ -35,7 +35,6 @@ class DataAPI:
             return self.__format_error_message(error)
 
     def post(self, data: json) -> json:
-        print(json.loads(data))
         key = self.__parse_key(data)
         try:
             return self.__redirect_request(key).post(data)
