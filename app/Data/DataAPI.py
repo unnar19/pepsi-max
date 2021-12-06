@@ -31,34 +31,34 @@ class DataAPI:
         """Parses key from request and returns corresponding LLclass"""
         return self.__class_map[json.loads(data)["key"]]
 
-    def get_all(self, data: str):
+    def get_all(self, data: json) -> json:
         try:
             return self.__redirect_request(data).get_all()
         except DataNotFoundException:
             return False
 
-    def get(self, data: str):
+    def get(self, data: json) -> json:
         try:
             return self.__redirect_request(data).get()
         except DataNotFoundException:
             return False
 
-    def post(self, data: str):
+    def post(self, data: json) -> json:
         try:
             return self.__redirect_request(data).post(data)
         except IncorrectDataException:
             return False
 
-    def put(self, data: str):
+    def put(self, data: json) -> json:
         try:
             return self.__redirect_request(data).put(data)
         except IncorrectDataException:
             return False
 
-    def authenticate_employee_username(self, data: str):
-        """data parameter is """
-        try:
-            return self.__employee.get_all(data)
-        except DataNotFoundException:
-            return False
+    # def authenticate_employee_username(self, data: str):
+    #     """data parameter is """
+    #     try:
+    #         return self.__employee.get_all(data)
+    #     except DataNotFoundException:
+    #         return False
 

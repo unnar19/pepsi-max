@@ -7,7 +7,7 @@ import os
 
 class LogBase:
 
-    path_and_schema = {
+    __path_and_schema = {
         "employee": {
             "path": "csv-files/Employee.csv",
             "schema": employee_schema,
@@ -34,71 +34,70 @@ class LogBase:
         },
     }
 
-
     def __init__(self, key) -> None:
-
-        # Path to .csv file
-        log_key_dict = LogBase.path_and_schema[key]
-        self.path = log_key_dict['path']
-        self.schema = log_key_dict['schema']
+        # Parse path and schema for key
+        log_key_dict = LogBase.__path_and_schema[key]
+        self.__path = log_key_dict['path']
+        self.__schema = log_key_dict['schema']
 
         # Fields in appropriate schema
-        self.fields = list(self.schema['data'].keys())
+        self.__fields = list(self.__schema['data'].keys())
 
     ### CRUD ###
 
-    def get_all(self):
+    def get_all(self) -> json:
         """
-        In order not to return plain dict of data
-        returns: json dump of all employees
+        Read dict from DB
+        Return json
         """
         all_items = self.__get_all_dict()
         return json.dumps(all_items)
 
-    def post(self, data : json):
+    def post(self, data : json) -> json:
         """
-            Data: schema
-            :return bool
+        Write new row to db
         """
 
         # Parse load from LL
-        jsondata = json.loads(data)
+        ll_load = json.loads(data)
 
         # If file exists
-        if os.path.exists(self.path):
+        if os.path.exists(self.__path):
 
             # Assign id's manually s.a.t. not break unique constraint
             nextid = self.__get_next_id()
-            jsondata["data"]["id"] = nextid
+            ll_load["data"]["id"] = nextid
 
         # Validate data from LL
-        if self.__validate_json(jsondata):
+        if self.__validate_json(ll_load):
 
-            with open(self.path, 'a+', newline='', encoding='utf-8') as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=self.fields)
+            with open(self.__path, 'a+', newline='', encoding='utf-8') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=self.__fields)
 
                 # Write header if DB is empty
                 if self.__is_empty():
                     writer.writeheader()
 
-                writer.writerow(dict(jsondata['data']))
+                writer.writerow(dict(ll_load['data']))
 
-            return(json.dumps({"type":True, "data": jsondata["data"]}))
+            return(json.dumps({"type":True, "data": ll_load["data"]}))
 
-    def put(self, data: str):
-        """Deletes csv-file and rewrites it with provided data"""
+    def put(self, data: json) -> json:
+        """
+        Deletes csv-file and rewrites it with provided data
+        """
 
         # Parse data from LL
-        load = json.loads(data)
+        ll_load = json.loads(data)
 
         # Validate data from LL
-        if self.__validate_json(load):
+        if self.__validate_json(ll_load):
 
             # Delete csv-file
-            os.remove(self.path)
+            os.remove(self.__path)
 
-            for key in load['data'].keys():
-                self.post(json.dumps({"data":load['data'][key]}))
+            for key in ll_load['data'].keys():
+                self.post(json.dumps({"data":ll_load['data'][key]}))
 
             # Return status code True, but response data is stored in LL
             return(json.dumps({"type":True, "data": None}))
@@ -108,19 +107,21 @@ class LogBase:
 
     ### HELPERS ###
 
-    def __is_empty(self):
-        """Returns true if csv-file is empty"""
-        return os.stat(self.path).st_size == 0
-
-    def __validate_json(self, jsonData):
+    def __is_empty(self) -> bool:
         """
-            jsonData: Json object to validate
-            :return bool 
+        Returns true if csv-file is empty
+        """
+
+        return os.stat(self.__path).st_size == 0
+
+    def __validate_json(self, ll_load: json) -> bool:
+        """
+        Returns true if load from LL matches self.__schema
         """
 
         # Use imported validation feature
         try:
-            jsonschema.validate(instance=jsonData, schema=self.schema)
+            jsonschema.validate(instance=ll_load, schema=self.__schema)
             return True
 
         # Raise custom Exception for proper error handling
@@ -134,7 +135,7 @@ class LogBase:
         :returns Dict of all items
         """
         ret = {"type": "dict", "data": {}}
-        with open(self.path, newline='', encoding='utf-8') as csvfile:
+        with open(self.__path, newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 id = row["id"]
@@ -145,7 +146,7 @@ class LogBase:
         return ret
 
 
-    def __get_next_id(self):
+    def __get_next_id(self) -> int:
         """
         returns next ID for item
         """
