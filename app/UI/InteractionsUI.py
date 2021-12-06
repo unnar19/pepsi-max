@@ -30,4 +30,18 @@ class InteractionsUI:
         print(response)
 
 
+    def filter_listing(self, filter_str, filter_type):
+        request = json.dumps({'key': 'employee', 'filter': filter_type, 'filter_value': filter_str})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
 
+        print(response_dict)
+        employee_list = []
+        for value in response_dict['data'].values():
+            nested_emp_list = []
+            nested_emp_list.append(value['name'])
+            nested_emp_list.append(value['id'])
+            nested_emp_list.append(value['mobile_phone'])
+            nested_emp_list.append(value['destination'])
+            employee_list.append(nested_emp_list)
+        return employee_list

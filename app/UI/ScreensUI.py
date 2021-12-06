@@ -1,7 +1,6 @@
 from UI.FormatUI import FormatUI
 from Logic.LogicAPI import LogicAPI
 import json
-
 from UI.InteractionsUI import InteractionsUI
 
 class ScreensUI():
@@ -145,17 +144,17 @@ class ScreensUI():
         curr_page = 1
         emp_list = self.inter.listing_all_employees()
         # Make list for each screen
-        page_list = self.screen_lists_from_all(emp_list)
+        self.page_list = self.screen_lists_from_all(emp_list)
 
         while True:
             if self.filter_str == '':
-                self.format.preview_comment = f'Page {curr_page} of {len(page_list)} | Filter: [empty]'
+                self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Employees'
             self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Back'])
             self.format.apply_styles([0,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
 
-            self.format.listing_lis = page_list[curr_page-1]
+            self.format.listing_lis = self.page_list[curr_page-1]
 
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -179,7 +178,13 @@ class ScreensUI():
                     self.format.comment = 'Select an option'
 
                 elif input_int == 2: # Select employee
-                    pass
+                    self.format.comment = 'Enter ID of employee'
+                    self.format.print_screen()
+                    id_input = self.get_input('Input')
+                    if self.inter.check_id(id_input):
+                        self.profile_screen()
+                    else:
+                        self.format.comment = 'ID not valid, Select an option'
                 
                 elif input_int == 3: # Previous Page
                     if curr_page > 1:
@@ -189,7 +194,7 @@ class ScreensUI():
                         self.format.comment = 'Invalid input, Select an option'
                 
                 elif input_int == 4: # Next Page
-                    if curr_page < len(page_list):
+                    if curr_page < len(self.page_list):
                         self.format.comment = 'Select an option'
                         curr_page += 1
                     else:
@@ -199,6 +204,9 @@ class ScreensUI():
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
+
+    def profile_screen(self):
+        pass
 
     def filter_screen(self):
         self.format.subtitle = 'Menu > Employees > Filter'
@@ -218,4 +226,6 @@ class ScreensUI():
         else: # Filter selected
             list_of_commands = list(self.format.commands)
             self.filter_str = list_of_commands[input_int]
+            listing_list = self.inter.filter_listing(self.filter_str,'destination')
+            self.page_list = self.screen_lists_from_all(listing_list)
             self.format.preview_comment = f'Page 1 of 1 | Filter: [{self.filter_str}]'
