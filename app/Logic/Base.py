@@ -38,9 +38,8 @@ class Base:
             search_key = ui_load[self._unique]
 
         data_load = json.loads(self.get_all(data))['data']
-        print(data_load)
         try:
-            return json.dumps(data_load[str(search_key)])
+            return json.dumps({"type": True, "data": data_load[str(search_key)]})
         except KeyError:
             raise NotFoundException(self._key, 'GET')
 
