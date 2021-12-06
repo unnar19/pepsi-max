@@ -27,38 +27,44 @@ class DataAPI:
 
     ### CRUD METHODS
 
-    def __redirect_request(self, data):
+    def get_all(self, data: json) -> json:
+        key = self.__parse_key(data)
+        try:
+            return self.__redirect_request(key).get_all()
+        except DatabaseEmptyException as error:
+            return self.__format_error_message(error)
+
+    def post(self, data: json) -> json:
+        key = self.__parse_key(data)
+        try:
+            return self.__redirect_request(key).post(data)
+        except IncorrectDataException as error:
+            return self.__format_error_message(error)
+
+
+    def put(self, data: json) -> json:
+        key = self.__parse_key(data)
+        try:
+            return self.__redirect_request(key).put(data)
+        except IncorrectDataException as error:
+            return self.__format_error_message(error)
+
+
+    ### HELPERS
+
+    def __parse_key(self, data: json) -> str:
+        """Parses key from request"""
+        return json.loads(data)["key"]
+
+    def __redirect_request(self, key):
         """Parses key from request and returns corresponding LLclass"""
-        return self.__class_map[json.loads(data)["key"]]
+        return self.__class_map[key]
 
-    def get_all(self, data: str):
-        try:
-            return self.__redirect_request(data).get_all()
-        except DataNotFoundException:
-            return False
-
-    def get(self, data: str):
-        try:
-            return self.__redirect_request(data).get()
-        except DataNotFoundException:
-            return False
-
-    def post(self, data: str):
-        try:
-            return self.__redirect_request(data).post(data)
-        except IncorrectDataException:
-            return False
-
-    def put(self, data: str):
-        try:
-            return self.__redirect_request(data).put(data)
-        except IncorrectDataException:
-            return False
-
-    def authenticate_employee_username(self, data: str):
-        """data parameter is """
-        try:
-            return self.__employee.get_all(data)
-        except DataNotFoundException:
-            return False
+    def __format_error_message(self, error):
+        """
+        Returns json formatted error message
+        """
+        return json.dumps(
+            {"type": False, "message": str(error)}
+        )
 

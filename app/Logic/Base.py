@@ -5,31 +5,28 @@ from Exceptions import *
 class Base:
 
     def __init__(self, key, identifier) -> None:
-        self.data_api = DataAPI()
-        self.key = key
-        self.identifier = identifier
+        self.__data_api = DataAPI()
+        self.__key = key
+        self.__identifier = identifier
 
 
     ### CRUD ###
 
-    def get_all(self, data: str):
-        return self.data_api.get_all(data)
+    def get_all(self, data: json) -> json:
+        return self.__data_api.get_all(data)
 
-    def get(self, data: str):
-        return self.data_api.get(data)
-
-    def post(self, data: str):
+    def post(self, data: json) -> json:
         if self.__is_boss(data):
             
             if self.__is_new(data):
-                return self.data_api.post(data)
+                return self.__data_api.post(data)
             
             else:
-                raise EmailAlreadyExistsException
+                raise DataAlreadyExistsException(self.__key, 'POST')
         else:
-            raise UnauthorizedRequestException
+            raise UnauthorizedRequestException(self.__key, 'POST')
 
-    def put(self, data: str):
+    def put(self, data: json) -> json:
         """
         Data argument should only contain data from 1 item
 
@@ -42,23 +39,20 @@ class Base:
             ui_load = json.loads(data)['data']
 
             # Validate input
-            if self.__valid_put_data(ui_load):
+            if self.__valid_put_data(ui_load, 'PUT'):
 
                 # Parse DB response
                 data_load = json.loads(self.get_all(data))['data']
 
                 # Replace item data
-                try:
-                    id_ = ui_load['id']
-                except KeyError:
-                    raise IncorrectIdException
+                id_ = ui_load['id']
 
                 for key, val in ui_load.items():
                     data_load[id_][key] = val
 
                 # Send fixed data to DL to be written
-                fixed_data = json.dumps({"key": self.key, "data": data_load})
-                response = json.loads(self.data_api.put(fixed_data))
+                fixed_data = json.dumps({"key": self.__key, "data": data_load})
+                response = json.loads(self.__data_api.put(fixed_data))
 
                 # Return fixed data to UI to be displayed
                 if response['type']:
@@ -67,57 +61,41 @@ class Base:
                     return json.dumps(response)
 
         else:
-            raise UnauthorizedRequestException
+            raise UnauthorizedRequestException(self.__key, 'PUT')
 
     def delete(self, data : json) -> json:
-        """Deletes entry with id in json, only one entry, uses put methood in datalayer"""
+        """
+        Deletes entry with id_ in json
+        only one entry
+        uses put method in datalayer
+        """
+
         if self.__is_boss(data):
             # parse json
             ui_load = json.loads(data)['data']
 
-            if self.__valid_put_data(ui_load):
+            if self.__valid_put_data(ui_load, 'DELETE'):
                 #get all data
                 data_load = json.loads(self.get_all(data))['data']
                 
-                _id = str(ui_load['id'])
+                id_ = ui_load['id']
                 
                 try:
-                    #return deleted employee data
-                    return_data = data_load[_id]
                     # delete form data
-                    del data_load[_id]
+                    del data_load[id_]
                 except KeyError:
-                    raise IncorrectIdException
+                    raise IncorrectIdException(self.__key, 'DELETE')
 
                 #make put request with all data exept given load
-                fixed_data = json.dumps({"key": self.key, "data": data_load})
-                self.data_api.put(fixed_data)
+                fixed_data = json.dumps({"key": self.__key, "data": data_load})
+                response = json.loads(self.__data_api.put(fixed_data))
 
-                return json.dumps(return_data)
-
-
-                
-
-
+                return json.dumps(response)
 
 
     ### HELPERS ###
 
-    def __is_new(self, data: str):
-        ui_load = json.loads(data)['data']
-        identifier = ui_load[self.identifier]
-
-        # Parse DB response
-        data_load = json.loads(self.get_all(data))['data']
-
-        # Search submitted identifier address in DB
-        for val in data_load.values():
-            if val[self.identifier] == identifier:
-                return False
-
-        return True
-
-    def __valid_put_data(self, ui_load: dict):
+    def __valid_put_data(self, ui_load: dict, method) -> bool:
         """Validates that ui_load contains data for 1 employee and that an id is provided, Also used for delete"""
         
         # Check if id is key in main dict
@@ -126,7 +104,7 @@ class Base:
 
             # Check if id is empty
             if not id_:
-                raise NoIdException
+                raise NoIdException(self.__key, method)
 
             # ui_load is valid for put request
             else:
@@ -134,11 +112,27 @@ class Base:
 
         # Raise custom Exception
         except KeyError:
-            raise IncorrectDataException
-    
+            raise IncorrectInputException(self.__key, method)
 
-    def __is_boss(self, data: str):
-        # Maybe an id_ authentication, returning the role would be better here
+    def __is_new(self, data: json) -> bool:
+        """
+        Used in POST exception handling
+        """
+        ui_load = json.loads(data)['data']
+        identifier = ui_load[self.__identifier]
+
+        # Parse DB response
+        data_load = json.loads(self.get_all(data))['data']
+
+        # Search submitted identifier address in DB
+        for val in data_load.values():
+            if val[self.__identifier] == identifier:
+                return False
+
+        return True
+
+    def __is_boss(self, data: json) -> bool:
+        """Used in POST, PUT, DELETE exception handling"""
         return json.loads(data)['role'] == 'boss'
 
 
