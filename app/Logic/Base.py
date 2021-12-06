@@ -15,6 +15,9 @@ class Base:
     def get_all(self, data: json) -> json:
         return self.__data_api.get_all(data)
 
+    def get(self, data: json) -> json:
+        pass
+
     def post(self, data: json) -> json:
         if self.__is_boss(data):
             

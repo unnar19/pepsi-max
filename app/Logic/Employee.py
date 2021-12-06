@@ -7,22 +7,22 @@ class Employee(Base):
     def __init__(self) -> None:
         super().__init__("employee", "email")
 
-    def get_all(self, data: str):
+    def get_all(self, data: json) -> json:
         return super().get_all(data)
 
-    def get(self, data: str):
+    def get(self, data: json) -> json:
         return super().get(data)
 
-    def post(self, data: str):
+    def post(self, data: json) -> json:
         return super().post(data)
 
-    def put(self, data: str):
+    def put(self, data: json) -> json:
         return super().put(data)
     
-    def delete(self, data: str):
+    def delete(self, data: json) -> json:
         return super().delete(data)
 
-    def authenticate(self, data: str):
+    def authenticate(self, data: json) -> json:
         # Parse user input
         ui_load = json.loads(data)['data']
         email, password = ui_load['email'], ui_load['password']

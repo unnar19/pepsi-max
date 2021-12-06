@@ -2,10 +2,13 @@ from UI.FormatUI import FormatUI
 from Logic.LogicAPI import LogicAPI
 import json
 
+from UI.InteractionsUI import InteractionsUI
+
 class ScreensUI():
     def __init__(self):
         self.format = FormatUI()
         self.logic_api = LogicAPI()
+        self.inter = InteractionsUI()
 
     def get_input(self, prompt_str):
         return input(f' {prompt_str}: ')
@@ -111,18 +114,49 @@ class ScreensUI():
             elif input_int == 4: #log out
                 return False
 
+    def screen_lists_from_all(self, listing_list) -> list:
+        ''' Splits listing list into pages '''
+        maximum = 20
+        page_count = (len(listing_list) // maximum) + 1 
+        if len(listing_list) % maximum == 0:
+            page_count -= 1
+
+        page_list = []
+        offset = 0
+        for page_i in range(page_count):
+            if page_i == page_count-1:
+                last_page = listing_list[(page_i)*offset:]
+                remaining = maximum - len(last_page)
+                if remaining == 0:
+                    remaining = 19
+                [last_page.append(['','','','']) for _ in range(remaining)]
+
+                page_list.append(last_page)
+            else:
+                page_list.append(listing_list[(page_i-1)*offset:maximum + offset])
+                offset += 20
+        return page_list
+
     def employees_screen(self) -> None:      
-        self.format.preview_title = f'{"Name":<23} | {"ID":<5} | {"Phone":<15} | {"Location":<12}'
+        self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'
         search_str = self.format.styles[0][1:-1]
         self.format.comment = 'Select an option'
         list_of_comments = ['Enter search term']
+        curr_page = 1
+        emp_list = self.inter.listing_all_employees()
+        # Make list for each screen
+        page_list = self.screen_lists_from_all(emp_list)
+
         while True:
             if self.filter_str == '':
-                self.format.preview_comment = 'Page 1 of 1 | Filter: [empty]'
+                self.format.preview_comment = f'Page {curr_page} of {len(page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Employees'
-            self.format.edit_commands(['Search','Filter','Select','Next page','Prev page','Back'])
+            self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Back'])
             self.format.apply_styles([0,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
+
+            self.format.listing_lis = page_list[curr_page-1]
+
             self.format.print_screen()
             input_str = self.get_input('Input')
             input_int, type_of_input = self.check_type_of_input(input_str)
@@ -140,16 +174,29 @@ class ScreensUI():
             elif type_of_input == 1:
                 if input_int == 1: # Filters
                     self.format.comment = 'Select a filter'
+                    curr_page = 1
                     self.filter_screen()
                     self.format.comment = 'Select an option'
 
-                elif input_int == 1: # Select employee
+                elif input_int == 2: # Select employee
                     pass
-                elif input_int == 1: # Next Page
-                    pass
-                elif input_int == 1: # Previous Page
-                    pass
+                
+                elif input_int == 3: # Previous Page
+                    if curr_page > 1:
+                        self.format.comment = 'Select an option'
+                        curr_page -= 1
+                    else:
+                        self.format.comment = 'Invalid input, Select an option'
+                
+                elif input_int == 4: # Next Page
+                    if curr_page < len(page_list):
+                        self.format.comment = 'Select an option'
+                        curr_page += 1
+                    else:
+                        self.format.comment = 'Invalid input, Select an option'
+
                 elif input_int == 5: #Back (goes to back the the main menu)
+                    self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
 

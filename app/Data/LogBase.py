@@ -135,19 +135,22 @@ class LogBase:
         """
         READ INTERFACE TO DB
         """
-        if self.__is_empty():
+        try:
+            if self.__is_empty():
+                raise DatabaseEmptyException(self.__key, 'GET_ALL')
+            else:
+                ret = {"type": "dict", "data": {}}
+                with open(self.__path, newline='', encoding='utf-8') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        id = row["id"]
+                        csv_dict = {}
+                        for key in row:
+                            csv_dict[key]=row[key]
+                        ret["data"][id] = csv_dict
+                return ret
+        except FileNotFoundError:
             raise DatabaseEmptyException(self.__key, 'GET_ALL')
-        else:
-            ret = {"type": "dict", "data": {}}
-            with open(self.__path, newline='', encoding='utf-8') as csvfile:
-                reader = csv.DictReader(csvfile)
-                for row in reader:
-                    id = row["id"]
-                    csv_dict = {}
-                    for key in row:
-                        csv_dict[key]=row[key]
-                    ret["data"][id] = csv_dict
-            return ret
 
 
     def __get_next_id(self) -> int:

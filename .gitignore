@@ -19,3 +19,4 @@ app/.DS_Store
 
 #csv files for database
 app/csv-files/
+app/me_test.py
