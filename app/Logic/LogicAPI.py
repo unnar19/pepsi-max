@@ -112,7 +112,7 @@ class LogicAPI:
     def authenticate_employee(self, data: str):
         """
         Sends AUTH request to LL
-
+        Key field contains "employee"
         Data field contains username-field and password-field
         """
         try:

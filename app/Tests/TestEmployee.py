@@ -2,6 +2,8 @@ import unittest
 from Logic.LogicAPI import LogicAPI
 import json
 import os
+unittest.TestLoader.sortTestMethodsUsing = None
+
 
 
 
@@ -43,7 +45,7 @@ new_emp2 = json.dumps({ "role": "boss",
                             "address": "Kárastígur 5",
                             "home_phone": "5812345",
                             "mobile_phone": "8885555",
-                            "email": "test_email1@ru.is",
+                            "email": "blabla@ru.is",
                             "destination": "Reykjavík",
                             "tickets": "[]",
                             "reports": "[]",
@@ -52,7 +54,6 @@ new_emp2 = json.dumps({ "role": "boss",
 
 
 class TestEmployee(unittest.TestCase):
-
     @classmethod
     def setUpClass(self) -> None:
         """ þar sem það er ekki delete methood þá verð ég að vera smá sniðugur
@@ -65,23 +66,34 @@ class TestEmployee(unittest.TestCase):
         self.id = res["data"]["id"]
 
 
-    def test_post_employee(self):
-        """Try to post new employee that violates key constraint"""
-        res = json.loads(self.LL.post(new_emp2))
-        self.assertFalse(res["type"])
-
+    # def test_get_employee(self):
+    #     res = self.LL.get(json.dumps({
+    #         "key":"employee",
+    #         "data":{"id":self.id}
+    #     }))
+    #     self.assertEqual(res,new_emp1)
+    
     def test_put_employee(self):
         """We change the employee we made in setUp"""
         put_data_1 = json.dumps({"role": "boss",
                         "key": "employee",
                         "data": {
                             "id": str(self.id),
-                            "email": "post_test@ru.is",
+                            "name": "einar",
                             }
                         })
         res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
 
+
+    def test_authenticate(self):
+        data = json.dumps({
+            "key":"employee",
+            "data":{"email":"test_email1@ru.is",
+                    "password": "TestPassword"}
+        })
+        res = json.loads(self.LL.authenticate_employee(data))
+        self.assertEqual(res["data"]["name"], "TestEmployee")
 
 
     def test_put_employee_to_fail(self):
@@ -90,15 +102,17 @@ class TestEmployee(unittest.TestCase):
         self.assertFalse(res["type"])
 
 
-    def test_delete_emp(self):
-        put_data_delete = json.dumps({"role": "boss",
+    @classmethod
+    def tearDownClass(self):
+        put_data_delete = json.dumps({
+                        "role": "boss",
                         "key": "employee",
                         "data": {
                             "id": str(self.id),
                             }
                         })
-        res = json.loads(self.LL.put(put_data_delete))
-        self.assertTrue(res["type"])
+        res = json.loads(self.LL.delete(put_data_delete))
+    
 
 
 if __name__ == '__main__':

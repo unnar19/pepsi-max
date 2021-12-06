@@ -43,6 +43,8 @@ class LogBase:
 
         # Fields in appropriate schema
         self.__fields = list(self.__schema['data'].keys())
+        if not os.path.exists(self.__path):
+            with open(self.__path,"w"): pass
 
     ### CRUD ###
 
@@ -65,7 +67,6 @@ class LogBase:
 
         # If file exists
         if os.path.exists(self.__path):
-
             # Assign id's manually s.a.t. not break unique constraint
             nextid = self.__get_next_id()
             ll_load["data"]["id"] = nextid
@@ -154,9 +155,10 @@ class LogBase:
         Returns ID for next row
         """
         max_id = 0
-        items = self.__get_all_dict()
-        for item in items["data"]:
-            max_id = int(item,10)
+        if not self.__is_empty():     
+            items = self.__get_all_dict()
+            for item in items["data"]:
+                max_id = int(item,10)
         return int(max_id) +1
 
 
