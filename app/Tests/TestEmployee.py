@@ -68,7 +68,11 @@ class TestEmployee(unittest.TestCase):
     def test_post_employee(self):
         """Try to post new employee that violates key constraint"""
         res = json.loads(self.LL.post(new_emp2))
+<<<<<<< HEAD
         self.assertFalse(res['type'])
+=======
+        self.assertFalse(res["type"])
+>>>>>>> 5168eff109faa8cd689c76ec48a5556da781ec07
 
     def test_put_employee(self):
         """We change the employee we made in setUp"""
@@ -81,6 +85,7 @@ class TestEmployee(unittest.TestCase):
                         })
         res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
+
 
 
     def test_put_employee_to_fail(self):
@@ -96,9 +101,8 @@ class TestEmployee(unittest.TestCase):
                             "id": str(self.id),
                             }
                         })
-        res = self.LL.put(put_data_delete)
-        print("Type of response in put: "+str(type(res)))
-
+        res = json.loads(self.LL.put(put_data_delete))
+        self.assertTrue(res["type"])
 
 
 if __name__ == '__main__':

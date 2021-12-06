@@ -111,17 +111,11 @@ class ScreensUI():
             elif input_int == 4: #log out
                 return False
 
-    def employees_screen(self) -> None:
-        self.back = False        
-        list_of_comments = ['Enter search term']
-        self.format.edit_commands(['Search','Filter','Select','Next page','Prev page','Back'])
-        self.format.apply_styles([0,1,1,1,1,1])
+    def employees_screen(self) -> None:      
+        self.format.preview_title = f'{"Name":<23} | {"ID":<5} | {"Phone":<15} | {"Location":<12}'
         search_str = self.format.styles[0][1:-1]
-        self.format.preview_title = 'Name'
-
-        
         self.format.comment = 'Select an option'
-        
+        list_of_comments = ['Enter search term']
         while True:
             if self.filter_str == '':
                 self.format.preview_comment = 'Page 1 of 1 | Filter: [empty]'
@@ -147,6 +141,7 @@ class ScreensUI():
                 if input_int == 1: # Filters
                     self.format.comment = 'Select a filter'
                     self.filter_screen()
+                    self.format.comment = 'Select an option'
 
                 elif input_int == 1: # Select employee
                     pass
@@ -169,6 +164,7 @@ class ScreensUI():
             self.format.comment = f'{type_of_input}, Select a filter'
             self.filter_screen()
         elif input_int == 6: # Clear
+            self.format.comment = 'Select an option'
             self.filter_str = ''
         elif input_int == 7: # Back
             self.format.comment = 'Select an option'
