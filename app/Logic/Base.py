@@ -22,8 +22,8 @@ class Base:
             for key, value in all_data["data"].items():
                 if value[filter_option[1]] == filter_option[2]:
                     filtered_data[key] = value
-            return_data = {"data":filtered_data}
-            return return_data
+            return_data = {"type": "dict", "data" :filtered_data}
+            return json.dumps(return_data)
 
     def get(self, data: json) -> json:
         pass
