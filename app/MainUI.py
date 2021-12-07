@@ -1,12 +1,18 @@
 from UI.ScreensUI import ScreensUI
 
 class MainUI:
+    '''
+    Contains the main loop of the program
+    '''
     def __init__(self):
         self.isloggedin = False
         self.screen = ScreensUI()
         self.first_login = True
 
-    def run(self):  
+    def run(self):
+        '''
+        Runs the program from the login screen
+        '''
         while True:
             self.isloggedin = self.screen.login_screen(self.first_login)
             if not self.isloggedin:
@@ -16,10 +22,13 @@ class MainUI:
                 self.isloggedin = self.screen.menu_screen()
 
     def debug(self):
+        '''
+        Runs the program from the menu, used to debug
+        '''
         while True:
             self.screen.menu_screen()
 
     
 if __name__ == "__main__":
-    MainUI().run() # Runs from login screen
-    #MainUI().debug() # Runs from menu screen
+    MainUI().run() 
+    #MainUI().debug()

@@ -128,6 +128,7 @@ class Base:
             raise NotFoundException(self._key, 'GET')
 
     def post(self, data: json) -> json:
+        """Posts new data into database layer, returns posted data"""
         if self.__is_boss(data):
             
             if self.__correct_fields(data):
@@ -158,34 +159,38 @@ class Base:
         Put requests must come with an ID
         """
 
-        if self.__is_boss(data):
-            
-            # Parse user input
-            ui_load = json.loads(data)['data']
+        if not self._unique or self.__is_new(data):
 
-            # Validate input
-            if self.__valid_put_data(ui_load, 'PUT'):
+            if self.__is_boss(data):
+                
+                # Parse user input
+                ui_load = json.loads(data)['data']
 
-                # Parse DB response
-                data_load = json.loads(self.get_all(data))['data']
+                # Validate input
+                if self.__valid_put_data(ui_load, 'PUT'):
 
-                # Replace item data
-                id_ = ui_load['id']
-                for key, val in ui_load.items():
-                    data_load[id_][key] = val
+                    # Parse DB response
+                    data_load = json.loads(self.get_all(data))['data']
 
-                # Send fixed data to DL to be written
-                fixed_data = json.dumps({"key": self._key, "data": data_load})
-                response = json.loads(self.__data_api.put(fixed_data))
+                    # Replace item data
+                    id_ = ui_load['id']
+                    for key, val in ui_load.items():
+                        data_load[id_][key] = val
 
-                # Return fixed data to UI to be displayed
-                if response['type']:
-                    response['data'] = data_load[id_]
+                    # Send fixed data to DL to be written
+                    fixed_data = json.dumps({"key": self._key, "data": data_load})
+                    response = json.loads(self.__data_api.put(fixed_data))
 
-                    return json.dumps(response)
+                    # Return fixed data to UI to be displayed
+                    if response['type']:
+                        response['data'] = data_load[id_]
 
+                        return json.dumps(response)
+
+            else:
+                raise UnauthorizedRequestException(self._key, 'PUT')
         else:
-            raise UnauthorizedRequestException(self._key, 'PUT')
+            raise DataAlreadyExistsException(self._key, 'PUT')
 
     def delete(self, data : json) -> json:
         """
@@ -238,6 +243,7 @@ class Base:
     def __is_new(self, data: json) -> bool:
         """
         Used in POST exception handling
+        Used in PUT to check if overriding existing password
         """
         ui_load = json.loads(data)['data']
         unique_val = ui_load[self._unique]
@@ -263,7 +269,7 @@ class Base:
 
     def __wants_filter(self, data: json) -> bool:
         """If 'filter' field is set we return the field to filter and value"""
-        return 'filter' in json.loads(data)['data'].keys()
+        return 'filter' in json.loads(data).keys()
 
     def __correct_fields(self, data: json) -> bool:
         """
