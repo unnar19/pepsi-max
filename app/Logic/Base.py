@@ -9,8 +9,7 @@ class Base:
         self._key = key
         self._identifier = identifier
         self._unique = unique_val
-
-
+        
     ### CRUD ###
 
     def get_all(self, data: json) -> json:
@@ -57,9 +56,11 @@ class Base:
     def post(self, data: json) -> json:
         if self.__is_boss(data):
             
-            if self.__is_new(data):
+            # Some data, e.g. Tickets do not have a unique identifier
+            if not self._unique:
                 return self.__data_api.post(data)
-            
+            elif self.__is_new(data):
+                return self.__data_api.post(data)
             else:
                 raise DataAlreadyExistsException(self._key, 'POST')
         else:
