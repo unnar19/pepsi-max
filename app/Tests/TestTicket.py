@@ -2,7 +2,16 @@ import unittest
 from Logic.LogicAPI import LogicAPI
 import json
 
-
+new_ticket = json.dumps(
+    {
+        "role": "boss",
+        "key": "ticket",
+        "data": {
+            "description": "Put dog in dishwasher",
+            "destination": ""
+        }
+    }
+)
 class TestTicket(unittest.TestCase):
 
     @classmethod
