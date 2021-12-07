@@ -18,27 +18,25 @@ put_data_2 = json.dumps({"role": "employee",
                         })
 
 #this will pass in setUp
-new_cont1 = json.dumps({ "role": "boss",
+new_dest1 = json.dumps({ "role": "boss",
                         "key": "destination",
                         "data": {
-                            "name": "contname",
-                            "contact": "tom",
+                            "airport": "Helsinki",
+                            "country": "Finland",
                             "phone": "9999999",
                             "opening_hours": "1-2",
-                            "destination": "Nuuk",
-                            "tickets": "[]",
+                            "manager": "6",
                             }
                         })
 #this will fail
-new_cont2 = json.dumps({ "role": "boss",
-                        "key": "employee",
+new_dest2 = json.dumps({ "role": "boss",
+                        "key": "destination",
                         "data": {
-                            "name": "contractor2",
-                            "contact": "michelinmaðurinn",
-                            "phone": "9898989",
-                            "opening_hours": "15-20",
-                            "destination": "Reykjavík",
-                            "tickets": "[]",
+                            "airport": "Helsinki",
+                            "country": "Finland",
+                            "phone": "8888888",
+                            "opening_hours": "1-2",
+                            "manager": "7",
                             }
                         })
 
@@ -47,18 +45,18 @@ class TestDestination(unittest.TestCase):
     @classmethod
     def setUpClass(self) -> None:
         """ þar sem það er ekki delete methood þá verð ég að vera smá sniðugur
-            með hvernig eg set upp testin, byrja a ad gera cont, reyni svo ad gera 
-            annann med sama email, thad á að feila, breyti svo upphaflega gæjanum 
+            með hvernig eg set upp testin, byrja a ad gera dest, reyni svo ad gera 
+            annann med sama flugvöll, thad á að feila, breyti svo upphaflega gæjanum 
             þannig að næst þegar þetta keyrir þá er sá gæji "ekki til"
         """
         self.LL = LogicAPI()
-        res = json.loads(self.LL.post(new_cont1))
+        res = json.loads(self.LL.post(new_dest1))
         self.id = res["data"]["id"]
     
-    def test_put_contractor(self):
-        """We change the contractor we made in setUp"""
+    def test_put_destination(self):
+        """We change the destination we made in setUp"""
         put_data_1 = json.dumps({"role": "boss",
-                        "key": "contractor",
+                        "key": "destination",
                         "data": {
                             "id": str(self.id),
                             "phone": "6767676",
@@ -67,38 +65,38 @@ class TestDestination(unittest.TestCase):
         res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
 
-    def test_put_contractor_to_fail(self):
+    def test_put_destination_to_fail(self):
         """We try to change contractor details as regular employee"""
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
 
-    def test_get_contractor(self):
+    def test_get_destination(self):
         data = json.dumps({
-            "key":"contractor",
-            "data":{"id": '6'}
+            "key":"destination",
+            "data":{"id": '3'}
         })
         res = json.loads(self.LL.get(data))
-        self.assertEqual(res['data']['name'], 'Bryan Adams')
+        self.assertEqual(res['data']['airport'], 'Kulusuk')
 
-    def test_filter_contractor(self):
+    def test_filter_destination(self):
         data = json.dumps(
             {
-                "key": "contractor",
+                "key": "destination",
                 "filter": True,
                 "data": {
-                    "filter": "destination",
-                    "filter_value": "Cumtown"
+                    "filter": "country",
+                    "filter_value": "Grænland"
                 }
             }
         )
         res = json.loads(self.LL.get_all(data))
-        self.assertEqual(res['data']['3']['name'], 'baron von flanagan')
+        self.assertEqual(res['data']['2']['airport'], 'Nuuk')
 
     @classmethod
     def tearDownClass(self):
         put_data_delete = json.dumps({
                         "role": "boss",
-                        "key": "contractor",
+                        "key": "destination",
                         "data": {
                             "id": str(self.id),
                             }
