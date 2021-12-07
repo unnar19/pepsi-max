@@ -4,7 +4,7 @@ import json
 class RealEstate(Base):
     
     def __init__(self) -> None:
-        super().__init__("real_estate", "real_estate_id")
+        super().__init__("real_estate", "real_estate_id", "id")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)

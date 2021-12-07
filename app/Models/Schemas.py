@@ -90,7 +90,7 @@ ticket_schema = {
         "id": {"type": "number"},
         "report_id": {"type": "number"},
         "real_estate_id": {"type": "list"},
-        "work_description": {"type": "string"},
+        "description": {"type": "string"},
         "employees": {"type": "list"},
         "destination": {"type": "tring"},
         "start_date": {"type": "string"},

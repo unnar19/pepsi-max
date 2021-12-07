@@ -2,7 +2,19 @@ import unittest
 from Logic.LogicAPI import LogicAPI
 import json
 
-
+new_ticket = json.dumps(
+    {
+        "role": "boss",
+        "key": "ticket",
+        "data": {
+            "description": "Put dog in dishwasher",
+            "destination": "Nuuk",
+            "start_date": "7.12.2021",
+            "priority": "A",
+            "is_recurring": False
+        }
+    }
+)
 class TestTicket(unittest.TestCase):
 
     @classmethod
@@ -13,6 +25,7 @@ class TestTicket(unittest.TestCase):
             þannig að næst þegar þetta keyrir þá er sá gæji "ekki til"
         """
         self.LL = LogicAPI()
+        res = json.loads(self.LL.post(new_ticket))
 
 
     def test_post_ticket(self):
