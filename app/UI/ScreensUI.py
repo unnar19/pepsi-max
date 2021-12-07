@@ -1,3 +1,4 @@
+from os import name
 from UI.FormatUI import FormatUI
 from Logic.LogicAPI import LogicAPI
 import json
@@ -185,10 +186,12 @@ class ScreensUI():
                     self.format.print_screen()
                     id_input = self.get_input('Input')
                     if id_input in id_list:
-                        self.profile_screen()
+                        self.profile_screen(id_input)
                     else:
                         self.format.comment = 'ID not valid, Select an option'
-                
+                    self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'
+                    self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
+                    
                 elif input_int == 3: # Previous Page
                     if curr_page > 1:
                         self.format.comment = 'Select an option'
@@ -208,9 +211,22 @@ class ScreensUI():
                     self.format.comment = 'Select an option'
                     return
 
-    def profile_screen(self):
-        print('poopy')
-        input('continue?')
+    def profile_screen(self, id_str):
+        self.format.subtitle = 'Menu > Employees > Select'
+        self.format.edit_commands(['Back'])
+        self.format.apply_styles([1])
+        self.format.comment = 'Select an option'
+        self.format.preview_title = 'Employee information'
+        self.format.profile = True
+        name, self.format.listing_lis = self.inter.get_individual(id_str)
+        self.format.preview_comment = f"There are 10 days until {name}'s birthday"
+        while True:
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if input_int == 0:
+                self.format.profile = False
+                return
 
     def filter_screen(self):
         self.format.subtitle = 'Menu > Employees > Filter'
