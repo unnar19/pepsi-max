@@ -43,7 +43,7 @@ destination_schema = {
         "country": {"type": "string"},
         "phone": {"type": "int"},
         "opening_hours": {"type": "string"},
-        "manager": {"type": "string"},
+        "manager_id": {"type": "string"},
     },
 }
 

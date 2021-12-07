@@ -25,7 +25,7 @@ new_dest1 = json.dumps({ "role": "boss",
                             "country": "Finland",
                             "phone": "9999999",
                             "opening_hours": "1-2",
-                            "manager": "6",
+                            "manager_id": "6",
                             }
                         })
 #this will fail
@@ -36,7 +36,7 @@ new_dest2 = json.dumps({ "role": "boss",
                             "country": "Finland",
                             "phone": "8888888",
                             "opening_hours": "1-2",
-                            "manager": "7",
+                            "manager_id": "7",
                             }
                         })
 
