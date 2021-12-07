@@ -4,7 +4,7 @@ import json
 class Contractor(Base):
     
     def __init__(self) -> None:
-        super().__init__("contractor", "id")
+        super().__init__("contractor")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)

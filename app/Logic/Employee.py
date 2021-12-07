@@ -5,7 +5,7 @@ import json
 class Employee(Base):
     
     def __init__(self) -> None:
-        return super().__init__("employee", "email", 'id')
+        return super().__init__("employee")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)

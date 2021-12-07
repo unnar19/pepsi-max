@@ -4,7 +4,7 @@ import json
 class Ticket(Base):
     
     def __init__(self) -> None:
-        super().__init__("ticket", "id")
+        super().__init__("ticket")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)

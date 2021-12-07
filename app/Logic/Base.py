@@ -4,11 +4,80 @@ from Exceptions import *
 
 class Base:
 
-    def __init__(self, key, identifier, unique_val=None) -> None:
+    __required = {
+        "employee":[
+            "role", "name", "password", "ssn", "address", \
+            "mobile_phone", "email", "destination"
+        ],
+        "real_estate":[
+            "real_estate_id", "address", "destination"
+        ],
+        "ticket":[
+            "real_estate_id", "description", "destination", "start_date", "employee_id"
+        ],
+        "report":[
+            "real_estate_id", "description", "employee_id", "destination", "start_date"
+        ],
+        "contractor":[
+            "name", "contact", "phone", "opening_hours", "destination"
+        ],
+        "destination":[
+            "airport", "country", "phone", "opening_hours", "manager_id"
+        ]
+    }
+    __autofill = {
+        "employee":{
+            "home_phone": None,
+            "tickets": [],
+            "reports": []
+        },
+        "real_estate":{
+            "tickets": [],
+            "reports": [],
+            "maintenance_info": None
+        },
+        "ticket":{
+            "report_id": 0,
+            "close_date": "future",
+            "priority": False,
+            "open": True,
+            "is_recurring": False,
+            "comments": []
+
+        },
+        "report":{
+            "ticket_id": 0,
+            "total_price": 0,
+            "contractor_id": 0,
+            "contractor_pay": 0,
+            "close_date": "future",
+            "ready": False 
+        },
+        "contractor":{
+            "tickets": []
+        },
+    }
+    __unique = {
+        "employee": "email",
+        "real_estate": "real_estate_id",
+        "contractor":"phone",
+        "destination":"airport"
+    }
+
+    def __init__(self, key, identifier='id') -> None:
         self.__data_api = DataAPI()
         self._key = key
         self._identifier = identifier
-        self._unique = unique_val
+
+        if key in Base.__unique.keys():
+            self._unique = Base.__unique[key]
+        else:
+            self._unique = None
+            
+        if key in Base.__required.keys():
+            self._required = Base.__required[key]
+        if key in Base.__autofill.keys():
+            self._autofill = Base.__autofill[key]
         
     ### CRUD ###
 
@@ -155,7 +224,7 @@ class Base:
         Used in POST exception handling
         """
         ui_load = json.loads(data)['data']
-        identifier = ui_load[self._identifier]
+        unique_val = ui_load[self._unique]
 
         # Parse DB response
     
@@ -165,9 +234,9 @@ class Base:
             return True
         
         data_load = data_load["data"]
-        # Search submitted identifier address in DB
+        # Search submitted unique_val address in DB
         for val in data_load.values():
-            if val[self._identifier] == identifier:
+            if val[self._unique] == unique_val:
                 return False
 
         return True
