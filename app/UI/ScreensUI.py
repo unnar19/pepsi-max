@@ -41,10 +41,11 @@ class ScreensUI():
         }
         data = json.dumps(data_dict)
         response = self.logic_api.authenticate_employee(data)
-
-        if not response:
-            return False, 1, 1, 1
         response_dict = json.loads(response)
+
+        if not response_dict['type']:
+            return False, None, None, None
+        
         id = response_dict['data']['id']
         role = response_dict['data']['role']
         name = response_dict['data']['name']
@@ -76,9 +77,13 @@ class ScreensUI():
                 print(password)
 
                 logged_in, self.id, self.role, self.name = self.authenticate_login(email, password)
-                logged_str = f'Logged in as: {self.name}'
+                if not logged_in:
+                    return False
+                first_name = self.name.split(' ')
+                first_name = first_name[0]
+                logged_str = f'Logged in as: {first_name}'
                 self.format.title += f'{logged_str:>42}'
-                return logged_in
+                return True
 
             if not str(type_of_input).isdigit():
                 self.format.comment = f'{type_of_input}, Select an option'

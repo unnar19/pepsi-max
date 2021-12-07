@@ -25,7 +25,7 @@ class InteractionsUI:
         return employee_list
 
     def filter_listing(self, filter_str, filter_type):
-        request = json.dumps({'key': 'employee', 'filter': filter_type, 'filter_value': filter_str})
+        request = json.dumps({'key': 'employee', "filter": True, 'data':{'filter': filter_type, 'filter_value': filter_str}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 

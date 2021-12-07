@@ -21,5 +21,5 @@ class MainUI:
 
     
 if __name__ == "__main__":
-    #MainUI().run() # Runs from login screen
-    MainUI().debug() # Runs from menu screen
+    MainUI().run() # Runs from login screen
+    #MainUI().debug() # Runs from menu screen
