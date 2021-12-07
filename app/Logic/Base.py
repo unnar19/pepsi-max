@@ -157,6 +157,9 @@ class Base:
         Data argument should only contain data from 1 item
 
         Put requests must come with an ID
+
+        put() should prevent overwriting of unique constraints but
+        should allow putting unchanged unique identifiers
         """
 
         if not self._unique or self.__is_new(data):
