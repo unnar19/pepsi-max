@@ -70,6 +70,7 @@ class "Logic API" as wrapper1{
     get()
     post()
     put()
+    delete()
 }
 
 
