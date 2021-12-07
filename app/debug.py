@@ -52,13 +52,13 @@ LL = LogicAPI()
 
 
 
-getAll = json.dumps({"key":"employee","filter":"destination", "filter_value":"Reykjavík"})
+put = json.dumps({"role": "boss","key":"employee","id":1, "data":{"id": "1", "email": "nnnn@ru.is"}})
 
 
-res = LL.get_all(getAll)
+
+
+res = LL.put(put)
 
 print(json.loads(res))
 
-res = LL.get_all(json.dumps({"key":"employee"}))
 
-print(res)
