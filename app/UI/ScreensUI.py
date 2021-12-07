@@ -89,8 +89,7 @@ class ScreensUI():
                 logged_in, self.id, self.role, self.name = self.inter.authenticate_login(email, password)
                 if not logged_in:
                     return False
-                first_name = self.name.split(' ')
-                first_name = first_name[0]
+                first_name = self.name.split(' ')[0]
                 logged_str = f'Logged in as: {first_name}'
                 self.format.title += f'{logged_str:>42}'
                 return True
@@ -118,8 +117,8 @@ class ScreensUI():
                 self.filter_str = ''
                 self.employees_screen()
             elif input_int == 1: #realestate
-                print('Realestate screen')
-                input('continue?')
+                self.filter_str = ''
+                self.real_estate_screen()
             elif input_int == 2: #maintenance
                 print('maintenance screen')
                 input('continue?')
@@ -178,7 +177,7 @@ class ScreensUI():
                 if input_int == 1: # Filters
                     self.format.comment = 'Select a filter'
                     curr_page = 1
-                    self.filter_screen()
+                    self.filter_screen('Employees','employee')
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     self.format.comment = 'Select an option'
 
@@ -276,11 +275,12 @@ class ScreensUI():
                 if input_int == 5: # Apply changes
                     new_data_dict = {'id': user_data_dict['id'],'name':new_name, 'email': new_email, 'home_phone': new_h_phone, 'mobile_phone': new_m_phone, 'destination': new_location}
                     edit_response = self.inter.edit_employee(self.id, new_data_dict)
-                    if not edit_response:
-                        self.format.comment = 'Unauthorized, Select an option'
-                    else:
+                    if edit_response:
                         name, self.format.listing_lis = self.inter.custom_individual_preview(new_data_dict['id'])
                         return
+                    else:
+                        self.format.comment = 'Unauthorized, Select an option'
+
                 elif input_int == 6: # Cancel
                     self.format.comment = 'Select an option'
                     return
@@ -312,8 +312,8 @@ class ScreensUI():
                     self.format.comment = 'Select an option'
     
 
-    def filter_screen(self):
-        self.format.subtitle = 'Menu > Employees > Filter'
+    def filter_screen(self, location_str, key):
+        self.format.subtitle = f'Menu > {location_str} > Filter'
         self.format.edit_commands(['Kulusuk','Longyearbyen','Nuuk','Reykjavík','Tingwall','Tórshavn','Clear','Back'])
         self.format.apply_styles([1,1,1,1,1,1,1,1])
         self.format.print_screen()
@@ -321,7 +321,7 @@ class ScreensUI():
         input_int, type_of_input = self.check_type_of_input(input_str)
         if type(type_of_input) != int:
             self.format.comment = f'{type_of_input}, Select a filter'
-            self.filter_screen()
+            self.filter_screen(location_str, key)
         elif input_int == 6: # Clear
             self.format.comment = 'Select an option'
             self.page_list = self.screen_lists_from_all(self.emp_list)
@@ -331,7 +331,7 @@ class ScreensUI():
         else: # Filter selected
             list_of_commands = list(self.format.commands)
             self.filter_str = list_of_commands[input_int]
-            listing_list = self.inter.filter_listing(self.filter_str,'destination')
+            listing_list = self.inter.filter_listing(self.filter_str, key, 'destination')
             self.page_list = self.screen_lists_from_all(listing_list)
     
 # =======================================================================================================
@@ -342,26 +342,29 @@ class ScreensUI():
 # Realestate
 
     def real_estate_screen(self):
-        self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'
+        self.format.preview_title = f'{"Address":<30} | {"ID":<5} | {"Address ID":<10} | {"Location":<12}'
         search_str = self.format.styles[0][1:-1]
         self.format.comment = 'Select an option'
         list_of_comments = ['Enter search term']
         curr_page = 1
-        self.emp_list = self.inter.listing_all_employees()
+        self.emp_list = self.inter.listing_all_real_estates()
         id_list = []
-        [id_list.append(employee[1])for employee in self.emp_list]
+        [id_list.append(estate[1])for estate in self.emp_list]
         # Make list for each screen
         self.page_list = self.screen_lists_from_all(self.emp_list)
 
         while True:
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
-            self.format.subtitle = 'Menu > Employees'
+            self.format.subtitle = 'Menu > Real Estate'
             self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Back'])
             self.format.apply_styles([0,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
 
-            self.format.listing_lis = self.page_list[curr_page-1]
+            if len(self.page_list) == 0:
+                self.format.listing_lis = self.format.empty_listing()
+            else:
+                self.format.listing_lis = self.page_list[curr_page-1]
 
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -381,7 +384,7 @@ class ScreensUI():
                 if input_int == 1: # Filters
                     self.format.comment = 'Select a filter'
                     curr_page = 1
-                    self.filter_screen()
+                    self.filter_screen('Real Estate','real_estate')
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     self.format.comment = 'Select an option'
 
@@ -391,7 +394,7 @@ class ScreensUI():
                     id_input = self.get_input('Input')
                     if id_input in id_list:
                         self.profile_screen(id_input)
-                        self.emp_list = self.inter.listing_all_employees()
+                        self.emp_list = self.inter.listing_all_real_estates()
                         id_list = []
                         [id_list.append(employee[1])for employee in self.emp_list]
                         # Make list for each screen again

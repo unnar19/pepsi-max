@@ -54,20 +54,42 @@ class InteractionsUI:
             employee_list.append(nested_emp_list)
         return employee_list
 
-    def filter_listing(self, filter_str, filter_type):
-        request = json.dumps({'key': 'employee', "filter": True, 'data':{'filter': filter_type, 'filter_value': filter_str}})
+    def listing_all_real_estates(self) -> list:
+        ''' Gets all realestates and their information to display when listing'''
+
+        # Request data drom API
+        request = json.dumps({'key': 'real_estate'})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 
-        employee_list = []
+        # Decode dictionary to nested lists
+        real_estate_list = []
         for value in response_dict['data'].values():
-            nested_emp_list = []
-            nested_emp_list.append(value['name'])
-            nested_emp_list.append(value['id'])
-            nested_emp_list.append(value['mobile_phone'])
-            nested_emp_list.append(value['destination'])
-            employee_list.append(nested_emp_list)
-        return employee_list
+            nested_real_list = []
+            nested_real_list.append(value['address'])
+            nested_real_list.append(value['id'])
+            nested_real_list.append(value['real_estate_id'])
+            nested_real_list.append(value['destination'])
+            real_estate_list.append(nested_real_list)
+        return real_estate_list
+
+    def filter_listing(self, filter_str, key, filter_type):
+        request = json.dumps({'key': key, "filter": True, 'data':{'filter': filter_type, 'filter_value': filter_str}})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
+
+        if key == 'employee':
+            value_list = ['name','id','mobile_phone','destination']
+        elif key == 'real_estate':
+            value_list = ['address','id','real_estate_id','destination']
+
+        big_list = []
+        for value in response_dict['data'].values():
+            nested_line_list = []
+            for item in value_list:
+                nested_line_list.append(value[item])
+            big_list.append(nested_line_list)
+        return big_list
 
     def get_individual(self, id_str):
         '''
