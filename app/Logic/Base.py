@@ -293,4 +293,3 @@ class Base:
                 ui_load['data'][key] = val
 
         return json.dumps(ui_load)
-                
