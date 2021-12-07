@@ -157,7 +157,10 @@ class ScreensUI():
             self.format.apply_styles([0,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
 
-            self.format.listing_lis = self.page_list[curr_page-1]
+            if len(self.page_list) == 0:
+                self.format.listing_lis = self.format.empty_listing()
+            else:
+                self.format.listing_lis = self.page_list[curr_page-1]
 
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -186,7 +189,7 @@ class ScreensUI():
                     self.format.print_screen()
                     id_input = self.get_input('Input')
                     if id_input in id_list:
-                        self.profile_screen(id_input)
+                        self.employee_profile_screen(id_input)
                         self.emp_list = self.inter.listing_all_employees()
                         id_list = []
                         [id_list.append(employee[1])for employee in self.emp_list]
@@ -219,7 +222,7 @@ class ScreensUI():
                     self.format.comment = 'Select an option'
                     return
 
-    def profile_screen(self, id_str):
+    def employee_profile_screen(self, id_str):
         self.format.comment = 'Select an option'
         self.format.profile = True
         while True:
@@ -227,7 +230,7 @@ class ScreensUI():
             self.format.edit_commands(['Edit info','Tickets','Back'])
             self.format.apply_styles([1,1,1])
             self.format.preview_title = 'Employee information'
-            name, self.format.listing_lis = self.inter.custom_individual_preview(id_str)
+            name, self.format.listing_lis = self.inter.custom_person_preview(id_str)
             self.format.preview_comment = f"There are 10 days until {name}'s birthday"
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -236,7 +239,7 @@ class ScreensUI():
                 self.format.comment = f'{type_of_input}, Select an option'
             else:
                 if input_int == 0: # Edit info
-                    self.edit_profile(id_str)
+                    self.edit_employee_profile(id_str)
                 elif input_int == 1: # Tickets?
                     self.format.comment = 'Select an option' # ALSO JUST GOES BACK
                     self.format.profile = False
@@ -246,11 +249,11 @@ class ScreensUI():
                     self.format.profile = False
                     return
 
-    def edit_profile(self, id_str):
+    def edit_employee_profile(self, id_str):
         self.format.subtitle = 'Menu > Employees > Select > Edit info'
         self.format.edit_commands(['Name','Email','Home phone','Mobile phone','Location','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
-        user_data_dict = self.inter.get_individual(id_str)
+        user_data_dict = self.inter.get_person(id_str)
         
         # Set new values to the original ones
         new_name = user_data_dict['name']
@@ -274,9 +277,9 @@ class ScreensUI():
             elif type_of_input == 1:
                 if input_int == 5: # Apply changes
                     new_data_dict = {'id': user_data_dict['id'],'name':new_name, 'email': new_email, 'home_phone': new_h_phone, 'mobile_phone': new_m_phone, 'destination': new_location}
-                    edit_response = self.inter.edit_employee(self.id, new_data_dict)
+                    edit_response = self.inter.edit_profile(self.id,'employee',new_data_dict)
                     if edit_response:
-                        name, self.format.listing_lis = self.inter.custom_individual_preview(new_data_dict['id'])
+                        name, self.format.listing_lis = self.inter.custom_person_preview(new_data_dict['id'])
                         return
                     else:
                         self.format.comment = 'Unauthorized, Select an option'
@@ -311,7 +314,7 @@ class ScreensUI():
                     new_location = self.get_input('Text input')
                     self.format.comment = 'Select an option'
     
-
+# Þessi er notaður í bæði Real Estate og Employee
     def filter_screen(self, location_str, key):
         self.format.subtitle = f'Menu > {location_str} > Filter'
         self.format.edit_commands(['Kulusuk','Longyearbyen','Nuuk','Reykjavík','Tingwall','Tórshavn','Clear','Back'])
@@ -389,11 +392,11 @@ class ScreensUI():
                     self.format.comment = 'Select an option'
 
                 elif input_int == 2: # Select employee
-                    self.format.comment = 'Enter ID of employee'
+                    self.format.comment = 'Enter ID of Real estate'
                     self.format.print_screen()
                     id_input = self.get_input('Input')
                     if id_input in id_list:
-                        self.profile_screen(id_input)
+                        self.real_estate_profile_screen(id_input)
                         self.emp_list = self.inter.listing_all_real_estates()
                         id_list = []
                         [id_list.append(employee[1])for employee in self.emp_list]
@@ -425,3 +428,91 @@ class ScreensUI():
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
+
+    def real_estate_profile_screen(self, id_str):
+        self.format.comment = 'Select an option'
+        self.format.profile = True
+        while True:
+            self.format.subtitle = 'Menu > Real Estate > Select'
+            self.format.edit_commands(['Edit info','Tickets','Reports','Back'])
+            self.format.apply_styles([1,1,1,1])
+            self.format.preview_title = 'Real estate information'
+            self.format.listing_lis = self.inter.custom_real_estate_preview(id_str)
+            self.format.preview_comment = ''
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+            else:
+                if input_int == 0: # Edit info
+                    self.edit_real_estate_profile(id_str)
+                elif input_int == 1: # Tickets
+                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
+                    self.format.profile = False
+                    return
+                elif input_int == 2: # Reports
+                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
+                    self.format.profile = False
+                    return
+                elif input_int == 3: # Back
+                    self.format.comment = 'Select an option'
+                    self.format.profile = False
+                    return
+
+    def edit_real_estate_profile(self, id_str):
+        self.format.subtitle = 'Menu > Real Estate > Select > Edit info'
+        self.format.edit_commands(['Address','Location','Address ID','Maintenance','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,1,1])
+        estate_data_dict = self.inter.get_real_estate(id_str)
+
+        # Sets new values to the original ones
+        new_address = estate_data_dict['address']
+        new_location = estate_data_dict['destination']
+        new_real_estate_id = estate_data_dict['real_estate_id']
+        new_maintenance = estate_data_dict['maintenance_info']     
+
+        while True:
+            self.format.update_text_box(0,new_address)
+            self.format.update_text_box(1,new_location)
+            self.format.update_text_box(2,new_real_estate_id)
+            self.format.update_text_box(3,new_maintenance)
+
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+            elif type_of_input == 1:
+                if input_int == 4: # Apply changes
+                    new_data_dict = {'id': estate_data_dict['id'], 'real_estate_id': new_real_estate_id, 'address': new_address, 'destination': new_location, 'maintenance_info': new_maintenance}
+                    edit_response = self.inter.edit_profile(self.id, 'real_estate',new_data_dict)
+                    if edit_response:
+                        self.format.listing_lis = self.inter.custom_real_estate_preview(new_data_dict['id'])
+                        return
+                    else:
+                        self.format.comment = 'Unauthorized, Select an option'
+                elif input_int == 5: # Cancel
+                    self.format.comment = 'Select an option'
+                    return
+            else:
+                if input_int == 0: # Address
+                    self.format.comment = 'Enter new address'
+                    self.format.print_screen()
+                    new_address = self.get_input('Text input')
+                    self.format.comment = 'Select an option'
+                elif input_int == 1: # Location
+                    self.format.comment = 'Enter new location'
+                    self.format.print_screen()
+                    new_location = self.get_input('Text input')
+                    self.format.comment = 'Select an option'
+                elif input_int == 2: # Address ID
+                    self.format.comment = 'Enter new address id'
+                    self.format.print_screen()
+                    new_real_estate_id = self.get_input('Text input')
+                    self.format.comment = 'Select an option'
+                elif input_int == 3: # Maintenance Info
+                    self.format.comment = 'Enter new maintenance info'
+                    self.format.print_screen()
+                    new_maintenance = self.get_input('Text input')
+                    self.format.comment = 'Select an option'
