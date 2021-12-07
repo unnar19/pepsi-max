@@ -74,6 +74,8 @@ class LogicAPI:
             return self.__format_error_message(error)
         except IncorrectDataException as error:
             return self.__format_error_message(error)
+        except DataAlreadyExistsException as error:
+            return self.__format_error_message(error)
 
     def delete(self, data: json) -> json:
         """
