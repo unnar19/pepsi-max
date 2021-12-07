@@ -11,7 +11,9 @@ new_ticket = json.dumps(
             "destination": "Nuuk",
             "start_date": "7.12.2021",
             "priority": "A",
-            "is_recurring": False
+            "is_recurring": False,
+            "real_estate_id": 'fk1097',
+            "employee_id": '3'
         }
     }
 )
