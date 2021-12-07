@@ -5,25 +5,25 @@ from Exceptions import *
 class Base:
 
     __required = {
-        "employee":[
+        "employee":{
             "role", "name", "password", "ssn", "address", \
             "mobile_phone", "email", "destination"
-        ],
-        "real_estate":[
+        },
+        "real_estate":{
             "real_estate_id", "address", "destination"
-        ],
-        "ticket":[
+        },
+        "ticket":{
             "real_estate_id", "description", "destination", "start_date", "employee_id"
-        ],
-        "report":[
+        },
+        "report":{
             "real_estate_id", "description", "employee_id", "destination", "start_date"
-        ],
-        "contractor":[
+        },
+        "contractor":{
             "name", "contact", "phone", "opening_hours", "destination"
-        ],
-        "destination":[
+        },
+        "destination":{
             "airport", "country", "phone", "opening_hours", "manager_id"
-        ]
+        }
     }
     __autofill = {
         "employee":{
@@ -41,9 +41,7 @@ class Base:
             "close_date": "future",
             "priority": False,
             "open": True,
-            "is_recurring": False,
-            "comments": []
-
+            "is_recurring": False
         },
         "report":{
             "ticket_id": 0,
@@ -51,7 +49,9 @@ class Base:
             "contractor_id": 0,
             "contractor_pay": 0,
             "close_date": "future",
-            "ready": False 
+            "comments": [],
+            "ready": False,
+            "closed": False
         },
         "contractor":{
             "tickets": []
@@ -76,17 +76,22 @@ class Base:
             
         if key in Base.__required.keys():
             self._required = Base.__required[key]
+        else:
+            self._required = set()
+
         if key in Base.__autofill.keys():
             self._autofill = Base.__autofill[key]
+        else:
+            self._autofill = dict()
         
     ### CRUD ###
 
     def get_all(self, data: json) -> json:
         # Parse data from UI
-        ui_load = json.loads(data)
 
-        if self.__wants_filter(ui_load):
+        if self.__wants_filter(data):
 
+            ui_load = json.loads(data)
             # Parse filter category and value from UI
             filter_category, filter_value = ui_load['data']['filter'], ui_load['data']['filter_value']
 
@@ -125,13 +130,24 @@ class Base:
     def post(self, data: json) -> json:
         if self.__is_boss(data):
             
-            # Some data, e.g. Tickets do not have a unique identifier
-            if not self._unique:
-                return self.__data_api.post(data)
-            elif self.__is_new(data):
-                return self.__data_api.post(data)
+            if self.__correct_fields(data):
+                
+                # Some data, e.g. Destination do not have autofill values
+                if not self._autofill:
+                    pass
+                else:
+                    data = self.__autofill_input(data)
+
+                # Some data, e.g. Tickets do not have a unique identifier
+                if not self._unique:
+                    return self.__data_api.post(data)
+                elif self.__is_new(data):
+                    return self.__data_api.post(data)
+                else:
+                    raise DataAlreadyExistsException(self._key, 'POST')
+
             else:
-                raise DataAlreadyExistsException(self._key, 'POST')
+                raise IncorrectFieldsException(self._key, 'POST')
         else:
             raise UnauthorizedRequestException(self._key, 'POST')
 
@@ -245,20 +261,36 @@ class Base:
         """Used in POST, PUT, DELETE exception handling"""
         return json.loads(data)['role'] == 'boss'
 
-    def __wants_filter(self, ui_load: json) -> tuple:
+    def __wants_filter(self, data: json) -> bool:
         """If 'filter' field is set we return the field to filter and value"""
-        return 'filter' in ui_load.keys()
+        return 'filter' in json.loads(data)['data'].keys()
 
+    def __correct_fields(self, data: json) -> bool:
+        """
+        Used in POST
+        
+        Checks if required fields are submitted and not empty
+        """
+        ui_load = json.loads(data)['data']
+        if self._required.issubset(ui_load.keys()):
+            for key in self._required:
+                if not ui_load[key]:
+                    return False
+            return True
+        return False
 
-        # if "filter" in ui_data.keys():
-        #     filter = ui_data['filter']
-        #     filter_data = ui_data['filter_value']
-        #     return (True, filter, filter_data)
+    def __autofill_input(self, data: json) -> json:
+        
+        # Parse user input
+        ui_load = json.loads(data)
 
-        # else:
-        #     return (False, 0)
+        # Iterate through fields with registered autofill values
+        for key, val in self._autofill.items():
 
+            # __correct_fields() returns False if data contains empty values
+            # so here it suffices to autofill key-val pairs where key doesn't exist in ui_load
+            if not key in ui_load['data'].keys():
+                ui_load['data'][key] = val
 
-
-
-
+        return json.dumps(ui_load)
+                
