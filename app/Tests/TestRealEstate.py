@@ -80,7 +80,7 @@ class TestRealEstate(unittest.TestCase):
     def test_get_real_estate(self):
         data = json.dumps({
             "key":"real_estate",
-            "data":{"real_estate_id": 'hjhjhj'}
+            "data":{"real_estate_id": 'huhuhu'}
         })
         res = json.loads(self.LL.get(data))
         self.assertEqual(res['data']['address'], 'brundfata')

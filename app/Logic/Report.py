@@ -5,7 +5,7 @@ json
 class Report(Base):
     
     def __init__(self) -> None:
-        super().__init__("report", "id")
+        super().__init__("report")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)
