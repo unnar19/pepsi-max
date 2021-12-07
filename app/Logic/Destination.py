@@ -4,7 +4,7 @@ import json
 class Destination(Base):
     
     def __init__(self) -> None:
-        super().__init__("destination", "id")
+        super().__init__("destination")
 
     def get_all(self, data: json) -> json:
         return super().get_all(data)

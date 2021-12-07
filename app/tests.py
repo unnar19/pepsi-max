@@ -26,9 +26,9 @@ if __name__ == "__main__":
     print("-"*28+" Ticket Tests " +"-"*28)
     unittest.main(defaultTest="TestTicket", exit=False)
     print("-"*28+" Report Tests " +"-"*28)
-    unittest.main(defaultTest="TestTicket", exit=False)
+    unittest.main(defaultTest="TestReport", exit=False)
     print("-"*26+" Destination Tests " +"-"*25)
-    unittest.main(defaultTest="TestTicket", exit=False)
+    unittest.main(defaultTest="TestDestination", exit=False)
     print("-"*26+" Contractor Tests " +"-"*26)
-    unittest.main(defaultTest="TestTicket", exit=False)
+    unittest.main(defaultTest="TestContractor", exit=False)
     

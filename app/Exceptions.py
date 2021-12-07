@@ -82,3 +82,10 @@ class NotFoundException(LogicLayerException):
 
     def __str__(self) -> str:
         return super().__str__()
+
+class IncorrectFieldsException(LogicLayerException):
+    def __init__(self, key: str, method: str) -> None:
+        super().__init__(key, method, 'IncorrectFields')
+
+    def __str__(self) -> str:
+        return super().__str__()

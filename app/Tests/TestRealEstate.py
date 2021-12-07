@@ -1,9 +1,8 @@
 import unittest
-from Data.LogRealEstate import LogRealEstate
 from Logic.LogicAPI import LogicAPI
 import json
-
-from Logic.RealEstate import RealEstate
+import os
+unittest.TestLoader.sortTestMethodsUsing = None
 
 
 #this will pass in setUp
@@ -24,7 +23,7 @@ new_real_estate2 = json.dumps({ "role": "boss",
                         "key": "real estate",
                         "data": {
                             "real_estate_id": "huhuhu",
-                            "address": "hverfi skata 2",
+                            "address": "hverfis skata 2",
                             "destination": "Reykjavík",
                             "maintenance_info": "fix this skate",
                             "tickets": "[]",
@@ -32,7 +31,7 @@ new_real_estate2 = json.dumps({ "role": "boss",
                             }
                         })
 
-id = "1"
+
 
 class TestRealEstate(unittest.TestCase):
 
@@ -66,19 +65,7 @@ class TestRealEstate(unittest.TestCase):
         res = json.loads(self.LL.put(put_data_1))
         self.assertTrue(res["type"])
 
-    def test_put_real_estate(self):
-        """We change the real estate we made in setUp"""
-        put_data_1 = json.dumps({"role": "boss",
-                        "key": "real_estate",
-                        "data": {
-                            "id": str(self.id),
-                            "real_estate_id": "blublu",
-                            }
-                        })
-        res = json.loads(self.LL.put(put_data_1))
-        self.assertTrue(res["type"])
-
-    def test_put_real_estate_fail(self):
+    def test_put_real_estate_to_fail(self):
         """We try to change real estate details as regular employee"""
         put_data_2 = json.dumps({"role": "employee",
                         "key": "real_estate",
@@ -89,6 +76,42 @@ class TestRealEstate(unittest.TestCase):
                         })
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
+
+    def test_get_real_estate(self):
+        data = json.dumps({
+            "key":"real_estate",
+            "data":{"id": '1'}
+        })
+        res = json.loads(self.LL.get(data))
+        self.assertEqual(res['data']['address'], 'pound town')
+        
+    def test_filter_real_estate(self):
+        data = json.dumps(
+            {
+                "key": "real_estate",
+                "filter": True,
+                "data": {
+                    "filter": "destination",
+                    "filter_value": "Nuuk"
+                }
+            }
+        )
+        res = json.loads(self.LL.get_all(data))
+        self.assertEqual(res['data']['1']['address'], 'pound town')
+
+    @classmethod
+    def tearDownClass(self):
+        put_data_delete = json.dumps({
+                        "role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "id": str(self.id),
+                            }
+                        })
+        res = json.loads(self.LL.delete(put_data_delete))
+
+
+    
 
 if __name__ == '__main__':
     unittest.main()
