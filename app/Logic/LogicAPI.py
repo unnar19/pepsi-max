@@ -126,6 +126,19 @@ class LogicAPI:
 
     ### TICKET METHODS
 
+    def get_tickets_filtered(self, data: str) -> json:
+        """
+        Tickets can be filtered by : 
+        - All items in Ticket schema and also a period flag: "Period"
+        - if period selected then filter_data needs both start and end date
+        example request:
+            data = {"key": "tickets", "data": {"filters":["period","employee_id"], "filter_data":{
+                                                                    "start_date":"START_DATE",
+                                                                    "end_date":"END_DATE",
+                                                                    "employee_id":"EMPLOYEE_ID"}}}
+        """
+        return self.__ticket.get_filtered_tickets(data)
+
     ### CONTRACTOR METHODS
 
     ### DESTINATION METHODS

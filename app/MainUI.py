@@ -30,5 +30,5 @@ class MainUI:
 
     
 if __name__ == "__main__":
-    MainUI().run() 
-    #MainUI().debug()
+    #MainUI().run() 
+    MainUI().debug()
