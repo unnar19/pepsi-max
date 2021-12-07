@@ -1,28 +1,125 @@
 import unittest
 from Logic.LogicAPI import LogicAPI
 import json
+import os
+unittest.TestLoader.sortTestMethodsUsing = None
+
+
+
+
+
+#put to fail
+put_data_2 = json.dumps({"role": "employee",
+                        "key": "report",
+                        "data": {
+                            "id": '1',
+                            "ready": "1",
+                            }
+                        })
+
+#this will pass in setUp
+new_report1 = json.dumps({ "role": "boss",
+                        "key": "report",
+                        "data": {
+                            "ticket_id": "3",
+                            "real_estate_id": "hjhjhj",
+                            "description": "kaupa hvítann monster",
+                            "employee_id": "1",
+                            "destination": "Kulusuk",
+                            "total_price": "1500 kr",
+                            "contractor_id": "1",
+                            "contractor_pay": "700 kr",
+                            "start_date": "1. dec",
+                            "close_date": "5. dec",
+                            "ready": "0",
+                            "closed": "0",
+                            "comments": "[]",
+                            }
+                        })
+#this will fail
+new_report2 = json.dumps({ "role": "boss",
+                        "key": "report",
+                        "data": {
+                            "ticket_id": "4",
+                            "real_estate_id": "k",
+                            "description": "hit the booty dew",
+                            "employee_id": "1",
+                            "destination": "Nuuk",
+                            "total_price": "6kr",
+                            "contractor_id": "2",
+                            "contractor_pay": "6kr",
+                            "start_date": "6. feb",
+                            "close_date": "6. jul",
+                            "ready": "0",
+                            "closed": "0",
+                            "comments": "[]",
+                            }
+                        })
 
 
 class TestReport(unittest.TestCase):
-
     @classmethod
     def setUpClass(self) -> None:
         """ þar sem það er ekki delete methood þá verð ég að vera smá sniðugur
-            með hvernig eg set upp testin, byrja a ad gera emp, reyni svo ad gera 
-            annann med sama email, thad á að feila, breyti svo upphaflega gæjanum 
-            þannig að næst þegar þetta keyrir þá er sá gæji "ekki til"
+            með hvernig eg set upp testin, byrja a ad gera report, reyni svo ad gera 
+            annann med sama flugvöll, thad á að feila, breyti svo upphaflegu reportinu 
+            þannig að næst þegar þetta keyrir þá er það report "ekki til"
         """
         self.LL = LogicAPI()
-
-
-    def test_post_report(self):
-        pass
-
+        res = json.loads(self.LL.post(new_report1))
+        self.id = res["data"]["id"]
+    
     def test_put_report(self):
-        pass
+        """We change the report we made in setUp"""
+        put_data_1 = json.dumps({"role": "boss",
+                        "key": "report",
+                        "data": {
+                            "id": str(self.id),
+                            "total_price": "6767676",
+                            }
+                        })
+        res = json.loads(self.LL.put(put_data_1))
+        self.assertTrue(res["type"])
 
-    def test_put_report_fail(self):
-        pass
+    def test_put_report_to_fail(self):
+        """We try to change report details as regular employee"""
+        res = json.loads(self.LL.put(put_data_2))
+        self.assertFalse(res["type"])
+
+    def test_get_report(self):
+        data = json.dumps({
+            "key":"report",
+            "data":{"id": '2'}
+        })
+        res = json.loads(self.LL.get(data))
+        self.assertEqual(res['data']['real_estate_id'], 'brundfata')
+
+    def test_filter_report(self):
+        data = json.dumps(
+            {
+                "key": "report",
+                "filter": True,
+                "data": {
+                    "filter": "destination",
+                    "filter_value": "Nuuk"
+                }
+            }
+        )
+        res = json.loads(self.LL.get_all(data))
+        self.assertEqual(res['data']['2']['real_estate_id'], 'brundfata')
+
+    @classmethod
+    def tearDownClass(self):
+        put_data_delete = json.dumps({
+                        "role": "boss",
+                        "key": "report",
+                        "data": {
+                            "id": str(self.id),
+                            }
+                        })
+        res = json.loads(self.LL.delete(put_data_delete))
+    
+
 
 if __name__ == '__main__':
     unittest.main()

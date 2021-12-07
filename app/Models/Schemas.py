@@ -79,6 +79,8 @@ report_schema = {
         "start_date": {"type": "string"},
         "close_date": {"type": "string"},
         "ready": {"type": "bool"},
+        "closed": {"type": "bool"},
+        "comments": {"type": "list"},
     },
 }
 
@@ -98,6 +100,5 @@ ticket_schema = {
         "priority": {"type": "bool"},
         "open": {"type": "bool"},
         "is_recurring": {"type": "bool"},
-        "comments": {"type": "list"},
     },
 }
