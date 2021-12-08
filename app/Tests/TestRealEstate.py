@@ -4,7 +4,6 @@ import json
 import os
 unittest.TestLoader.sortTestMethodsUsing = None
 
-
 #this will pass in setUp
 new_real_estate1 = json.dumps({ "role": "boss",
                         "key": "real_estate",

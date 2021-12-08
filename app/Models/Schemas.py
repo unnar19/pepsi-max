@@ -94,6 +94,7 @@ ticket_schema = {
         "real_estate_id": {"type": "list"},
         "description": {"type": "string"},
         "employee_id": {"type": "number"},
+        "contractor_id": {"type": "number"},
         "destination": {"type": "tring"},
         "start_date": {"type": "string"},
         "close_date": {"type": "string"},

@@ -4,10 +4,6 @@ import json
 import os
 unittest.TestLoader.sortTestMethodsUsing = None
 
-
-
-
-
 #put to fail
 put_data_2 = json.dumps({"role": "employee",
                         "key": "destination",
