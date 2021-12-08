@@ -76,10 +76,8 @@ report_schema = {
         "total_price": {"type": "float"},
         "contractor_id": {"type": "list"},
         "contractor_pay": {"type": "float"},
-        "start_date": {"type": "string"},
-        "close_date": {"type": "string"},
-        "ready": {"type": "bool"},
-        "closed": {"type": "bool"},
+        "date": {"type": "string"},
+        "approved": {"type": "bool"},
         "comments": {"type": "list"},
     },
 }
