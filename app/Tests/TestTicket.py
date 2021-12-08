@@ -21,11 +21,13 @@ new_ticket1 = json.dumps({"role": "boss",
                             "real_estate_id": "brundfata",
                             "description": "Put dog in dishwasher",
                             "employee_id": "2",
+                            "contractor_id": "0",
                             "destination": "Nuuk",
                             "start_date": "7.12.2021",
                             "close_date": "future",
                             "priority": "A",
-                            "open": True,
+                            "ready": False,
+                            "closed": False,
                             "is_recurring": False,
                             }
                         })
@@ -37,11 +39,13 @@ new_ticket2 = json.dumps({ "role": "boss",
                             "real_estate_id": "k",
                             "description": "Pick up dog from dishwasher",
                             "employee_id": "3",
+                            "contractor_id": "0",
                             "destination": "Reykjavík",
                             "start_date": "7.12.2021",
                             "close_date": "future",
                             "priority": "B",
-                            "open": True,
+                            "ready": False,
+                            "closed": False,
                             "is_recurring": False,
                             }
                         })
@@ -82,7 +86,7 @@ class TestTicket(unittest.TestCase):
             "data":{"id": '3'}
         })
         res = json.loads(self.LL.get(data))
-        self.assertEqual(res['data']['priority'], 'A')
+        self.assertEqual(res['data']['priority'], 'C')
 
     def test_filter_ticket(self):
         data = json.dumps(
