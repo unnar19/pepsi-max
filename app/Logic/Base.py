@@ -268,7 +268,9 @@ class Base:
         # Search submitted unique_val address in DB
         for val in data_load.values():
             if val[self._unique] == unique_val:
-                return False
+                #user can change its self unique value to a unique value
+                if ui_load["id"] != val["id"]:
+                    return False
 
         return True
 

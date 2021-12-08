@@ -218,8 +218,7 @@ class ScreensUI():
                         self.format.comment = 'Invalid input, Select an option'
                 
                 elif input_int == 5: # Add Employee
-                    print('add employee')
-                    input('continue?')
+                    self.add_employee_profile()
 
                 elif input_int == 6: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
@@ -253,14 +252,12 @@ class ScreensUI():
                     self.format.profile = False
                     return
 
-    def edit_employee_profile(self, id_str, new=False):
+    def edit_employee_profile(self, id_str):
         self.format.subtitle = 'Menu > Employees > Select > Edit info'
         self.format.edit_commands(['Name','Email','Home phone','Mobile phone','Location','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
-        if new:
-            pass
-        else:
-            user_data_dict = self.inter.get_person(id_str)
+            
+        user_data_dict = self.inter.get_person(id_str)
         
         # Set new values to the original ones
         new_name = user_data_dict['name']
@@ -320,7 +317,41 @@ class ScreensUI():
                     self.format.print_screen()
                     new_location = self.get_input('Text input')
                     self.format.comment = 'Select an option'
-    
+
+    def add_employee_profile(self):
+        self.format.subtitle = 'Menu > Employees > Add employee'
+        self.format.edit_commands(['Name*','Role*','Location*','Email*','Password*','SSN*','Address*','Home phone','Mobile phone*','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,0,0,0,0,0,1,1])
+        list_of_comments = ['Enter name',"Enter 'boss' or 'employee",'Enter location','Enter email address','Enter password','Enter SSN','Enter address','Enter home phone number','Enter mobile phone nummber']
+        self.format.preview_comment = 'Required fields marked with *'
+
+        # Set new values to the original ones
+        while True:
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+            elif type_of_input == 1:
+                if input_int == 5: # Apply changes
+                    new_data_dict = {'id': user_data_dict['id'],'name':new_name, 'email': new_email, 'home_phone': new_h_phone, 'mobile_phone': new_m_phone, 'destination': new_location}
+                    edit_response = self.inter.edit_profile(self.id,'employee',new_data_dict)
+                    if edit_response:
+                        name, self.format.listing_lis = self.inter.custom_person_preview(new_data_dict['id'])
+                        return
+                    else:
+                        self.format.comment = 'Unauthorized, Select an option'
+
+                elif input_int == 6: # Cancel
+                    self.format.comment = 'Select an option'
+                    return
+            elif type_of_input == 0:
+                self.format.comment = list_of_comments[input_int]
+                self.format.print_screen()
+                input_str = self.get_input('Text input')
+                self.format.update_text_box(input_int, input_str)
+                self.format.comment = 'Select an option'
+
 # Þessi er notaður í bæði Real Estate og Employee
     def filter_screen(self, location_str, key):
         self.format.subtitle = f'Menu > {location_str} > Filter'
