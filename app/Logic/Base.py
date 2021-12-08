@@ -38,6 +38,7 @@ class Base:
         },
         "ticket":{
             "report_id": 0,
+            "contractor_id": 0,
             "close_date": "future",
             "priority": False,
             "open": True,
