@@ -249,7 +249,7 @@ class Base:
         Used in PUT to check if overriding existing password
         """
         ui_load = json.loads(data)['data']
-        unique_val = ui_load[self._unique]
+        unique_val = self._unique[ui_load["key"]]
 
         # Parse DB response
     
