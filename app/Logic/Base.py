@@ -248,8 +248,12 @@ class Base:
         Used in POST exception handling
         Used in PUT to check if overriding existing password
         """
-        ui_load = json.loads(data)
-        unique_val = self._unique[ui_load["key"]]
+        ui_load = json.loads(data)["data"]
+        # if we are doing a put and not trying to change unique values
+        if self._unique in ui_load.keys():
+            unique_val = ui_load[self._unique]
+        else:
+            return True
 
         # Parse DB response
     
