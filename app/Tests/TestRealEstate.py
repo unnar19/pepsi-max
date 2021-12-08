@@ -91,8 +91,8 @@ class TestRealEstate(unittest.TestCase):
                 "key": "real_estate",
                 "filter": True,
                 "data": {
-                    "filter": "destination",
-                    "filter_value": "Nuuk"
+                    "filter": "real_estate_id",
+                    "filter_value": "h"
                 }
             }
         )

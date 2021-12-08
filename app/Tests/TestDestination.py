@@ -25,7 +25,7 @@ new_dest1 = json.dumps({ "role": "boss",
                             "country": "Finland",
                             "phone": "9999999",
                             "opening_hours": "1-2",
-                            "manager": "6",
+                            "manager_id": "6",
                             }
                         })
 #this will fail
@@ -36,7 +36,7 @@ new_dest2 = json.dumps({ "role": "boss",
                             "country": "Finland",
                             "phone": "8888888",
                             "opening_hours": "1-2",
-                            "manager": "7",
+                            "manager_id": "7",
                             }
                         })
 
@@ -66,7 +66,7 @@ class TestDestination(unittest.TestCase):
         self.assertTrue(res["type"])
 
     def test_put_destination_to_fail(self):
-        """We try to change contractor details as regular employee"""
+        """We try to change destination details as regular employee"""
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
 
