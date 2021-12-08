@@ -51,14 +51,36 @@ LL = LogicAPI()
 
 
 
+"""
+put = json.dumps({"role": "boss","key":"employee","id":1, "data":{"id": "1", "email": "nnnn@ru.is"}})
 
-getAll = json.dumps({"key":"employee","filter":"destination", "filter_value":"Reykjavík"})
-
-
-res = LL.get_all(getAll)
+res = LL.put(put)
 
 print(json.loads(res))
 
-res = LL.get_all(json.dumps({"key":"employee"}))
+
+create_ticket = json.dumps({"role": "boss","key":"ticket", "data":{"real_estate_id":"blabla",
+                                                                    "description": "blabla",
+                                                                    "employee_id": "1",
+                                                                    "destination": "Kulusuk",
+                                                                    "start_date" : "10/10/2021",
+                                                                    "priority":"very",
+                                                                    "open":"yes"
+                                                                     }})
+
+res = LL.post(create_ticket)
+"""
+
+req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id"],
+                                             "filter_data":{ "start_date":"10/10/2021",
+                                                                "end_date":"11/10/2021",
+                                                                "employee_id":"1"}}})
+
+req = json.dumps({"key": "tickets", "data":{ "filters":["date","employee_id"],
+                                             "filter_data":{ "start_date":"10/10/2021",
+                                                                "employee_id":"1"}}})
+
+res = LL.get_tickets_filtered(req)
+
 
 print(res)
