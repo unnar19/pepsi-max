@@ -46,12 +46,6 @@ class TestRealEstate(unittest.TestCase):
         res = json.loads(self.LL.post(new_real_estate1))
         self.id = res["data"]["id"]
 
-
-    def test_post_real_estate(self):
-        """Try to post new real estate that violates key constraint"""
-        res = json.loads(self.LL.post(new_real_estate1))
-        self.assertFalse(res["type"])
-
     def test_put_real_estate(self):
         """We change the real estate we made in setUp"""
         put_data_1 = json.dumps({"role": "boss",

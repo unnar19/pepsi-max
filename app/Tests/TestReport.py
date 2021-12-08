@@ -25,10 +25,7 @@ new_report1 = json.dumps({ "role": "boss",
                             "total_price": "1500 kr",
                             "contractor_id": "1",
                             "contractor_pay": "700 kr",
-                            "start_date": "1. dec",
-                            "close_date": "5. dec",
-                            "ready": "0",
-                            "closed": "0",
+                            "date": "901.11.11",
                             "comments": "[]",
                             }
                         })
@@ -44,10 +41,7 @@ new_report2 = json.dumps({ "role": "boss",
                             "total_price": "6kr",
                             "contractor_id": "2",
                             "contractor_pay": "6kr",
-                            "start_date": "6. feb",
-                            "close_date": "6. jul",
-                            "ready": "0",
-                            "closed": "0",
+                            "date": "901.11.11",
                             "comments": "[]",
                             }
                         })

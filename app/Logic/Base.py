@@ -16,7 +16,7 @@ class Base:
             "real_estate_id", "description", "destination", "start_date", "employee_id"
         },
         "report":{
-            "real_estate_id", "description", "employee_id", "destination", "start_date"
+            "real_estate_id", "description", "employee_id", "destination", "date"
         },
         "contractor":{
             "name", "contact", "phone", "opening_hours", "destination"
@@ -50,10 +50,7 @@ class Base:
             "total_price": 0,
             "contractor_id": 0,
             "contractor_pay": 0,
-            "close_date": "future",
-            "comments": [],
-            "ready": False,
-            "closed": False
+            "comments": []
         },
         "contractor":{
             "tickets": []
