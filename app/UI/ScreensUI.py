@@ -322,7 +322,7 @@ class ScreensUI():
         self.format.subtitle = 'Menu > Employees > Add employee'
         self.format.edit_commands(['Name*','Role*','Location*','Email*','Password*','SSN*','Address*','Home phone','Mobile phone*','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,0,0,0,0,1,1])
-        list_of_comments = ['Enter name',"Enter 'boss' or 'employee",'Enter location','Enter email address','Enter password','Enter SSN','Enter address','Enter home phone number','Enter mobile phone nummber']
+        list_of_comments = ['Enter name',"Enter 'boss' or 'employee'",'Enter location','Enter email address','Enter password','Enter SSN','Enter address','Enter home phone number','Enter mobile phone nummber']
         self.format.preview_comment = 'Required fields marked with *'
 
         # Set new values to the original ones
@@ -333,16 +333,38 @@ class ScreensUI():
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
             elif type_of_input == 1:
-                if input_int == 5: # Apply changes
-                    new_data_dict = {'id': user_data_dict['id'],'name':new_name, 'email': new_email, 'home_phone': new_h_phone, 'mobile_phone': new_m_phone, 'destination': new_location}
-                    edit_response = self.inter.edit_profile(self.id,'employee',new_data_dict)
+                if input_int == 9: # Apply changes
+
+                    # Make dictionary with new information
+                    new_data_dict = {'role': self.format.commands['Role*'][1][1:-1],
+                                    'name': self.format.commands['Name*'][1][1:-1],
+                                    'password': self.format.commands['Password*'][1][1:-1],
+                                    'address': self.format.commands['Address*'][1][1:-1],
+                                    'ssn': self.format.commands['SSN*'][1][1:-1],
+                                    'mobile_phone': self.format.commands['Mobile phone*'][1][1:-1],
+                                    'email': self.format.commands['Email*'][1][1:-1],
+                                    'destination': self.format.commands['Location*'][1][1:-1]}
+                    
+                    # If unique identifier is empty, make it actually empty
+                    # TODO could be solved better
+                    if self.format.commands['Email*'][1][1:-1] == 'empty':
+                        new_data_dict['email'] = ''
+
+                    # Add non required fields to dictionary if they are not empty
+                    if self.format.commands['Home phone'][1][1:-1] != 'empty':
+                        new_data_dict['home_phone'] = self.format.commands['Home phone*'][1][1:-1]
+
+                    edit_response = self.inter.add_profile(self.id,'employee',new_data_dict)
                     if edit_response:
-                        name, self.format.listing_lis = self.inter.custom_person_preview(new_data_dict['id'])
+                        self.format.comment = 'Select an option'
                         return
                     else:
-                        self.format.comment = 'Unauthorized, Select an option'
+                        if self.role == 'boss':
+                            self.format.comment = 'Required missing or email aldready registered, Select an option'
+                        else:
+                            self.format.comment = 'Unauthorized, Select an option'
 
-                elif input_int == 6: # Cancel
+                elif input_int == 10: # Cancel
                     self.format.comment = 'Select an option'
                     return
             elif type_of_input == 0:
