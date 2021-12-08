@@ -153,8 +153,8 @@ class ScreensUI():
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Employees'
-            self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Back'])
-            self.format.apply_styles([0,1,1,1,1,1])
+            self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Add employee','Back'])
+            self.format.apply_styles([0,1,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
 
             if len(self.page_list) == 0:
@@ -202,7 +202,7 @@ class ScreensUI():
                         self.format.comment = 'ID not valid, Select an option'
                     self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
-                    
+
                 elif input_int == 3: # Previous Page
                     if curr_page > 1:
                         self.format.comment = 'Select an option'
@@ -216,8 +216,12 @@ class ScreensUI():
                         curr_page += 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
+                
+                elif input_int == 5: # Add Employee
+                    print('add employee')
+                    input('continue?')
 
-                elif input_int == 5: #Back (goes to back the the main menu)
+                elif input_int == 6: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
@@ -249,11 +253,14 @@ class ScreensUI():
                     self.format.profile = False
                     return
 
-    def edit_employee_profile(self, id_str):
+    def edit_employee_profile(self, id_str, new=False):
         self.format.subtitle = 'Menu > Employees > Select > Edit info'
         self.format.edit_commands(['Name','Email','Home phone','Mobile phone','Location','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
-        user_data_dict = self.inter.get_person(id_str)
+        if new:
+            pass
+        else:
+            user_data_dict = self.inter.get_person(id_str)
         
         # Set new values to the original ones
         new_name = user_data_dict['name']
