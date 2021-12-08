@@ -49,7 +49,24 @@ new_emp2 = json.dumps({ "role": "boss",
 
 LL = LogicAPI()
 
+empty_emp = json.dumps({ "role": "boss",
+                        "key": "employee",
+                        "data": {
+                            "role": "",
+                            "name": "",
+                            "password": "",
+                            "ssn": "",
+                            "address": "",
+                            "home_phone": "",
+                            "mobile_phone": "",
+                            "email": "",
+                            "destination": "",
+                            "tickets": "",
+                            "reports": "",
+                            }
+                        })
 
+LL.post(empty_emp)
 
 """
 put = json.dumps({"role": "boss","key":"employee","id":1, "data":{"id": "1", "email": "nnnn@ru.is"}})
@@ -69,7 +86,7 @@ create_ticket = json.dumps({"role": "boss","key":"ticket", "data":{"real_estate_
                                                                      }})
 
 res = LL.post(create_ticket)
-"""
+
 
 req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id"],
                                              "filter_data":{ "start_date":"10/10/2021",
@@ -81,6 +98,6 @@ req = json.dumps({"key": "tickets", "data":{ "filters":["date","employee_id"],
                                                                 "employee_id":"1"}}})
 
 res = LL.get_tickets_filtered(req)
-
+"""
 
 print(res)

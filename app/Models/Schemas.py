@@ -99,7 +99,8 @@ ticket_schema = {
         "start_date": {"type": "string"},
         "close_date": {"type": "string"},
         "priority": {"type": "bool"},
-        "open": {"type": "bool"},
+        "ready": {"type": "bool"},
+        "closed": {"type": "bool"},
         "is_recurring": {"type": "bool"},
     },
 }

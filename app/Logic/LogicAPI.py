@@ -61,6 +61,8 @@ class LogicAPI:
             return self.__format_error_message(error)
         except DataAlreadyExistsException as error:
             return self.__format_error_message(error)
+        except IncorrectFieldsException as error:
+            return self.__format_error_message(error)
 
     def put(self, data: json) -> json:
         """
