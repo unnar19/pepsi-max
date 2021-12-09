@@ -40,7 +40,7 @@ class Base:
             "report_id": 0,
             "contractor_id": 0,
             "close_date": "future",
-            "priority": False,
+            "priority": None,
             "ready": False,
             "closed": False,
             "is_recurring": False
