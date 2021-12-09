@@ -32,7 +32,7 @@ class Ticket(Base):
         filters = ui_data["filters"]
         filter_data = ui_data["filter_data"]
         if "period" in filters:
-            all_tickets = self.__get_tickets_filtered_date(filter_data["start_date"], filter_data["start_date"])
+            all_tickets = self.__get_tickets_filtered_date(filter_data["start_date"], filter_data["end_date"])
             # pop period dates from filters 
             filters.remove("period")
         else:
@@ -64,11 +64,11 @@ class Ticket(Base):
         all_tickets = json.loads(self.get_all(json.dumps({"key":"ticket", "data":{}})))
         return_data = {}
         #define start and end as datetime objects
-        start = datetime.strptime(start_date, '%d/%m/%Y')
-        end = datetime.strptime(end_date, '%d/%m/%Y')
+        start = datetime.strptime(start_date, '%Y-%m-%d')
+        end = datetime.strptime(end_date, '%Y-%m-%d')
         #iterate through all tickets
         for key,val in all_tickets["data"].items():
-            date = datetime.strptime(val["start_date"], '%d/%m/%Y')
-            if date >= start and date <= end:
+            date = datetime.strptime(val["start_date"], '%Y-%m-%d')
+            if (date >= start)  and (date <= end):
                 return_data[key] = val
         return return_data

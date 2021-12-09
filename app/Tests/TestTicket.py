@@ -23,7 +23,7 @@ new_ticket1 = json.dumps({"role": "boss",
                             "employee_id": "2",
                             "contractor_id": "0",
                             "destination": "Nuuk",
-                            "start_date": "7.12.2021",
+                            "start_date": "2020-12-03",
                             "close_date": "future",
                             "priority": "A",
                             "ready": False,
@@ -41,7 +41,7 @@ new_ticket2 = json.dumps({ "role": "boss",
                             "employee_id": "3",
                             "contractor_id": "0",
                             "destination": "Reykjavík",
-                            "start_date": "7.12.2021",
+                            "start_date": "2020-12-03",
                             "close_date": "future",
                             "priority": "B",
                             "ready": False,
@@ -123,7 +123,7 @@ class TestTicket(unittest.TestCase):
                             "description": "Pick up dog from hell",
                             "employee_id": "5",
                             "destination": "Nuuk",
-                            "start_date": "7.12.2021",
+                            "start_date": "2020-12-03",
                             }
                         })
         res = json.loads(self.LL.post(new_ticket4))
@@ -137,11 +137,20 @@ class TestTicket(unittest.TestCase):
                             "real_estate_id": "kl",
                             "description": "Pick up dog from hell",
                             "employee_id": "5",
-                            "start_date": "7.12.2021",
+                            "start_date": "2020-12-03",
                             }
                         })
         res = json.loads(self.LL.post(new_ticket4))
         self.assertFalse(res["type"])
+
+    def test_multiple_filtering(self):
+        req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id"],
+                                             "filter_data":{ "start_date":"2020-01-01",
+                                                                "end_date":"2021-01-01",
+                                                                "employee_id":"1"}}})
+        res = json.loads(self.LL.get_tickets_filtered(req))
+        print(res)
+        self.assertTrue(res["type"])
 
     @classmethod
     def tearDownClass(self):

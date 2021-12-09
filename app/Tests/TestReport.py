@@ -25,7 +25,7 @@ new_report1 = json.dumps({ "role": "boss",
                             "total_price": "1500 kr",
                             "contractor_id": "1",
                             "contractor_pay": "700 kr",
-                            "date": "901.11.11",
+                            "date": "2020-12-03",
                             "approved": False,
                             "comments": "[]",
                             }
@@ -42,7 +42,7 @@ new_report2 = json.dumps({ "role": "boss",
                             "total_price": "6kr",
                             "contractor_id": "2",
                             "contractor_pay": "6kr",
-                            "date": "901.11.11",
+                            "date": "2020-12-03",
                             "approved": False,
                             "comments": "[]",
                             }
@@ -113,7 +113,7 @@ class TestReport(unittest.TestCase):
                             "total_price": "6kr",
                             "contractor_id": "2",
                             "contractor_pay": "6kr",
-                            "date": "901.11.11",
+                            "date": "2020-12-03",
                             "approved": False,
                             "comments": "[]",
                             }
@@ -130,7 +130,7 @@ class TestReport(unittest.TestCase):
                             "description": "do the stanky leg",
                             "employee_id": "3",
                             "destination": "Reykjavík",
-                            "date": "901.11.12",
+                            "date": "2020-12-03",
                             "approved": False,
                             }
                         })
@@ -145,7 +145,7 @@ class TestReport(unittest.TestCase):
                             "description": "do the stanky leg",
                             "employee_id": "3",
                             "destination": "Reykjavík",
-                            "date": "901.11.12",
+                            "date": "2020-12-03",
                             "approved": False,
                             }
                         })

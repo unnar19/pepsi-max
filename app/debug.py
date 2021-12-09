@@ -136,8 +136,8 @@ res = LL.get_all(req)
 # diffrence from get_all() with filter flag is the key is not "filter" but "filters" 
 """
 req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id"],
-                                             "filter_data":{ "start_date":"10/10/2021",
-                                                                "end_date":"11/10/2021",
+                                             "filter_data":{ "start_date":"2020-12-03",
+                                                                "end_date":"2020-12-03",
                                                                 "employee_id":"1"}}})
 
 
