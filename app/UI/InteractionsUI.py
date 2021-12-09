@@ -39,7 +39,7 @@ class InteractionsUI:
         ''' Gets all employees and their information to display when listing'''
 
         # Request data drom API
-        request = json.dumps({'key': 'employee'})
+        request = json.dumps({'key': 'employee','data':{}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 
@@ -58,7 +58,7 @@ class InteractionsUI:
         ''' Gets all realestates and their information to display when listing'''
 
         # Request data drom API
-        request = json.dumps({'key': 'real_estate'})
+        request = json.dumps({'key': 'real_estate','data':{}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 
@@ -145,6 +145,44 @@ class InteractionsUI:
         for _ in range(len(custom_preview),20):
             custom_preview.append([''])
         return first_name, custom_preview
+
+    def get_ticket(self, id_str):
+        '''
+        Takes in a legal id of a ticket and recieves all information
+        '''
+        request = json.dumps({'key': 'ticket','data':{'id': id_str}})
+        response = self.LL.get(request)
+
+        response_dict = json.loads(response)
+        data_dict = response_dict['data']
+        return data_dict
+
+    def custom_ticket_preview(self, id_str):
+        data_dict = self.get_ticket(id_str)
+
+        # Puts recieved data into individual lists for ScreensUI
+        description = [f'{"Description:":<15}{data_dict["description"]}']
+        start = [f'{"Start date:":<15}{data_dict["start_date"]}']
+        close = [f'{"Close date:":<15}{data_dict["close_date"]}']
+        id = [f'{"ID:":<15}{data_dict["id"]}']
+
+        estate_id = [f'{"Address ID:":<15}{data_dict["real_estate_id"]}']
+        employee_id = [f'{"Employee ID:":<15}{data_dict["employee_id"]}']
+        report_id = [f'{"Report ID:":<15}{data_dict["report_id"]}']
+        contractor_id = [f'{"Contractor ID:":<15}{data_dict["contractor_id"]}']
+
+        location = [f'{"Location:":<15}{data_dict["destination"]}']
+        
+        priority = [f'{"Priority:":<15}{data_dict["priority"]}']
+        ready = [f'{"Ready:":<15}{data_dict["ready"]}']
+        closed = [f'{"Closed:":<15}{data_dict["closed"]}']
+        recurring = [f'{"Recurring:":<15}{data_dict["is_recurring"]}']
+
+
+        custom_preview = [description,start,close,id,[''],estate_id,employee_id,report_id,contractor_id,[''],location,[''],priority,ready,closed,recurring]
+        for _ in range(len(custom_preview),20):
+            custom_preview.append([''])
+        return custom_preview
 
     def edit_profile(self, role_of_user, key, new_data_dict):
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
