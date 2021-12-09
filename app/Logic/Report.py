@@ -22,4 +22,7 @@ class Report(Base):
     def delete(self, data: json) -> json:
         return super().delete(data)
     
+    #report specific functions:
+
+
 

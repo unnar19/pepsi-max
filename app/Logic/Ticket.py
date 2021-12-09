@@ -26,7 +26,7 @@ class Ticket(Base):
 
     # Ticket specific functions:
 
-    def get_filtered_tickets(self, data: str) -> json:
+    def get_filtered_tickets(self, data: json) -> json:
         #All tickets to filter from
         ui_data = json.loads(data)["data"]
         filters = ui_data["filters"]
@@ -36,7 +36,7 @@ class Ticket(Base):
             # pop period dates from filters 
             filters.remove("period")
         else:
-            all_tickets = self.get_all(json.dumps({"key":"ticket"}))
+            all_tickets = self.get_all(data)
         return_data = {}
         # iterate through all tickets and keep those who match
         for filter in filters:
@@ -46,12 +46,22 @@ class Ticket(Base):
         return json.dumps({"type": "true", "data": return_data})
 
 
+    def close_tickets(self, data) -> json:
+        """Close tickets, takes in data containing ID of ticket - only boss can close"""
+        ui_data = json.loads(data)["data"]
+        ticket_id = ui_data["id"]
+        # only bosses can close tickets
+        if ui_data["role"] != "boss":
+            raise UnauthorizedRequestException
         
+        
+
+    # Helpter functions
 
     def __get_tickets_filtered_date(self, start_date : str, end_date : str) -> dict:
         """helper function to filter tickets by period"""
         #get all tickets to filter from
-        all_tickets = json.loads(self.get_all(json.dumps({"key":"ticket"})))
+        all_tickets = json.loads(self.get_all(json.dumps({"key":"ticket", "data":{}})))
         return_data = {}
         #define start and end as datetime objects
         start = datetime.strptime(start_date, '%d/%m/%Y')
