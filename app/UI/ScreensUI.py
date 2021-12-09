@@ -2,6 +2,7 @@ from os import name
 from UI.FormatUI import FormatUI
 import json
 from UI.InteractionsUI import InteractionsUI
+import datetime
 
 class ScreensUI():
     def __init__(self):
@@ -54,6 +55,9 @@ class ScreensUI():
                 offset += 20
         return page_list
 
+    def str2bool(self, boolean_string : str) -> bool:
+        return boolean_string.lower() in ["yes", "true", "t", "1"]
+
 # =======================================================================================================
 # =======================================================================================================
 # =======================================================================================================
@@ -87,9 +91,10 @@ class ScreensUI():
                 password = self.format.commands['Password'][1][1:-1]
                 print(password)
 
-                logged_in, self.id, self.role, self.name = self.inter.authenticate_login(email, password)
+                logged_in, self.id, self.role, self.name, self.destination = self.inter.authenticate_login(email, password)
                 if not logged_in:
                     return False
+
                 first_name = self.name.split(' ')[0]
                 logged_str = f'Logged in as: {first_name}'
                 self.format.title += f'{logged_str:>42}'
@@ -242,8 +247,8 @@ class ScreensUI():
         self.format.profile = True
         while True:
             self.format.subtitle = 'Menu > Employees > Select'
-            self.format.edit_commands(['Edit info','Tickets','Back'])
-            self.format.apply_styles([1,1,1])
+            self.format.edit_commands(['Edit info','Back'])
+            self.format.apply_styles([1,1])
             self.format.preview_title = 'Employee information'
             name, self.format.listing_lis = self.inter.custom_person_preview(id_str)
             self.format.preview_comment = f"There are 10 days until {name}'s birthday"
@@ -255,11 +260,8 @@ class ScreensUI():
             else:
                 if input_int == 0: # Edit info
                     self.edit_employee_profile(id_str)
-                elif input_int == 1: # Tickets?
-                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
-                    self.format.profile = False
-                    return
-                elif input_int == 2: # Back
+                    
+                elif input_int == 1: # Back
                     self.format.comment = 'Select an option'
                     self.format.profile = False
                     return
@@ -637,7 +639,7 @@ class ScreensUI():
         self.page_list = self.screen_lists_from_all(self.emp_list)
 
         while True:
-            self.format.preview_title = f'{"Description":<30} | {"ID":<5} | {"Address ID":<10} | {"Status":<12}'
+            self.format.preview_title = f'{"Description":<30} | {"ID":<5} | {"Address ID":<10} | {"Closed":<12}'
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Tickets'
@@ -712,25 +714,24 @@ class ScreensUI():
     def edit_ticket_profile(self, id_str):
         self.format.subtitle = 'Menu > Tickets > Select > Edit info'
         list_of_comments = ['Enter new description','Enter new start date','Enter new close date','Enter new address ID','Enter new Employee ID','Enter new contractor ID','Edit priority']
-        self.format.edit_commands(['Description','Start date','Close date','Address ID','Employee ID','Contractor ID','Priority','Ready','Closed','Recurring','Apply Changes','Cancel'])
-        self.format.apply_styles([0,0,0,0,0,0,1,3,3,3,1,1])
+        self.format.edit_commands(['Description','Start date','Address ID','Employee ID','Contractor ID','Priority','Ready','Closed','Recurring','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,0,1,2,2,2,1,1])
 
         ticket_data_dict = self.inter.get_ticket(id_str)
 
         # Sets new values to the original ones
         self.format.update_text_box(0,ticket_data_dict['description'])
         self.format.update_text_box(1,ticket_data_dict['start_date'])
-        self.format.update_text_box(2,ticket_data_dict['close_date'])
-        self.format.update_text_box(3,ticket_data_dict['real_estate_id'])
-        self.format.update_text_box(4,ticket_data_dict['employee_id'])
-        self.format.update_text_box(5,ticket_data_dict['contractor_id'])
+        self.format.update_text_box(2,ticket_data_dict['real_estate_id'])
+        self.format.update_text_box(3,ticket_data_dict['employee_id'])
+        self.format.update_text_box(4,ticket_data_dict['contractor_id'])
 
-        if ticket_data_dict['ready']:
+        if self.str2bool(ticket_data_dict['ready']):
+            self.format.update_check_box(6)
+        if self.str2bool(ticket_data_dict['closed']):
             self.format.update_check_box(7)
-        if ticket_data_dict['closed']:
+        if self.str2bool(ticket_data_dict['is_recurring']):
             self.format.update_check_box(8)
-        if ticket_data_dict['is_recurring']:
-            self.format.update_check_box(9)
         
         while True:
             self.format.print_screen()
@@ -747,16 +748,54 @@ class ScreensUI():
             elif type_of_input == 2 or type_of_input == 3:
                 self.format.update_check_box(input_int)
             elif type_of_input == 1:
-                if input_int == 6: # Priority
-                    pass
-                if input_int == 10: # APPLY
-                    pass
+                if input_int == 5: # Priority
+                    prior = self.ticket_priority_screen()
+                    self.format.comment = 'Select an option'
+
+                if input_int == 9: # APPLY
+                    today = str(datetime.date.today())
+                    prior = self.ticket_priority_screen() # TODO TEMPORARY
+                    
+                    ready = False
+                    if self.format.commands['Ready'][0] == 3:
+                        ready = True
+                    closed = False
+                    if self.format.commands['Closed'][0] == 3:
+                        closed = True
+                    recur = False
+                    if self.format.commands['Recurring'][0] == 3:
+                        recur = True
+
+                    new_data_dict = {'id': ticket_data_dict['id'], 
+                                    'description': self.format.commands['Description'][1][1:-1],  
+                                    'start_date': self.format.commands['Start date'][1][1:-1], 
+                                    'real_estate_id': self.format.commands['Address ID'][1][1:-1],
+                                    'employee_id': self.format.commands['Employee ID'][1][1:-1],
+                                    'contractor_id': self.format.commands['Address ID'][1][1:-1],
+                                    'priority': prior,
+                                    'ready': ready,
+                                    'closed': closed,
+                                    'is_recurring': recur}
+                    
+                    if closed == True:
+                        new_data_dict['close_date'] = today
+                    else:
+                        new_data_dict['close_date'] = ' '
+
+
+                    edit_response = self.inter.edit_profile(self.role, 'ticket',new_data_dict)
+                    if not edit_response:
+                        self.format.comment = 'Unauthorized, Select an option'   
+                    else:
+                        self.format.listing_lis = self.inter.custom_ticket_preview(new_data_dict['id'])
+                        return
+    
                 else: # Cancel
                     self.format.comment = 'Select an option'
                     return
 
-
-
+    def ticket_priority_screen(self) -> str:
+        return True # TODO NEEDS TO BE CHANGED IN SOME OTHER LAYER TO STRING
 
     def add_ticket_profile(self):
         pass

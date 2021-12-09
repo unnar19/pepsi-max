@@ -33,7 +33,8 @@ class InteractionsUI:
         id = response_dict['data']['id']
         role = response_dict['data']['role']
         name = response_dict['data']['name']
-        return True, id, role, name
+        destitation = response_dict['data']['destination']
+        return True, id, role, name, destitation
 
     def listing_all_employees(self) -> list:
         ''' Gets all employees and their information to display when listing'''
