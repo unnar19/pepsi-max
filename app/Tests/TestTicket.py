@@ -129,6 +129,20 @@ class TestTicket(unittest.TestCase):
         res = json.loads(self.LL.post(new_ticket4))
         self.assertTrue(res["type"])
 
+    def test_required_fields(self):
+        """We try to post a ticket while not filling in all the required fields"""
+        new_ticket4 = json.dumps({ "role": "boss",
+                        "key": "ticket",
+                        "data": {
+                            "real_estate_id": "kl",
+                            "description": "Pick up dog from hell",
+                            "employee_id": "5",
+                            "start_date": "7.12.2021",
+                            }
+                        })
+        res = json.loads(self.LL.post(new_ticket4))
+        self.assertFalse(res["type"])
+
     @classmethod
     def tearDownClass(self):
         put_data_delete = json.dumps({
