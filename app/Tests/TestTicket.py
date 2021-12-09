@@ -80,13 +80,25 @@ class TestTicket(unittest.TestCase):
         res = json.loads(self.LL.put(put_data_2))
         self.assertFalse(res["type"])
 
+    def test_put_ready_in_ticket_as_employee(self):
+        """We change the ready status of the ticket we made in setUp as an employee"""
+        put_data_1 = json.dumps({"role": "employee",
+                        "key": "ticket",
+                        "data": {
+                            "id": str(self.id),
+                            "ready": True,
+                            }
+                        })
+        res = json.loads(self.LL.put(put_data_1))
+        self.assertTrue(res["type"])
+
     def test_get_ticket(self):
         data = json.dumps({
             "key":"ticket",
-            "data":{"id": '3'}
+            "data":{"id": '2'}
         })
         res = json.loads(self.LL.get(data))
-        self.assertEqual(res['data']['priority'], 'C')
+        self.assertEqual(res['data']['priority'], 'A')
 
     def test_filter_ticket(self):
         data = json.dumps(
@@ -100,7 +112,22 @@ class TestTicket(unittest.TestCase):
             }
         )
         res = json.loads(self.LL.get_all(data))
-        self.assertEqual(res['data']['2']['destination'], 'Reykjavík')
+        self.assertEqual(res['data']['1']['destination'], 'Nuuk')
+
+    def test_autofill(self):
+        """We try to post a ticket while only filling in the required fields"""
+        new_ticket4 = json.dumps({ "role": "boss",
+                        "key": "ticket",
+                        "data": {
+                            "real_estate_id": "kl",
+                            "description": "Pick up dog from hell",
+                            "employee_id": "5",
+                            "destination": "Nuuk",
+                            "start_date": "7.12.2021",
+                            }
+                        })
+        res = json.loads(self.LL.post(new_ticket4))
+        self.assertTrue(res["type"])
 
     @classmethod
     def tearDownClass(self):
