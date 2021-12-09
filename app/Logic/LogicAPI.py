@@ -141,6 +141,9 @@ class LogicAPI:
         """
         return self.__ticket.get_filtered_tickets(data)
 
+    def close_ticket(self, data: str) -> json:
+        pass
+
     ### CONTRACTOR METHODS
 
     ### DESTINATION METHODS
