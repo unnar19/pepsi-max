@@ -222,6 +222,11 @@ class ScreensUI():
                 
                 elif input_int == 5: # Add Employee
                     self.add_employee_profile()
+                    self.emp_list = self.inter.listing_all_employees()
+                    id_list = []
+                    [id_list.append(employee[1])for employee in self.emp_list]
+                    # Make list for each screen
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
 
                 elif input_int == 6: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
@@ -351,21 +356,24 @@ class ScreensUI():
                     # If unique identifier is empty, make it actually empty
                     # TODO could be solved better
                     if self.format.commands['Email*'][1][1:-1] == 'empty':
-                        new_data_dict['email'] = ''
+                        new_data_dict.pop('email')
 
                     # Add non required fields to dictionary if they are not empty
                     if self.format.commands['Home phone'][1][1:-1] != 'empty':
                         new_data_dict['home_phone'] = self.format.commands['Home phone*'][1][1:-1]
 
                     edit_response = self.inter.add_profile(self.role,'employee',new_data_dict)
-                    if edit_response:
-                        self.format.comment = 'Select an option'
-                        return
-                    else:
+                    if not edit_response:
                         if self.role == 'boss':
                             self.format.comment = 'Required missing or email already registered'
                         else:
                             self.format.comment = 'Unauthorized, Select an option'
+                    else:
+                        #UPDATE SCREEN
+
+
+                        self.format.comment = 'Select an option'
+                        return
 
                 elif input_int == 10: # Cancel
                     self.format.comment = 'Select an option'
@@ -489,6 +497,11 @@ class ScreensUI():
 
                 elif input_int == 5: # ADD realestate
                     self.add_real_estate_profile()
+                    self.emp_list = self.inter.listing_all_real_estates()
+                    id_list = []
+                    [id_list.append(real_estate[1])for real_estate in self.emp_list]
+                    # Make list for each screen
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
 
                 elif input_int == 6: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
@@ -497,7 +510,7 @@ class ScreensUI():
 
     def add_real_estate_profile(self):
         self.format.subtitle = 'Menu > Real estates > Add real estate'
-        self.format.edit_commands(['Address*','Address ID*','Location*','Apply Changes','Cancel'])
+        self.format.edit_commands(['*Address','*Address ID','*Location','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,1,1])
         list_of_comments = ['Enter address',"Enter address ID",'Enter location']
         self.format.preview_comment = 'Required fields marked with *'
@@ -511,7 +524,27 @@ class ScreensUI():
                 self.format.comment = f'{type_of_input}, Select an option'
             elif type_of_input == 1:
                 if input_int == 3: #APPLY
-                    pass
+                    
+                    new_data_dict = {'address': self.format.commands['*Address'][1][1:-1],
+                                    'real_estate_id': self.format.commands['*Address ID'][1][1:-1],
+                                    'destination': self.format.commands['*Location'][1][1:-1]}
+                    
+                    if self.format.commands['*Address ID'][1][1:-1] == 'empty':
+                        new_data_dict.pop('real_estate_id')
+                
+                    edit_response = self.inter.add_profile(self.role,'real_estate',new_data_dict)
+                    if not edit_response:
+                        if self.role == 'boss':
+                            self.format.comment = 'Address id already registered, Select an option'
+                        else:
+                            self.format.comment = 'Unauthorized, Select an option'
+                    else:
+                        #UPDATE SCREEN
+
+                        self.format.comment = 'Select an option'
+                        return
+                        
+
                 elif input_int == 4: #Cancel
                     self.format.comment = 'Select an option'
                     return
