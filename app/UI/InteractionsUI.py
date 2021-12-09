@@ -134,13 +134,13 @@ class InteractionsUI:
         return response_dict['type']
 
     def add_profile(self, role_of_user, key, new_data_dict):
+        '''
+        Works for any key
+        '''
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
-        print(request)
-        input('stop')
         response = self.LL.post(request)
         response_dict = json.loads(response)
         print(response_dict)
-        input('stop')
         return response_dict['type']
 
     def get_real_estate(self, id_str):
