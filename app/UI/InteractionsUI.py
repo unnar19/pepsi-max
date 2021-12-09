@@ -73,6 +73,25 @@ class InteractionsUI:
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
+    def listing_all_tickets_for_destination(self, destination) -> list:
+        ''' Gets all realestates and their information to display when listing'''
+
+        # Request data drom API
+        request = json.dumps({'key': 'ticket', 'filter': True, 'data':{'filter':'destination', 'filter_value': destination}})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
+
+        # Decode dictionary to nested lists
+        real_estate_list = []
+        for value in response_dict['data'].values():
+            nested_real_list = []
+            nested_real_list.append(value['description'])
+            nested_real_list.append(value['id'])
+            nested_real_list.append(value['real_estate_id'])
+            nested_real_list.append(value['closed'])
+            real_estate_list.append(nested_real_list)
+        return real_estate_list
+
     def filter_listing(self, filter_str, key, filter_type):
         request = json.dumps({'key': key, "filter": True, 'data':{'filter': filter_type, 'filter_value': filter_str}})
         response = self.LL.get_all(request)
