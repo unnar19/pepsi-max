@@ -55,6 +55,54 @@ An example of a get_all() call where you want all employees in Reykjavík:
 
 Where the filter field specifies which field to filter and the filter_value what value to search for. 
 
+An example of a get() call where you want the employee with the id 4:
+
+    get_employee = {
+                    "key":"employee",
+                    "data":{"id":"4"}}
+
+An example of a post() call where you want to register a new employee:
+
+    post_employee = {
+            "role":"boss"
+            "key":"employee"
+            "data": {
+                "id":"5"
+                "role":"Custodian"
+                "name":"Walter Flanigan"
+                "password":"imnormal"
+                "ssn":"0405683478"
+                "address":"Hverfis Skata 2"
+                "home_phone":"8888888"
+                "mobile_phone":"9999999"
+                "email":"waltflanandson@nan.is"
+                "destination":"Reykjavík"
+                "tickets":"[]"
+                "reports":"[]"}}
+
+"role" is the job title of an employee, "key" is the category that the user wishes to post and data is the attributes of the employee. A user can only use the post() call if they have the role of "boss" or if they key is "report", all users can post a report.
+
+An example of a put() call where you want to change an attribute of an employee:
+
+    put_employee = {
+            "role":"boss"
+            "key":"employee"
+            "data": {
+                "id": "5",
+                "home_phone": "5555555",}}
+
+Only one attribute can be changed in one call. A user can only use the put() call if they have the role of "boss" or if the key is "ticket" and the latter key in data is "ready". The first key must always be "id".
+
+An example of a delete() call where you want to delete an employee:
+
+    delete_employee = {
+                "role":"boss"
+                "key":"employee"
+                "data":{"id":"5"}}
+
+Only a user with the role "boss" can call on delete().
+
+Here are templates for all of the calls:
 
     get_all = {
                 "key":"<key>",
@@ -85,48 +133,6 @@ Where the filter field specifies which field to filter and the filter_value what
                 "role":"boss"
                 "key":"<key>"
                 "data":{"id":"<id>"}}
-
-------------------------------------------------------------
-
-    get_all_in_reykjavik = {
-                            "key":"employee",
-                            "filter":"destination", 
-                            "filter_value":"Reykjavík"}
-
-    get_employee = {
-                    "key":"employee",
-                    "data":{"id":"4"}}
-
-    post_employee = {
-            "role":"boss"
-            "key":"employee"
-            "data": {
-                "id":"5"
-                "role":"Custodian"
-                "name":"Walter Flanigan"
-                "password":"imnormal"
-                "ssn":"0405683478"
-                "address":"Hverfis Skata 2"
-                "home_phone":"8888888"
-                "mobile_phone":"9999999"
-                "email":"waltflanandson@nan.is"
-                "destination":"Reykjavík"
-                "tickets":"[]"
-                "reports":"[]"}}
-
-    put_employee = {
-            "role":"boss"
-            "key":"employee"
-            "data": {
-                "id": "5",
-                "home_phone": "5555555",}}
-    
-    delete_employee = {
-                "role":"boss"
-                "key":"employee"
-                "data":{"id":"5"}}
-
-    
 
 
 # UI
