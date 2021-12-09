@@ -275,7 +275,6 @@ class Base:
 
     def __wants_filter(self, data: json) -> bool:
         """If 'filter' field is set we return the field to filter and value"""
-        print(data)
         return 'filter' in json.loads(data)["data"].keys()
 
     def __correct_fields(self, data: json) -> bool:
