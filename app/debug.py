@@ -168,3 +168,10 @@ print(json.loads(res))
     },
 }
 """
+
+print(json.dumps({"key":"ticket","data":{"id":1}}))
+
+res = LL.get(json.dumps({"key":"ticket","data":{"id":1}}))
+print(json.loads(res))
+print('-'*60)
+print(type(json.loads(res)['data']))
