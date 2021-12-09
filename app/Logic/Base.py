@@ -16,7 +16,7 @@ class Base:
             "real_estate_id", "description", "destination", "start_date", "employee_id"
         },
         "report":{
-            "real_estate_id", "description", "employee_id", "destination", "start_date"
+            "real_estate_id", "description", "employee_id", "destination", "date"
         },
         "contractor":{
             "name", "contact", "phone", "opening_hours", "destination"
@@ -38,9 +38,11 @@ class Base:
         },
         "ticket":{
             "report_id": 0,
+            "contractor_id": 0,
             "close_date": "future",
             "priority": False,
-            "open": True,
+            "ready": False,
+            "closed": False,
             "is_recurring": False
         },
         "report":{
@@ -48,10 +50,7 @@ class Base:
             "total_price": 0,
             "contractor_id": 0,
             "contractor_pay": 0,
-            "close_date": "future",
-            "comments": [],
-            "ready": False,
-            "closed": False
+            "comments": []
         },
         "contractor":{
             "tickets": []
@@ -248,8 +247,12 @@ class Base:
         Used in POST exception handling
         Used in PUT to check if overriding existing password
         """
-        ui_load = json.loads(data)['data']
-        unique_val = ui_load[self._unique]
+        ui_load = json.loads(data)["data"]
+        # if we are doing a put and not trying to change unique values
+        if self._unique in ui_load.keys():
+            unique_val = ui_load[self._unique]
+        else:
+            return True
 
         # Parse DB response
     
@@ -262,7 +265,9 @@ class Base:
         # Search submitted unique_val address in DB
         for val in data_load.values():
             if val[self._unique] == unique_val:
-                return False
+                #user can change its self unique value to a unique value
+                if ui_load["id"] != val["id"]:
+                    return False
 
         return True
 

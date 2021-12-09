@@ -4,7 +4,6 @@ import json
 import os
 unittest.TestLoader.sortTestMethodsUsing = None
 
-
 #this will pass in setUp
 new_real_estate1 = json.dumps({ "role": "boss",
                         "key": "real_estate",
@@ -47,12 +46,6 @@ class TestRealEstate(unittest.TestCase):
         res = json.loads(self.LL.post(new_real_estate1))
         self.id = res["data"]["id"]
 
-
-    def test_post_real_estate(self):
-        """Try to post new real estate that violates key constraint"""
-        res = json.loads(self.LL.post(new_real_estate1))
-        self.assertFalse(res["type"])
-
     def test_put_real_estate(self):
         """We change the real estate we made in setUp"""
         put_data_1 = json.dumps({"role": "boss",
@@ -91,8 +84,8 @@ class TestRealEstate(unittest.TestCase):
                 "key": "real_estate",
                 "filter": True,
                 "data": {
-                    "filter": "destination",
-                    "filter_value": "Nuuk"
+                    "filter": "real_estate_id",
+                    "filter_value": "h"
                 }
             }
         )
