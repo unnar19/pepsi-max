@@ -137,6 +137,21 @@ class TestReport(unittest.TestCase):
         res = json.loads(self.LL.post(new_report4))
         self.assertTrue(res["type"])
 
+    def test_required_fields(self):
+        """We try to post a report while not filling in all the required fields"""
+        new_report4 = json.dumps({ "role": "boss",
+                        "key": "report",
+                        "data": {
+                            "description": "do the stanky leg",
+                            "employee_id": "3",
+                            "destination": "Reykjavík",
+                            "date": "901.11.12",
+                            "approved": False,
+                            }
+                        })
+        res = json.loads(self.LL.post(new_report4))
+        self.assertFalse(res["type"])
+
     @classmethod
     def tearDownClass(self):
         put_data_delete = json.dumps({

@@ -55,4 +55,78 @@ An example of a get_all() call where you want all employees in Reykjavík:
 
 Where the filter field specifies which field to filter and the filter_value what value to search for. 
 
+
+    get_all = {
+                "key":"<key>",
+                "data": {
+                    "filter":"<filter_key>", 
+                    "filter_value":"<filter_value>"}}
+
+    get = {
+            "key":"<key>",
+            "data":{"id":"<id>"}}
+
+    post = {
+            "role":"<role>"
+            "key":"<key>"
+            "data": {
+                "post_key":"<post_value>"
+                ...
+                "post_key":"<post_value>"}}
+
+    put = {
+            "role":"<role>"
+            "key":"<key>"
+            "data": {
+                "id": "<id>",
+                "put_key": "<put_value>",}}
+
+    delete = {
+                "role":"boss"
+                "key":"<key>"
+                "data":{"id":"<id>"}}
+
+------------------------------------------------------------
+
+    get_all_in_reykjavik = {
+                            "key":"employee",
+                            "filter":"destination", 
+                            "filter_value":"Reykjavík"}
+
+    get_employee = {
+                    "key":"employee",
+                    "data":{"id":"4"}}
+
+    post_employee = {
+            "role":"boss"
+            "key":"employee"
+            "data": {
+                "id":"5"
+                "role":"Custodian"
+                "name":"Walter Flanigan"
+                "password":"imnormal"
+                "ssn":"0405683478"
+                "address":"Hverfis Skata 2"
+                "home_phone":"8888888"
+                "mobile_phone":"9999999"
+                "email":"waltflanandson@nan.is"
+                "destination":"Reykjavík"
+                "tickets":"[]"
+                "reports":"[]"}}
+
+    put_employee = {
+            "role":"boss"
+            "key":"employee"
+            "data": {
+                "id": "5",
+                "home_phone": "5555555",}}
+    
+    delete_employee = {
+                "role":"boss"
+                "key":"employee"
+                "data":{"id":"5"}}
+
+    
+
+
 # UI

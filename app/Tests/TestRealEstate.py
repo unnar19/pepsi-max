@@ -121,6 +121,18 @@ class TestRealEstate(unittest.TestCase):
         res = json.loads(self.LL.post(new_re4))
         self.assertTrue(res["type"])
 
+    def test_required_fields(self):
+        """We try to post real estate while not filling in all the required fields"""
+        new_re4 = json.dumps({ "role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "real_estate_id": "jjj",
+                            "destination": "Reykjavík"
+                            }
+                        })
+        res = json.loads(self.LL.post(new_re4))
+        self.assertFalse(res["type"])
+
     @classmethod
     def tearDownClass(self):
         put_data_delete = json.dumps({
