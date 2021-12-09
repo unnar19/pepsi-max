@@ -1,0 +1,23 @@
+@startuml DataLayerExceptions
+
+
+hide empty methods
+hide empty members
+skinparam groupInheritance 2
+
+
+package DataLayer <<Rectangle>> {
+
+    class DataLayerException{
+        class_: str
+        method: str
+        type: type
+        __str__()
+    }
+
+    DataLayerException <|-- DatabaseEmpty
+    DataLayerException <|-- IncorrectData
+
+}
+
+@enduml

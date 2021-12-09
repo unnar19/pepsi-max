@@ -9,33 +9,33 @@ Nr,Lýsing,Forgangur
 8,Bæta við athugasemdum um verk þegar beiðni er lokað,B
 9,Setja forgang á verkbeiðni,B
 10,Breyta forgangi á verkbeiðni,B
-11,Leita að starfsmanni,A
-12,Leita að fasteign,A
-13,Leita að fasteign eftir auðkenni,A
-14,Leita að verkbeiðni eftir númeri,A
-15,Leita að verkbeiðni eftir verktaka,B
-16,Leita að þóknun verktaka í verkskýrslu,B
-17,Prenta upplýsingar notanda,A
-18,Prenta upplýsingar fasteignar,A
-19,Prenta alla starfsmenn,A
-20,Prenta alla starfsmenn sem uppfylla skilyrði,A
-21,Prenta allar fasteignir,A
-22,Prenta allar fasteignir sem uppfylla skilyrði,A
-23,Prenta allar verkbeiðnir,A
-24,Prenta allar opnar verkbeiðnir,A
-25,Prenta allar verkbeiðnir fyrir ákveðna fasteign,A
-26,Prenta allar skýrslur fyrir ákveðna fasteign,A
-27,Prenta allar verkbeiðnir frá starfsmanni,A
-28,Prenta skrá yfir áfangastaði NaN Air,A
-29,Prenta upplýsingar verktaka,B
-30,Prenta viðhaldsverkefni eftir staðsetningu og dagsetningu,B
-31,Prenta allt viðhald á ákveðinni fasteign á ákveðnu tímabili,B
-32,Prenta öll verk ákveðins verktaka á ákveðnu tímabili,B
-33,Prenta öll verk ákveðins starfsmanns á ákveðnu tímabili,B
-34,Stofna verkbeiðni,A
-35,Breyta verkbeiðni,A
-36,Skrá verkskýrslu á opna verkbeiðni,A
-37,Merkja verkbeiðni sem tilbúna fyrir lokun,A
-38,Samþykkja verkskýrslu/Loka verkbeiðni,A
-39,Merkja verkbeiðni sem endurtekið verkefni,B
-40,Merkja verkbeiðni eftir þriggja flokka forgangsröðun,B
+11,Stofna verkbeiðni,A
+12,Breyta verkbeiðni,A
+13,Skrá verkskýrslu á opna verkbeiðni,A
+14,Merkja verkbeiðni sem tilbúna fyrir lokun,A
+15,Samþykkja verkskýrslu/Loka verkbeiðni,A
+16,Merkja verkbeiðni sem endurtekið verkefni,B
+17,Merkja verkbeiðni eftir þriggja flokka forgangsröðun,B
+18,Leita að starfsmanni,A
+19,Leita að fasteign,A
+20,Leita að fasteign eftir auðkenni,A
+21,Leita að verkbeiðni eftir númeri,A
+22,Leita að verkbeiðni eftir verktaka,B
+23,Leita að þóknun verktaka í verkskýrslu,B
+24,Prenta upplýsingar notanda,A
+25,Prenta upplýsingar fasteignar,A
+26,Prenta alla starfsmenn,A
+27,Prenta alla starfsmenn sem uppfylla skilyrði,A
+28,Prenta allar fasteignir,A
+29,Prenta allar fasteignir sem uppfylla skilyrði,A
+30,Prenta allar verkbeiðnir,A
+31,Prenta allar opnar verkbeiðnir,A
+32,Prenta allar verkbeiðnir fyrir ákveðna fasteign,A
+33,Prenta allar skýrslur fyrir ákveðna fasteign,A
+34,Prenta allar verkbeiðnir frá starfsmanni,A
+35,Prenta skrá yfir áfangastaði NaN Air,A
+36,Prenta upplýsingar verktaka,B
+37,Prenta viðhaldsverkefni eftir staðsetningu og dagsetningu,B
+38,Prenta allt viðhald á ákveðinni fasteign á ákveðnu tímabili,B
+39,Prenta öll verk ákveðins verktaka á ákveðnu tímabili,B
+40,Prenta öll verk ákveðins starfsmanns á ákveðnu tímabili,B

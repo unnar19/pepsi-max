@@ -1,0 +1,28 @@
+@startuml LogicLayerExceptions
+
+hide empty methods
+hide empty members
+skinparam groupInheritance 1
+
+package LogicLayer <<Rectangle>> {
+
+    class LogicLayerException{
+        class_: str
+        method: str
+        type: type
+        __str__()
+    }
+
+    LogicLayerException <|-left- NoId
+    LogicLayerException <|-up- UnauthorizedRequest
+    LogicLayerException <|-right- DataAlreadyExists
+    LogicLayerException <|-- IncorrectId
+    LogicLayerException <|-- IncorrectCredentials
+    LogicLayerException <|-- IncorrectInput
+    LogicLayerException <|- NotFound
+    LogicLayerException <|-- IncorrectField
+
+}
+
+
+@enduml
