@@ -26,6 +26,7 @@ new_report1 = json.dumps({ "role": "boss",
                             "contractor_id": "1",
                             "contractor_pay": "700 kr",
                             "date": "901.11.11",
+                            "approved": False,
                             "comments": "[]",
                             }
                         })
@@ -42,6 +43,7 @@ new_report2 = json.dumps({ "role": "boss",
                             "contractor_id": "2",
                             "contractor_pay": "6kr",
                             "date": "901.11.11",
+                            "approved": False,
                             "comments": "[]",
                             }
                         })
@@ -98,6 +100,43 @@ class TestReport(unittest.TestCase):
         res = json.loads(self.LL.get_all(data))
         self.assertEqual(res['data']['2']['real_estate_id'], 'brundfata')
 
+    def test_post_report_as_employee(self):
+        """Tests if employees can post reports, which they should"""
+        new_report3 = json.dumps({ "role": "employee",
+                        "key": "report",
+                        "data": {
+                            "ticket_id": "5",
+                            "real_estate_id": "p",
+                            "description": "hit the booty dew",
+                            "employee_id": "1",
+                            "destination": "Nuuk",
+                            "total_price": "6kr",
+                            "contractor_id": "2",
+                            "contractor_pay": "6kr",
+                            "date": "901.11.11",
+                            "approved": False,
+                            "comments": "[]",
+                            }
+                        })
+        res = json.loads(self.LL.post(new_report3))
+        self.assertTrue(res["type"])
+
+    def test_autofill(self):
+        """We try to post a report while only filling in the required fields"""
+        new_report4 = json.dumps({ "role": "boss",
+                        "key": "report",
+                        "data": {
+                            "real_estate_id": "kl",
+                            "description": "do the stanky leg",
+                            "employee_id": "3",
+                            "destination": "Reykjavík",
+                            "date": "901.11.12",
+                            "approved": False,
+                            }
+                        })
+        res = json.loads(self.LL.post(new_report4))
+        self.assertTrue(res["type"])
+
     @classmethod
     def tearDownClass(self):
         put_data_delete = json.dumps({
@@ -109,7 +148,5 @@ class TestReport(unittest.TestCase):
                         })
         res = json.loads(self.LL.delete(put_data_delete))
     
-
-
 if __name__ == '__main__':
     unittest.main()

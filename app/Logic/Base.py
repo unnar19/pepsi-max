@@ -128,7 +128,7 @@ class Base:
 
     def post(self, data: json) -> json:
         """Posts new data into database layer, returns posted data"""
-        if self.__is_boss(data):
+        if self.__is_boss(data) or self._key == "report":
             
             if self.__correct_fields(data):
                 
@@ -162,12 +162,10 @@ class Base:
         """
 
         if not self._unique or self.__is_new(data):
-
-            if self.__is_boss(data):
-                
-                # Parse user input
-                ui_load = json.loads(data)['data']
-
+            # Parse user input
+            ui_load = json.loads(data)['data']
+            
+            if self.__is_boss(data) or (self._key == "ticket" and "ready" in ui_load.keys()):
                 # Validate input
                 if self.__valid_put_data(ui_load, 'PUT'):
 
