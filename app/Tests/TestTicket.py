@@ -25,7 +25,7 @@ new_ticket1 = json.dumps({"role": "boss",
                             "destination": "Nuuk",
                             "start_date": "2020-12-03",
                             "close_date": "future",
-                            "priority": "A",
+                            "priority": "Emergency",
                             "ready": False,
                             "closed": False,
                             "is_recurring": False,
@@ -43,7 +43,7 @@ new_ticket2 = json.dumps({ "role": "boss",
                             "destination": "Reykjavík",
                             "start_date": "2020-12-03",
                             "close_date": "future",
-                            "priority": "B",
+                            "priority": "Now",
                             "ready": False,
                             "closed": False,
                             "is_recurring": False,
@@ -69,7 +69,7 @@ class TestTicket(unittest.TestCase):
                         "key": "ticket",
                         "data": {
                             "id": str(self.id),
-                            "priority": "C",
+                            "priority": "As soon as possible",
                             }
                         })
         res = json.loads(self.LL.put(put_data_1))
@@ -98,7 +98,7 @@ class TestTicket(unittest.TestCase):
             "data":{"id": '2'}
         })
         res = json.loads(self.LL.get(data))
-        self.assertEqual(res['data']['priority'], 'A')
+        self.assertEqual(res['data']['priority'], 'Emergency')
 
     def test_filter_ticket(self):
         data = json.dumps(
@@ -144,9 +144,18 @@ class TestTicket(unittest.TestCase):
         self.assertFalse(res["type"])
 
     def test_multiple_filtering(self):
-        req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id"],
+        req = json.dumps({"key": "tickets", "data":{ "filters":["period","destination"],
                                              "filter_data":{ "start_date":"2020-01-01",
                                                                 "end_date":"2021-01-01",
+                                                                "destination":"Reykjavík"}}})
+        res = json.loads(self.LL.get_tickets_filtered(req))
+        self.assertTrue(res["type"])
+
+    def test_more_than_two_filtering(self):
+        req = json.dumps({"key": "tickets", "data":{ "filters":["period","destination","employee_id"],
+                                             "filter_data":{ "start_date":"2020-01-01",
+                                                                "end_date":"2021-01-01",
+                                                                "destination":"Reykjavík",
                                                                 "employee_id":"1"}}})
         res = json.loads(self.LL.get_tickets_filtered(req))
         print(res)
