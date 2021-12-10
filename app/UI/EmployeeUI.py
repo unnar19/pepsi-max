@@ -257,7 +257,7 @@ class EmployeeUI:
 
                     # Add non required fields to dictionary if they are not empty
                     if self.format.commands['Home phone'][1][1:-1] != 'empty':
-                        new_data_dict['home_phone'] = self.format.commands['Home phone*'][1][1:-1]
+                        new_data_dict['home_phone'] = self.format.commands['Home phone'][1][1:-1]
 
                     edit_response = self.inter.add_profile(self.role,'employee',new_data_dict)
                     if not edit_response:
