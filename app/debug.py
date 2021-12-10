@@ -227,5 +227,4 @@ req = json.dumps({"key": "ticket", "data":{ "filters":["destination", "closed"],
 
 res = LL.get_tickets_filtered(req)
 
-print(res)
 
