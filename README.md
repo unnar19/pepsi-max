@@ -4,6 +4,27 @@ Verklegt Námskeið 1 | T-113-VLN1 | Hópur 43
 
 # About
 
+# Requirements
+
+The version was implemented and tested in Python 3.8.5.
+We can not guarantee it will run in versions lower than that.
+
+## Dependancies
+
+Dependancies can be found in app/requirements.txt and here below.
+
+    attrs==21.2.0
+    jsonschema==4.2.1
+    pyrsistent==0.18.0
+
+
+# How to run
+
+To run from root:
+
+**python3 app/MainUI.py**
+
+
 # Models
 
 The system implements the following models:
@@ -135,4 +156,3 @@ Here are templates for all of the calls:
                 "data":{"id":"<id>"}}
 
 
-# UI
