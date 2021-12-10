@@ -1,6 +1,5 @@
 from os import name
 from UI.FormatUI import FormatUI
-import json
 from UI.InteractionsUI import InteractionsUI
 import datetime
 
@@ -10,6 +9,7 @@ class ScreensUI():
         self.inter = InteractionsUI()
         self.role = 'boss'
         self.destination = 'Reykjavík'
+        self.id = 1
 
     def get_input(self, prompt_str):
         return input(f' {prompt_str}: ')
@@ -129,14 +129,15 @@ class ScreensUI():
                 self.filter_str = ''
                 self.tickets_screen()
             elif input_int == 3: # Reports
-                print('reports screen')
-                input('continue?')
+                self.filter_str = ''
+                self.reports_screen()
             elif input_int == 4: #contractors
                 self.filter_str = ''
                 self.contractors_screen()
             elif input_int == 5: # Destinations
                 self.filter_str = ''
                 self.destination_screen()
+
             elif input_int == 6: #log out
                 return False
 
@@ -464,7 +465,7 @@ class ScreensUI():
 
                     else:
                         self.format.comment = 'ID not valid, Select an option'
-                    self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'
+                    self.format.preview_title = f'{"Address":<30} | {"ID":<5} | {"Address ID":<10} | {"Location":<12}'
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     
                 elif input_int == 3: # Previous Page
@@ -547,8 +548,8 @@ class ScreensUI():
         self.format.profile = True
         while True:
             self.format.subtitle = 'Menu > Real Estate > Select'
-            self.format.edit_commands(['Edit info','Tickets','Reports','Back'])
-            self.format.apply_styles([1,1,1,1])
+            self.format.edit_commands(['Edit info','Back'])
+            self.format.apply_styles([1,1])
             self.format.preview_title = 'Real estate information'
             self.format.listing_lis = self.inter.custom_real_estate_preview(id_str)
             self.format.preview_comment = ''
@@ -560,15 +561,8 @@ class ScreensUI():
             else:
                 if input_int == 0: # Edit info
                     self.edit_real_estate_profile(id_str)
-                elif input_int == 1: # Tickets
-                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
-                    self.format.profile = False
-                    return
-                elif input_int == 2: # Reports
-                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
-                    self.format.profile = False
-                    return
-                elif input_int == 3: # Back
+
+                elif input_int == 1: # Back
                     self.format.comment = 'Select an option'
                     self.format.profile = False
                     return
@@ -630,7 +624,7 @@ class ScreensUI():
         self.format.comment = 'Select an option'
         curr_page = 1
         self.filter_str = ''
-        self.emp_list = self.inter.listing_all_tickets_for_destination(self.destination)
+        self.emp_list = self.inter.listing_all_for_destination('ticket',self.destination)
         id_list = []
         [id_list.append(ticket[1]) for ticket in self.emp_list]
         # Make list for each screen
@@ -665,7 +659,7 @@ class ScreensUI():
                     id_input = self.get_input('Input')
                     if id_input in id_list:
                         self.ticket_profile_screen(id_input)
-                        self.emp_list = self.inter.listing_all_tickets_for_destination(self.destination)
+                        self.emp_list = self.inter.listing_all_for_destination('ticket',self.destination)
                         id_list = []
                         [id_list.append(ticket[1])for ticket in self.emp_list]
                         # Make list for each screen again
@@ -691,7 +685,7 @@ class ScreensUI():
 
                 elif input_int == 4: # Add ticket
                     self.add_ticket_profile()
-                    self.emp_list = self.inter.listing_all_tickets_for_destination(self.destination)
+                    self.emp_list = self.inter.listing_all_for_destination('ticket',self.destination)
                     id_list = []
                     [id_list.append(ticket[1])for ticket in self.emp_list]
                     # Make list for each screen
@@ -737,8 +731,8 @@ class ScreensUI():
         self.format.profile = True
         while True:
             self.format.subtitle = 'Menu > Tickets > Select'
-            self.format.edit_commands(['Edit info','Back'])
-            self.format.apply_styles([1,1])
+            self.format.edit_commands(['Edit info','Add report','Back'])
+            self.format.apply_styles([1,1,1])
             self.format.preview_title = 'Ticket information'
             self.format.listing_lis = self.inter.custom_ticket_preview(id_str)
             self.format.preview_comment = ''
@@ -751,45 +745,139 @@ class ScreensUI():
                 if input_int == 0: # Edit info
                     self.edit_ticket_profile(id_str)
 
-                elif input_int == 1: # Back
+                elif input_int == 1: # Add report
+                    ticket_data_dict = self.inter.get_ticket_or_report('ticket',id_str)
+                    if ticket_data_dict['report_id'] == '0':
+                        self.add_report_profile(id_str)
+                    else:
+                        self.format.comment = 'Ticket already has a report'
+
+                elif input_int == 2: # Back
                     self.format.comment = 'Select an option'
                     self.format.profile = False
                     return
 
+    def add_report_profile(self, ticket_id):
+        self.format.subtitle = 'Menu > Tickets > Select > Add report'
+        self.format.edit_commands(['*Description','Contractor ID','Contractor pay','Total cost','Accept','Cancel'])
+        self.format.apply_styles([0,0,0,0,1,1])
+        list_of_comments = ['Enter description','Enter contractor ID','Enter contractor pay','Enter total cost']
+        self.format.preview_comment = 'Required fields marked with *'
+
+        # Making a report
+        #----------------
+        # REQUIRED
+        #   Description
+        #   Address ID
+        #   Employee ID
+        #----------------
+        # OPTIONAL
+        #   total price
+        #   contractor_id
+        #   contractor_pay
+    	#----------------
+        # AUTOFILL
+        #   destination = self.destination
+        #   date = today
+        #   ticket_id = ticket_id
+        
+
+        while True:            
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+
+            elif type_of_input == 0: # Text box
+                self.format.comment = list_of_comments[input_int]
+                self.format.print_screen()
+                input_str = self.get_input('Text input')
+                self.format.update_text_box(input_int, input_str)
+                self.format.comment = 'Select an option'
+            
+            elif type_of_input == 1: # Command
+                if input_int == 4: #APPLY
+                    today = str(datetime.date.today())
+
+                    ticket_data_dict = self.inter.get_ticket_or_report('ticket',ticket_id)
+
+                    # Make dictionary with new information
+                    new_data_dict = {'date': today,
+                                    'destination': self.destination,
+                                    'ticket_id': ticket_id,
+                                    'contractor_id': self.format.commands['Contractor ID'][1][1:-1],
+                                    'contractor_pay': self.format.commands['Contractor pay'][1][1:-1],
+                                    'total_price': self.format.commands['Total cost'][1][1:-1],
+                                    'description': self.format.commands['*Description'][1][1:-1],
+                                    'real_estate_id': ticket_data_dict['real_estate_id'],
+                                    'employee_id': self.id}
+                                    
+                    # Remove optional fields to dictionary if they are empty
+                    if self.format.commands['Contractor ID'][1][1:-1] == 'empty':
+                        new_data_dict.pop('contractor_id')
+                    if self.format.commands['Contractor pay'][1][1:-1] == 'empty':
+                        new_data_dict.pop('contractor_pay')
+                    if self.format.commands['Total cost'][1][1:-1] == 'empty':
+                        new_data_dict.pop('total_price')
+
+
+                    if new_data_dict['description'] == 'empty' or new_data_dict['real_estate_id'] == 'empty' or new_data_dict['employee_id'] == 'empty':
+                        if self.role == 'boss':
+                            self.format.comment = 'Required missing, Select an option'
+                        else:
+                            self.format.comment = 'Unauthorized, Select an option'
+                    else:
+                        self.inter.add_profile(self.role,'report',new_data_dict)
+                        # Edit report id on ticket
+                        
+                        # TODO fix report/ticket id conflict
+
+                        self.format.comment = 'Select an option'
+                        return
+
+                else: # Cancel
+                    self.format.comment = 'Select an option'
+                    return
+
+
     def edit_ticket_profile(self, id_str):
 
-        ticket_data_dict = self.inter.get_ticket(id_str)
+        ticket_data_dict = self.inter.get_ticket_or_report('ticket',id_str)
         prior = ticket_data_dict['priority']
-        self.format.edit_commands(['Description','Start date','Address ID','Employee ID','Contractor ID','Priority','Ready','Closed','Recurring','Apply Changes','Cancel'])
-        self.format.apply_styles([0,0,0,0,0,1,2,2,2,1,1])
+        self.format.edit_commands(['Description','Address ID','Employee ID','Contractor ID','Priority','Ready','Recurring','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,1,2,2,1,1])
 
         if self.str2bool(ticket_data_dict['ready']):
-            self.format.update_check_box(6)
+            self.format.update_check_box(5)
             ready_style = self.format.commands['Ready'][0]
         else:
             ready_style = 2
-        if self.str2bool(ticket_data_dict['closed']):
-            self.format.update_check_box(7)
-            closed_style = self.format.commands['Closed'][0]
-        else:
-            closed_style = 2
         if self.str2bool(ticket_data_dict['is_recurring']):
-            self.format.update_check_box(8)
+            self.format.update_check_box(6)
             recur_style = self.format.commands['Recurring'][0]
         else:
             recur_style = 2
+
+        self.format.update_text_box(0,ticket_data_dict['description'])
+        desc = ticket_data_dict['description']
+        self.format.update_text_box(1,ticket_data_dict['real_estate_id'])
+        real_id = ticket_data_dict['real_estate_id']
+        self.format.update_text_box(2,ticket_data_dict['employee_id'])
+        emp_id = ticket_data_dict['employee_id']
+        self.format.update_text_box(3,ticket_data_dict['contractor_id'])
+        cont_id = ticket_data_dict['contractor_id']
         
         while True:
-            self.format.edit_commands(['Description','Start date','Address ID','Employee ID','Contractor ID','Priority','Ready','Closed','Recurring','Apply Changes','Cancel'])
-            self.format.apply_styles([0,0,0,0,0,1,ready_style,closed_style,recur_style,1,1])
+            self.format.edit_commands(['Description','Address ID','Employee ID','Contractor ID','Priority','Ready','Recurring','Apply Changes','Cancel'])
+            self.format.apply_styles([0,0,0,0,1,ready_style,recur_style,1,1])
             self.format.subtitle = 'Menu > Tickets > Select > Edit info'
-            list_of_comments = ['Enter new description','Enter new start date','Enter new close date','Enter new address ID','Enter new Employee ID','Enter new contractor ID','Edit priority']
+            list_of_comments = ['Enter new description','Enter new address ID','Enter new Employee ID','Enter new contractor ID','Edit priority']
             
-            self.format.update_text_box(0,ticket_data_dict['description'])
-            self.format.update_text_box(1,ticket_data_dict['start_date'])
-            self.format.update_text_box(2,ticket_data_dict['real_estate_id'])
-            self.format.update_text_box(3,ticket_data_dict['employee_id'])
-            self.format.update_text_box(4,ticket_data_dict['contractor_id'])
+            self.format.update_text_box(0,desc)
+            self.format.update_text_box(1,real_id)
+            self.format.update_text_box(2,emp_id)
+            self.format.update_text_box(3,cont_id)
 
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -801,48 +889,42 @@ class ScreensUI():
                 self.format.print_screen()
                 input_str = self.get_input('Text input')
                 self.format.update_text_box(input_int, input_str)
+                if input_int == 0:
+                    desc = input_str
+                elif input_int == 1:
+                    real_id = input_str
+                elif input_int == 2:
+                    emp_id = input_str
+                elif input_int == 3:
+                    cont_id = input_str
                 self.format.comment = 'Select an option'
             elif type_of_input == 2 or type_of_input == 3:
                 self.format.update_check_box(input_int)
-                if input_int == 6:
+                if input_int == 5:
                     ready_style = self.format.commands['Ready'][0]
-                elif input_int == 7:
-                    closed_style = self.format.commands['Closed'][0]
-                elif input_int == 8:
+                elif input_int == 6:
                     recur_style = self.format.commands['Recurring'][0]
             elif type_of_input == 1:
-                if input_int == 5: # Priority
+                if input_int == 4: # Priority
                     prior = self.ticket_priority_screen('Select > Edit info > Priority')
                     self.format.comment = 'Select an option'
 
-                elif input_int == 9: # APPLY
-                    today = str(datetime.date.today())
-                    
+                elif input_int == 7: # APPLY
                     ready = False
                     if self.format.commands['Ready'][0] == 3:
                         ready = True
-                    closed = False
-                    if self.format.commands['Closed'][0] == 3:
-                        closed = True
                     recur = False
                     if self.format.commands['Recurring'][0] == 3:
                         recur = True
 
                     new_data_dict = {'id': ticket_data_dict['id'], 
                                     'description': self.format.commands['Description'][1][1:-1],  
-                                    'start_date': self.format.commands['Start date'][1][1:-1], 
                                     'real_estate_id': self.format.commands['Address ID'][1][1:-1],
                                     'employee_id': self.format.commands['Employee ID'][1][1:-1],
                                     'contractor_id': self.format.commands['Address ID'][1][1:-1],
                                     'priority': prior,
                                     'ready': ready,
-                                    'closed': closed,
                                     'is_recurring': recur}
-                    
-                    if closed == True:
-                        new_data_dict['close_date'] = today
-                    else:
-                        new_data_dict['close_date'] = ' '
 
 
                     edit_response = self.inter.edit_profile(self.role, 'ticket',new_data_dict)
@@ -875,22 +957,21 @@ class ScreensUI():
 
     def add_ticket_profile(self):
         prior = ''
-        ticket_data_list = ['empty']*4
-        self.format.subtitle = 'Menu > Tickets > Add ticket'
-        self.format.edit_commands(['*Description','*Address ID','*Employee ID','Contractor ID','Priority','Recurring','Accept','Cancel'])
-        self.format.apply_styles([0,0,0,0,1,2,1,1])
+        ticket_data_list = ['empty']*3
+        self.format.edit_commands(['*Description','*Address ID','Contractor ID','Priority','Recurring','Accept','Cancel'])
+        self.format.apply_styles([0,0,0,1,2,1,1])
         recur_style = 2
-        list_of_comments = ['Enter description','Enter address ID','Enter employee ID','Enter contractor ID']
+        list_of_comments = ['Enter description','Enter address ID','Enter contractor ID']
         self.format.preview_comment = 'Required fields marked with *'
 
         while True:
-            self.format.edit_commands(['*Description','*Address ID','*Employee ID','Contractor ID','Priority','Recurring','Accept','Cancel'])
-            self.format.apply_styles([0,0,0,0,1,recur_style,1,1])
+            self.format.subtitle = 'Menu > Tickets > Add ticket'
+            self.format.edit_commands(['*Description','*Address ID','Contractor ID','Priority','Recurring','Accept','Cancel'])
+            self.format.apply_styles([0,0,0,1,recur_style,1,1])
 
             self.format.update_text_box(0,ticket_data_list[0])
             self.format.update_text_box(1,ticket_data_list[1])
             self.format.update_text_box(2,ticket_data_list[2])
-            self.format.update_text_box(3,ticket_data_list[3])
             
             self.format.print_screen()
             input_str = self.get_input('Input')
@@ -907,10 +988,10 @@ class ScreensUI():
                 self.format.comment = 'Select an option'
             
             elif type_of_input == 1: # Command
-                if input_int == 4: # priority screen
+                if input_int == 3: # priority screen
                     prior = self.ticket_priority_screen('Add ticket > Priority')
                     self.format.comment = 'Select an option'
-                elif input_int == 6: #APPLY
+                elif input_int == 5: #APPLY
                     today = str(datetime.date.today())
 
                     # Make dictionary with new information
@@ -918,7 +999,7 @@ class ScreensUI():
                                     'start_date': today,
                                     'contractor_id': self.format.commands['Contractor ID'][1][1:-1],
                                     'real_estate_id': self.format.commands['*Address ID'][1][1:-1],
-                                    'employee_id': self.format.commands['*Employee ID'][1][1:-1],
+                                    'employee_id': self.id,
                                     'destination': self.destination,
                                     'priority': prior}
 
@@ -946,7 +1027,169 @@ class ScreensUI():
             else:
                 self.format.update_check_box(input_int)
                 recur_style = self.format.commands['Recurring'][0]
-    
+
+# =======================================================================================================
+# =======================================================================================================
+# =======================================================================================================
+# =======================================================================================================
+# =======================================================================================================
+# Reports
+
+    def reports_screen(self):
+        self.format.comment = 'Select an option'
+        curr_page = 1
+        self.filter_str = ''
+        self.emp_list = self.inter.listing_all_for_destination('report', self.destination)
+        id_list = []
+        [id_list.append(report[1]) for report in self.emp_list]
+        # Make list for each screen
+        self.page_list = self.screen_lists_from_all(self.emp_list)
+
+        while True:
+            self.format.preview_title = f'{"Description":<30} | {"ID":<5} | {"Address ID":<10} | {"Approved":<12}'
+            if self.filter_str == '':
+                self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
+            self.format.subtitle = 'Menu > Reports'
+            self.format.edit_commands(['Filters','Select','Prev page','Next page','Back'])
+            self.format.apply_styles([1,1,1,1,1])
+
+            if len(self.page_list) == 0:
+                self.format.listing_lis = self.format.empty_listing()
+            else:
+                self.format.listing_lis = self.page_list[curr_page-1]
+
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+
+            elif type_of_input == 0: # Reports Filters
+                self.filter_reports_screen()
+
+            elif type_of_input == 1:
+                if input_int == 1: # Select Report
+                    self.format.comment = 'Enter ID of report'
+                    self.format.print_screen()
+                    id_input = self.get_input('Input')
+                    if id_input in id_list:
+                        self.report_profile_screen(id_input)
+                        self.emp_list = self.inter.listing_all_for_destination('report',self.destination)
+                        id_list = []
+                        [id_list.append(report[1])for report in self.emp_list]
+
+                        # Make list for each screen again
+                        self.page_list = self.screen_lists_from_all(self.emp_list)
+                        self.filter_str = ''
+                        curr_page = 1
+                    else:
+                        self.format.comment = 'ID not valid, Select an option'
+
+                elif input_int == 2: # Previous page
+                    if curr_page > 1:
+                        self.format.comment = 'Select an option'
+                        curr_page -= 1
+                    else:
+                        self.format.comment = 'Invalid input, Select an option'
+                
+                elif input_int == 3: # Next Page
+                    if curr_page < len(self.page_list):
+                        self.format.comment = 'Select an option'
+                        curr_page += 1
+                    else:
+                        self.format.comment = 'Invalid input, Select an option'
+
+                elif input_int == 4: # Back
+                    self.format.listing_lis = self.format.empty_listing()
+                    self.format.comment = 'Select an option'
+                    return
+
+    def report_profile_screen(self, id_str):
+        self.format.comment = 'Select an option'
+        self.format.profile = True
+        while True:
+            self.format.subtitle = 'Menu > Reports > Select'
+            self.format.edit_commands(['Edit info','Back'])
+            self.format.apply_styles([1,1])
+            self.format.preview_title = 'Report information'
+            self.format.listing_lis = self.inter.custom_report_preview(id_str)
+            self.format.preview_comment = ''
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+            else:
+                if input_int == 0: # Edit info
+                    self.edit_report_profile(id_str)
+
+                elif input_int == 1: # Back
+                    self.format.comment = 'Select an option'
+                    self.format.profile = False
+                    return
+
+    def edit_report_profile(self, id_str):
+        report_data_dict = self.inter.get_ticket_or_report('report',id_str)
+        self.format.edit_commands(['Description','Address ID','Employee ID','Contractor ID','Contractor pay','Total cost','Approved','Comment','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,0,0,2,0,1,1])
+
+        if self.str2bool(report_data_dict['approved']):
+            self.format.update_check_box(6)
+
+        self.format.update_text_box(0,report_data_dict['description'])
+        self.format.update_text_box(1,report_data_dict['real_estate_id'])
+        self.format.update_text_box(2,report_data_dict['employee_id'])
+        self.format.update_text_box(3,report_data_dict['contractor_id'])            
+        self.format.update_text_box(4,report_data_dict['contractor_pay'])
+        self.format.update_text_box(5,report_data_dict['total_price'])
+        self.format.update_text_box(7,report_data_dict['comments'])
+
+        while True:
+            self.format.subtitle = 'Menu > Reports > Select > Edit info'
+            list_of_comments = ['Enter new description','Enter new address ID','Enter new Employee ID','Enter new contractor ID','Enter new contractor pay','Enter new total cost','','Enter new comment']
+            
+            self.format.print_screen()
+            input_str = self.get_input('Input')
+            input_int, type_of_input = self.check_type_of_input(input_str)
+            if type(type_of_input) != int:
+                self.format.comment = f'{type_of_input}, Select an option'
+            elif type_of_input == 0: #Text box
+                self.format.comment = list_of_comments[input_int]
+                self.format.print_screen()
+                input_str = self.get_input('Text input')
+                self.format.update_text_box(input_int, input_str)
+                self.format.comment = 'Select an option'
+                
+            elif type_of_input == 2 or type_of_input == 3:
+                self.format.update_check_box(6)
+            else:
+                if input_int == 8: # APPLY
+                    approved = False
+                    if self.format.commands['Approved'][0] == 3:
+                        approved = True
+
+                    new_data_dict = {"id": report_data_dict['id'],
+                                    "real_estate_id": self.format.commands['Address ID'][1][1:-1],
+                                    "description": self.format.commands['Description'][1][1:-1],
+                                    "employee_id": self.format.commands['Employee ID'][1][1:-1],
+                                    "total_price": self.format.commands['Total cost'][1][1:-1],
+                                    "contractor_id": self.format.commands['Contractor ID'][1][1:-1],
+                                    "contractor_pay": self.format.commands['Contractor pay'][1][1:-1],
+                                    "approved": approved,
+                                    "comments": self.format.commands['Comment'][1][1:-1]}
+                    
+                    edit_response = self.inter.edit_profile(self.role, 'report', new_data_dict)
+                    if not edit_response:
+                        self.format.comment = 'Unauthorized, Select an option'   
+                    else:
+                        self.format.listing_lis = self.inter.custom_report_preview(new_data_dict['id'])
+                        return
+                    
+                else: # Cancel
+                    self.format.comment = 'Select an option'
+                    return
+
 # =======================================================================================================
 # =======================================================================================================
 # =======================================================================================================
@@ -972,7 +1215,7 @@ class ScreensUI():
             self.format.subtitle = 'Menu > Destinations'
             self.format.edit_commands(['Search','Select','Prev page','Next page','Back'])
             self.format.apply_styles([0,1,1,1,1])
-            self.format.update_text_box(0, search_str)
+            self.format.update_text_box(0, search_str)        
 
             if len(self.page_list) == 0:
                 self.format.listing_lis = self.format.empty_listing()
@@ -1003,6 +1246,7 @@ class ScreensUI():
                         self.emp_list = self.inter.listing_all_destinations()
                         id_list = []
                         [id_list.append(employee[1])for employee in self.emp_list]
+
                         # Make list for each screen again
                         self.page_list = self.screen_lists_from_all(self.emp_list)
                         self.filter_str = ''
@@ -1026,7 +1270,6 @@ class ScreensUI():
                         curr_page += 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
-
                 elif input_int == 4: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
@@ -1075,6 +1318,7 @@ class ScreensUI():
             self.format.print_screen()
             input_str = self.get_input('Input')
             input_int, type_of_input = self.check_type_of_input(input_str)
+
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
             elif type_of_input == 1:
@@ -1103,12 +1347,11 @@ class ScreensUI():
                 self.format.update_text_box(input_int, input_str)
                 self.format.comment = 'Select an option'
 
-# =======================================================================================================
-# =======================================================================================================
-# =======================================================================================================
-# =======================================================================================================
-# =======================================================================================================
-# Destinations
+########################################################################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+# Contractors
 
     def contractors_screen(self) -> None:      
         self.format.preview_title = f'{"Name":<30} | {"ID":<5} | {"Phone":<10} | {"Location":<12}'

@@ -1,15 +1,15 @@
 from UI.FormatUI import FormatUI
 from UI.InteractionsUI import InteractionsUI
 
+class ContractorsUI():
 
-
-class Contractors:
-
-    def __init__(self):
+    def __init__(self,id,role,location) -> None:
         self.format = FormatUI()
         self.inter = InteractionsUI()
-        self.role = 'boss'
-        self.destination = 'Tingwall'
+        self.id = id
+        self.role = role
+        self.destination = location
+        self.filter_str = ''
 
     def get_input(self, prompt_str):
         return input(f' {prompt_str}: ')
