@@ -87,11 +87,11 @@ class TicketUI:
 
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
-            elif type_of_input == 0: # Ticket Filters
-                self.filter_tickets_screen()
-
-            elif type_of_input == 1:
-                if input_int == 1: # Select Ticket
+            elif type_of_input == 1: # Ticket Filters
+                if input_int == 0:
+                    self.filter_tickets_screen()
+    
+                elif input_int == 1: # Select Ticket
                     self.format.comment = 'Enter ID of ticket'
                     self.format.print_screen()
                     id_input = self.get_input('Input')
@@ -136,14 +136,14 @@ class TicketUI:
 
     def filter_tickets_screen(self):
         self.format.subtitle = 'Menu > Tickets > Filters'
-        self.format.edit_commands(['Dates','Show open tickets','Employee ID','Address ID','Clear'])
+        self.format.edit_commands(['Show open','Employee ID','Address ID','Contrator ID','Clear'])
         self.format.apply_styles([1,1,1,1,1])
 
         # Filters: Filter all by location
-        #   Dates -> (First date, End date)
         #   Show open
         #   Employee ID
         #   Address ID
+        #   Contractor ID
 
         while True:
             self.format.print_screen()
@@ -152,16 +152,55 @@ class TicketUI:
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
             else:
-                if input_int == 0: # Dates
-                    pass # TODO new screen to select date range
+                if input_int == 0: # Show open tickets
+                    self.emp_list = self.inter.loc_and_extra_filter(self.destination, 'closed',False)
+                    id_list = []
+                    [id_list.append(ticket[1])for ticket in self.emp_list]
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
+                    return
 
-                elif input_int == 1: # Show open tickets
-                    self.inter.loc_and_open_filter
+                elif input_int == 1: # Filter by employee id
+                    self.format.comment = 'Enter employee ID'
+                    self.format.print_screen()
+                    input_str = self.get_input('Text input')
+                    if input_str == '':
+                        input_str == ' '
+                    self.emp_list = self.inter.loc_and_extra_filter(self.destination, 'employee_id', input_str)
+                    id_list = []
+                    [id_list.append(ticket[1])for ticket in self.emp_list]
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
+                    self.format.comment = 'Select an option'
+                    return
 
-                elif input_int == 2: # Filter by employee id
-                    pass
-                elif input_int == 3: # Filter by address id
-                    pass
+                elif input_int == 2: # Filter by address id
+                    self.format.comment = 'Enter address ID'
+                    self.format.print_screen()
+                    input_str = self.get_input('Text input')
+                    if input_str == '':
+                        input_str == ' '
+                    self.emp_list = self.inter.loc_and_extra_filter(self.destination, 'real_estate_id', input_str)
+                    id_list = []
+                    [id_list.append(ticket[1])for ticket in self.emp_list]
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
+                    self.format.comment = 'Select an option'
+                    return
+
+                elif input_int == 3: # Filter by contractor id
+                    self.format.comment = 'Enter contractor ID'
+                    self.format.print_screen()
+                    input_str = self.get_input('Text input')
+                    if input_str == '':
+                        input_str == ' '
+                    self.emp_list = self.inter.loc_and_extra_filter(self.destination, 'contractor_id', input_str)
+                    id_list = []
+                    [id_list.append(ticket[1])for ticket in self.emp_list]
+                    self.page_list = self.screen_lists_from_all(self.emp_list)
+                    self.format.comment = 'Select an option'
+                    return
+
+                else: # Back
+                    self.format.comment = 'Select an option'
+                    return
 
         
     def ticket_profile_screen(self, id_str):
@@ -445,7 +484,7 @@ class TicketUI:
                     if self.format.commands['Contractor ID'][1][1:-1] == 'empty':
                         new_data_dict.pop('contractor_id')
 
-                    if self.format.commands['Recurring'][0] == '(X)':
+                    if self.format.commands['Recurring'][0] == 3:
                         new_data_dict['is_recurring'] = True
 
                     if new_data_dict['description'] == 'empty' or new_data_dict['real_estate_id'] == 'empty' or new_data_dict['employee_id'] == 'empty':

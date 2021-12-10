@@ -59,7 +59,6 @@ class RealEstateUI:
 
     def real_estate_screen(self):
         self.format.preview_title = f'{"Address":<30} | {"ID":<5} | {"Address ID":<10} | {"Location":<12}'
-        search_str = self.format.styles[0][1:-1]
         self.format.comment = 'Select an option'
         list_of_comments = ['Enter search term']
         curr_page = 1
@@ -73,9 +72,8 @@ class RealEstateUI:
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Real Estate'
-            self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Add Real Estate','Back'])
-            self.format.apply_styles([0,1,1,1,1,1,1])
-            self.format.update_text_box(0, search_str)
+            self.format.edit_commands(['Filter','Select','Prev page','Next page','Add Real Estate','Back'])
+            self.format.apply_styles([1,1,1,1,1,1])
 
             if len(self.page_list) == 0:
                 self.format.listing_lis = self.format.empty_listing()
@@ -89,22 +87,15 @@ class RealEstateUI:
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
 
-            elif type_of_input == 0: #Search (form of accurate filtering)
-                self.format.comment = list_of_comments[input_int]
-                self.format.print_screen()
-                search_str = self.get_input('Text input')
-                self.format.update_text_box(input_int, search_str)
-                self.format.comment = 'Select an option'
-
             elif type_of_input == 1:
-                if input_int == 1: # Filters
+                if input_int == 0: # Filters
                     self.format.comment = 'Select a filter'
                     curr_page = 1
                     self.filter_screen('Real Estate','real_estate')
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     self.format.comment = 'Select an option'
 
-                elif input_int == 2: # Select house
+                elif input_int == 1: # Select house
                     self.format.comment = 'Enter ID of Real estate'
                     self.format.print_screen()
                     id_input = self.get_input('Input')
@@ -123,21 +114,21 @@ class RealEstateUI:
                     self.format.preview_title = f'{"Address":<30} | {"ID":<5} | {"Address ID":<10} | {"Location":<12}'
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     
-                elif input_int == 3: # Previous Page
+                elif input_int == 2: # Previous Page
                     if curr_page > 1:
                         self.format.comment = 'Select an option'
                         curr_page -= 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
                 
-                elif input_int == 4: # Next Page
+                elif input_int == 3: # Next Page
                     if curr_page < len(self.page_list):
                         self.format.comment = 'Select an option'
                         curr_page += 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
 
-                elif input_int == 5: # ADD realestate
+                elif input_int == 4: # ADD realestate
                     self.add_real_estate_profile()
                     self.emp_list = self.inter.listing_all_real_estates()
                     id_list = []
@@ -145,7 +136,7 @@ class RealEstateUI:
                     # Make list for each screen
                     self.page_list = self.screen_lists_from_all(self.emp_list)
 
-                elif input_int == 6: #Back (goes to back the the main menu)
+                elif input_int == 5: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
@@ -267,7 +258,7 @@ class RealEstateUI:
                 input_str = self.get_input('Text input')
                 self.format.update_text_box(input_int, input_str)
                 self.format.comment = 'Select an option'
-                
+
     def filter_screen(self, location_str, key):
         self.format.subtitle = f'Menu > {location_str} > Filter'
         self.format.edit_commands(['Kulusuk','Longyearbyen','Nuuk','Reykjavík','Tingwall','Tórshavn','Clear','Back'])

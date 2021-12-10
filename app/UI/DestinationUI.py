@@ -59,9 +59,7 @@ class DestinationUI:
     
     def destinations_screen(self):
         self.format.preview_title = f'{"Country":<30} | {"ID":<5} | {"Airport":<10} | {"Manager ID":<12}'
-        search_str = self.format.styles[0][1:-1]
         self.format.comment = 'Select an option'
-        list_of_comments = ['Enter search term']
         curr_page = 1
         self.emp_list = self.inter.listing_all_destinations()
         id_list = []
@@ -73,9 +71,8 @@ class DestinationUI:
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
             self.format.subtitle = 'Menu > Destinations'
-            self.format.edit_commands(['Search','Select','Prev page','Next page','Back'])
-            self.format.apply_styles([0,1,1,1,1])
-            self.format.update_text_box(0, search_str)        
+            self.format.edit_commands(['Select','Prev page','Next page','Back'])
+            self.format.apply_styles([1,1,1,1])   
 
             if len(self.page_list) == 0:
                 self.format.listing_lis = self.format.empty_listing()
@@ -89,15 +86,8 @@ class DestinationUI:
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
 
-            elif type_of_input == 0: #Search (form of accurate filtering)
-                self.format.comment = list_of_comments[input_int]
-                self.format.print_screen()
-                search_str = self.get_input('Text input')
-                self.format.update_text_box(input_int, search_str)
-                self.format.comment = 'Select an option'
-
             elif type_of_input == 1:
-                if input_int == 1: # Select destination
+                if input_int == 0: # Select destination
                     self.format.comment = 'Enter ID of destination'
                     self.format.print_screen()
                     id_input = self.get_input('Input')
@@ -116,21 +106,21 @@ class DestinationUI:
                     self.format.preview_title = f'{"Country":<30} | {"ID":<5} | {"Airport":<10} | {"Manager ID":<12}'
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     
-                elif input_int == 2: # Previous Page
+                elif input_int == 1: # Previous Page
                     if curr_page > 1:
                         self.format.comment = 'Select an option'
                         curr_page -= 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
                 
-                elif input_int == 3: # Next Page
+                elif input_int == 2: # Next Page
                     if curr_page < len(self.page_list):
                         self.format.comment = 'Select an option'
                         curr_page += 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
                 
-                elif input_int == 4: #Back (goes to back the the main menu)
+                elif input_int == 3: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
                     return
