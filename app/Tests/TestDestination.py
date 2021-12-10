@@ -17,7 +17,8 @@ put_data_2 = json.dumps({"role": "employee",
 new_dest1 = json.dumps({ "role": "boss",
                         "key": "destination",
                         "data": {
-                            "airport": "Helsinki",
+                            "name": "Helsinki",
+                            "airport": "Helsinki air",
                             "country": "Finland",
                             "phone": "9999999",
                             "opening_hours": "1-2",
@@ -28,7 +29,8 @@ new_dest1 = json.dumps({ "role": "boss",
 new_dest2 = json.dumps({ "role": "boss",
                         "key": "destination",
                         "data": {
-                            "airport": "Oslo",
+                            "name": "Oslo",
+                            "airport": "Oslo air",
                             "country": "Norway",
                             "phone": "8888888",
                             "opening_hours": "1-2",
@@ -72,7 +74,7 @@ class TestDestination(unittest.TestCase):
             "data":{"id": '3'}
         })
         res = json.loads(self.LL.get(data))
-        self.assertEqual(res['data']['airport'], 'Kulusuk')
+        self.assertEqual(res['data']['airport'], 'Kulusuk air')
 
     def test_filter_destination(self):
         data = json.dumps(
@@ -81,12 +83,12 @@ class TestDestination(unittest.TestCase):
                 "filter": True,
                 "data": {
                     "filter": "country",
-                    "filter_value": "Grænland"
+                    "filter_value": "Greenland"
                 }
             }
         )
         res = json.loads(self.LL.get_all(data))
-        self.assertEqual(res['data']['2']['airport'], 'Nuuk')
+        self.assertEqual(res['data']['2']['airport'], 'Nuuk air')
 
     @classmethod
     def tearDownClass(self):

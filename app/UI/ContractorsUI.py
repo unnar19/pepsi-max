@@ -226,7 +226,7 @@ class Contractors:
 
     def add_contractor_profile(self):
         self.format.subtitle = 'Menu > contractors > Add contractor'
-        self.format.edit_commands(['Name*','Contact*','Phone*','opening_hours','Location*'Apply Changes','Cancel'])
+        self.format.edit_commands(['Name*','Contact*','Phone*','opening_hours','Location*','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
         list_of_comments = ['Enter name',"Enter contact info",'Enter phone number','Enter opening hours']
         self.format.preview_comment = 'Required fields marked with *'

@@ -74,8 +74,27 @@ class InteractionsUI:
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
+    def listing_all_contractors(self) -> list:
+        ''' Gets all contractors and their information to display when listing'''
+
+        # Request data drom API
+        request = json.dumps({'key': 'contractor','data':{}})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
+
+        # Decode dictionary to nested lists
+        contractor_list = []
+        for value in response_dict['data'].values():
+            nested_cont_list = []
+            nested_cont_list.append(value['name'])
+            nested_cont_list.append(value['id'])
+            nested_cont_list.append(value['phone'])
+            nested_cont_list.append(value['destination'])
+            contractor_list.append(nested_cont_list)
+        return contractor_list
+
     def listing_all_tickets_for_destination(self, destination) -> list:
-        ''' Gets all realestates and their information to display when listing'''
+        ''' Gets all tickets filtered by destination and their information to display when listing'''
 
         # Request data drom API
         request = json.dumps({'key': 'ticket', 'filter': True, 'data':{'filter':'destination', 'filter_value': destination}})
@@ -93,6 +112,25 @@ class InteractionsUI:
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
+    def listing_all_destinations(self) -> list:
+        ''' Gets all destinations and their information to display when listing'''
+
+        # Request data drom API
+        request = json.dumps({'key': 'destination','data':{}})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
+
+        # Decode dictionary to nested lists
+        destination_list = []
+        for value in response_dict['data'].values():
+            nested_destination_list = []
+            nested_destination_list.append(value['airport'])
+            nested_destination_list.append(value['id'])
+            nested_destination_list.append(value['country'])
+            nested_destination_list.append(value['manager_id'])
+            destination_list.append(nested_destination_list)
+        return destination_list
+
     def filter_listing(self, filter_str, key, filter_type):
         request = json.dumps({'key': key, "filter": True, 'data':{'filter': filter_type, 'filter_value': filter_str}})
         response = self.LL.get_all(request)
@@ -102,6 +140,8 @@ class InteractionsUI:
             value_list = ['name','id','mobile_phone','destination']
         elif key == 'real_estate':
             value_list = ['address','id','real_estate_id','destination']
+        elif key == 'contractor':
+            value_list = ['name','id','phone','destination']
 
         big_list = []
         for value in response_dict['data'].values():
@@ -212,6 +252,17 @@ class InteractionsUI:
         data_dict = response_dict['data']
         return data_dict
 
+    def get_destination(self, id_str):
+        '''
+        Takes in a legal id of a destination and recieves all information
+        '''
+        request = json.dumps({'key': 'destination','data':{'id': id_str}})
+        response = self.LL.get(request)
+
+        response_dict = json.loads(response)
+        data_dict = response_dict['data']
+        return data_dict
+
     def custom_real_estate_preview(self, id_str):
         data_dict = self.get_real_estate(id_str)
 
@@ -224,6 +275,57 @@ class InteractionsUI:
         maintenance = [f'{"Maintenance:":<15}{data_dict["maintenance_info"]}']
         
         custom_preview = [address,location,address_id,id,[''],maintenance]
+        for _ in range(len(custom_preview),20):
+            custom_preview.append([''])
+        return custom_preview
+
+    def custom_destination_preview(self, id_str):
+        data_dict = self.get_destination(id_str)
+
+        # Puts recieved data into individual lists for ScreensUI
+        name = [f'{"Name:":<15}{data_dict["name"]}']
+        airport = [f'{"Airport:":<15}{data_dict["airport"]}']
+        country = [f'{"Country:":<15}{data_dict["country"]}']
+        phone = [f'{"Phone:":<15}{data_dict["phone"]}']
+        opening_hours = [f'{"Opening hours:":<15}{data_dict["opening_hours"]}']
+        manager_id = [f'{"Manager ID:":<15}{data_dict["manager_id"]}']
+        id = [f'{"ID:":<15}{data_dict["id"]}']
+        
+        custom_preview = [name,airport,country,phone,opening_hours,manager_id,id]
+        for _ in range(len(custom_preview),20):
+            custom_preview.append([''])
+        return custom_preview
+
+    def get_contractor(self, id_str):
+        '''
+        Takes in a legal id of a contractor and recieves all information
+        '''
+        request = json.dumps({'key': 'contractor','data':{'id': id_str}})
+        response = self.LL.get(request)
+
+        response_dict = json.loads(response)
+        data_dict = response_dict['data']
+        return data_dict
+
+    def custom_contractor_preview(self, id_str):
+        '''
+        Takes in a legal id of a contractor and recieves all information
+        from contractor line stored. Then formats lists to put into custom
+        preview screen ( Profile information screen )
+        '''
+        data_dict = self.get_contractor(id_str)
+
+        # Puts recieved data into individual lists for ScreensUI
+        name = [f'{"Name:":<15}{data_dict["name"]}']
+        contact = [f'{"Contact info:":<15}{data_dict["contact"]}']
+        phone = [f'{"Phone:":<15}{data_dict["phone"]}']
+        id = [f'{"ID:":<15}{data_dict["id"]}']
+        opening_hours = [f'{"Opening hours:":<15}{data_dict["opening_hours"]}']
+        location = [f'{"Location:":<15}{data_dict["destination"]}']
+
+        tickets = [f'{"Tickets:":<15}{data_dict["tickets"]}']
+        
+        custom_preview = [name,contact,phone,id,opening_hours,location,[''],tickets]
         for _ in range(len(custom_preview),20):
             custom_preview.append([''])
         return custom_preview

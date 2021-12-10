@@ -22,7 +22,7 @@ class Base:
             "name", "contact", "phone", "opening_hours", "destination"
         },
         "destination":{
-            "airport", "country", "phone", "opening_hours", "manager_id"
+            "name","airport", "country", "phone", "opening_hours", "manager_id"
         }
     }
     __autofill = {
@@ -50,6 +50,7 @@ class Base:
             "total_price": 0,
             "contractor_id": 0,
             "contractor_pay": 0,
+            "approved": False,
             "comments": []
         },
         "contractor":{
