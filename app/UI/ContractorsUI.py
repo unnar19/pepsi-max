@@ -211,9 +211,9 @@ class ContractorsUI():
 
     def add_contractor_profile(self):
         self.format.subtitle = 'Menu > Contractors > Add contractor'
-        self.format.edit_commands(['Name*','Contact*','Phone*','Opening hours*','Location*','Apply Changes','Cancel'])
+        self.format.edit_commands(['*Name','*Contact','*Phone','*Opening hours','*Location','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
-        list_of_comments = ['Enter name',"Enter contact info",'Enter phone number','Enter opening hours','Enter Location']
+        list_of_comments = ['Enter name',"Enter employee name",'Enter phone number','Enter opening hours','Enter Location']
         self.format.preview_comment = 'Required fields marked with *'
 
         # Set new values to the original ones
@@ -228,16 +228,16 @@ class ContractorsUI():
 
                     # Make dictionary with new information
                     new_data_dict = {
-                                    'name': self.format.commands['Name*'][1][1:-1],
-                                    'contact': self.format.commands['Contact*'][1][1:-1],
-                                    'phone': self.format.commands['Phone*'][1][1:-1],
-                                    'opening_hours': self.format.commands['Opening hours*'][1][1:-1],
-                                    'destination': self.format.commands['Location*'][1][1:-1]
+                                    'name': self.format.commands['*Name'][1][1:-1],
+                                    'contact': self.format.commands['*Contact'][1][1:-1],
+                                    'phone': self.format.commands['*Phone'][1][1:-1],
+                                    'opening_hours': self.format.commands['*Opening hours'][1][1:-1],
+                                    'destination': self.format.commands['*Location'][1][1:-1]
                                     }
                     
                     # If unique identifier is empty, make it actually empty
                     # TODO could be solved better
-                    if self.format.commands['Phone*'][1][1:-1] == 'empty':
+                    if self.format.commands['*Phone'][1][1:-1] == 'empty':
                         new_data_dict.pop('phone')
 
 

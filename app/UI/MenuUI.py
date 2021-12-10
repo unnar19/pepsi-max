@@ -127,10 +127,6 @@ class MenuUI():
             elif input_int == 4: #contractors
                 ContractorsUI(self.id,self.role,self.destination).contractors_screen()
             elif input_int == 5: # Destinations
-<<<<<<< HEAD
-                DestinationUI(self.id,self.role,self.destination).destination_screen()
-=======
                 DestinationUI(self.id,self.role,self.destination).destinations_screen()
->>>>>>> 77885ef095253efb9692d5d739e0026b66131ae0
             elif input_int == 6: #log out
                 return False
