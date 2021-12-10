@@ -70,7 +70,7 @@ class ContractorsUI():
         while True:
             if self.filter_str == '':
                 self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [empty]'
-            self.format.subtitle = 'Menu > contractors'
+            self.format.subtitle = 'Menu > Contractors'
             self.format.edit_commands(['Search','Filter','Select','Prev page','Next page','Add contractor','Back'])
             self.format.apply_styles([0,1,1,1,1,1,1])
             self.format.update_text_box(0, search_str)
@@ -98,7 +98,7 @@ class ContractorsUI():
                 if input_int == 1: # Filters
                     self.format.comment = 'Select a filter'
                     curr_page = 1
-                    self.filter_screen('contractors','contractor')
+                    self.filter_screen('Contractors','contractor')
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     self.format.comment = 'Select an option'
 
@@ -152,12 +152,12 @@ class ContractorsUI():
         self.format.comment = 'Select an option'
         self.format.profile = True
         while True:
-            self.format.subtitle = 'Menu > contractors > Select'
+            self.format.subtitle = 'Menu > Contractors > Select'
             self.format.edit_commands(['Edit info','Tickets','Back'])
             self.format.apply_styles([1,1,1])
-            self.format.preview_title = 'contractor information'
-            name, self.format.listing_lis = self.inter.custom_person_preview(id_str)
-            self.format.preview_comment = f"There are 10 days until {name}'s birthday"
+            self.format.preview_title = 'Contractor information'
+            self.format.listing_lis = self.inter.custom_contractor_preview(id_str)
+            self.format.preview_comment = ""
             self.format.print_screen()
             input_str = self.get_input('Input')
             input_int, type_of_input = self.check_type_of_input(input_str)
@@ -176,19 +176,18 @@ class ContractorsUI():
                     return
 
     def edit_contractor_profile(self, id_str):
-        self.format.subtitle = 'Menu > contractors > Select > Edit info'
-        list_of_comments = ['Enter new name','Enter new email address','Enter new home phone number', 'Enter new mobile phone number','Enter new location']
-        self.format.edit_commands(['Name','Email','Home phone','Mobile phone','Location','Apply Changes','Cancel'])
-        self.format.apply_styles([0,0,0,0,0,1,1])
+        self.format.subtitle = 'Menu > Contractors > Select > Edit info'
+        list_of_comments = ['Enter new name','Enter new contact info','Enter new phone number', 'Enter new opening hours']
+        self.format.edit_commands(['Name','Contact','Phone','Opening hours','Apply Changes','Cancel'])
+        self.format.apply_styles([0,0,0,0,1,1])
             
-        user_data_dict = self.inter.get_person(id_str) 
+        user_data_dict = self.inter.get_contractor(id_str)
 
         # Sets new values to the original ones
         self.format.update_text_box(0,user_data_dict['name'])
-        self.format.update_text_box(1,user_data_dict['email'])
-        self.format.update_text_box(2,user_data_dict['home_phone'])
-        self.format.update_text_box(3,user_data_dict['mobile_phone'])
-        self.format.update_text_box(4,user_data_dict['destination'])   
+        self.format.update_text_box(1,user_data_dict['contact'])
+        self.format.update_text_box(2,user_data_dict['phone'])
+        self.format.update_text_box(3,user_data_dict['opening_hours'])
 
         while True:
             self.format.print_screen()
@@ -197,23 +196,22 @@ class ContractorsUI():
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
             elif type_of_input == 1:
-                if input_int == 5: # Apply changes
+                if input_int == 4: # Apply changes
 
                     new_data_dict = {'id': user_data_dict['id'],
-                                    'name': self.format.commands['Name'][1][1:-1], 
-                                    'email': self.format.commands['Email'][1][1:-1], 
-                                    'home_phone': self.format.commands['Home phone'][1][1:-1], 
-                                    'mobile_phone': self.format.commands['Mobile phone'][1][1:-1], 
-                                    'destination': self.format.commands['Location'][1][1:-1]}
+                                    'name': self.format.commands['Name'][1][1:-1],
+                                    'contact': self.format.commands['Contact'][1][1:-1],
+                                    'phone': self.format.commands['Phone'][1][1:-1],
+                                    'opening_hours': self.format.commands['Opening hours'][1][1:-1]}
 
                     edit_response = self.inter.edit_profile(self.role,'contractor',new_data_dict)
                     if not edit_response:
                         self.format.comment = 'Unauthorized, Select an option'
                     else:
-                        name, self.format.listing_lis = self.inter.custom_person_preview(new_data_dict['id'])
-                        return                        
+                        self.format.listing_lis = self.inter.custom_contractor_preview(new_data_dict['id'])
+                        return                    
 
-                elif input_int == 6: # Cancel
+                elif input_int == 5: # Cancel
                     self.format.comment = 'Select an option'
                     return
             elif type_of_input == 0:
@@ -225,10 +223,10 @@ class ContractorsUI():
 
 
     def add_contractor_profile(self):
-        self.format.subtitle = 'Menu > contractors > Add contractor'
-        self.format.edit_commands(['Name*','Contact*','Phone*','opening_hours','Location*','Apply Changes','Cancel'])
+        self.format.subtitle = 'Menu > Contractors > Add contractor'
+        self.format.edit_commands(['Name*','Contact*','Phone*','Opening hours*','Location*','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
-        list_of_comments = ['Enter name',"Enter contact info",'Enter phone number','Enter opening hours']
+        list_of_comments = ['Enter name',"Enter contact info",'Enter phone number','Enter opening hours','Enter Location']
         self.format.preview_comment = 'Required fields marked with *'
 
         # Set new values to the original ones
@@ -239,20 +237,20 @@ class ContractorsUI():
             if type(type_of_input) != int:
                 self.format.comment = f'{type_of_input}, Select an option'
             elif type_of_input == 1:
-                if input_int == 9: # Apply changes
+                if input_int == 5: # Apply changes
 
                     # Make dictionary with new information
                     new_data_dict = {
                                     'name': self.format.commands['Name*'][1][1:-1],
-                                    'phone': self.format.commands['Mobile phone*'][1][1:-1],
                                     'contact': self.format.commands['Contact*'][1][1:-1],
-                                    'opening_hours': self.format.commands['Location*'][1][1:-1],
-                                    'destination': self.format.commands['Destination*'][1][1:-1]
+                                    'phone': self.format.commands['Phone*'][1][1:-1],
+                                    'opening_hours': self.format.commands['Opening hours*'][1][1:-1],
+                                    'destination': self.format.commands['Location*'][1][1:-1]
                                     }
                     
                     # If unique identifier is empty, make it actually empty
                     # TODO could be solved better
-                    if self.format.commands['phone*'][1][1:-1] == 'empty':
+                    if self.format.commands['Phone*'][1][1:-1] == 'empty':
                         new_data_dict.pop('phone')
 
 
@@ -260,7 +258,7 @@ class ContractorsUI():
                     edit_response = self.inter.add_profile(self.role,'contractor',new_data_dict)
                     if not edit_response:
                         if self.role == 'boss':
-                            self.format.comment = 'Required missing or email already registered'
+                            self.format.comment = 'Required missing or phone already registered'
                         else:
                             self.format.comment = 'Unauthorized, Select an option'
                     else:
@@ -270,7 +268,7 @@ class ContractorsUI():
                         self.format.comment = 'Select an option'
                         return
 
-                elif input_int == 10: # Cancel
+                elif input_int == 6: # Cancel
                     self.format.comment = 'Select an option'
                     return
             elif type_of_input == 0:
@@ -279,8 +277,7 @@ class ContractorsUI():
                 input_str = self.get_input('Text input')
                 self.format.update_text_box(input_int, input_str)
                 self.format.comment = 'Select an option'
-
-# Þessi er notaður í bæði Real Estate og employee
+                
     def filter_screen(self, location_str, key):
         self.format.subtitle = f'Menu > {location_str} > Filter'
         self.format.edit_commands(['Kulusuk','Longyearbyen','Nuuk','Reykjavík','Tingwall','Tórshavn','Clear','Back'])

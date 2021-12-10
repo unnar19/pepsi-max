@@ -267,3 +267,25 @@ class RealEstateUI:
                 input_str = self.get_input('Text input')
                 self.format.update_text_box(input_int, input_str)
                 self.format.comment = 'Select an option'
+                
+    def filter_screen(self, location_str, key):
+        self.format.subtitle = f'Menu > {location_str} > Filter'
+        self.format.edit_commands(['Kulusuk','Longyearbyen','Nuuk','Reykjavík','Tingwall','Tórshavn','Clear','Back'])
+        self.format.apply_styles([1,1,1,1,1,1,1,1])
+        self.format.print_screen()
+        input_str = self.get_input('Input')
+        input_int, type_of_input = self.check_type_of_input(input_str)
+        if type(type_of_input) != int:
+            self.format.comment = f'{type_of_input}, Select a filter'
+            self.filter_screen(location_str, key)
+        elif input_int == 6: # Clear
+            self.format.comment = 'Select an option'
+            self.page_list = self.screen_lists_from_all(self.emp_list)
+            self.filter_str = ''
+        elif input_int == 7: # Back
+            self.format.comment = 'Select an option'
+        else: # Filter selected
+            list_of_commands = list(self.format.commands)
+            self.filter_str = list_of_commands[input_int]
+            listing_list = self.inter.filter_listing(self.filter_str, key, 'destination')
+            self.page_list = self.screen_lists_from_all(listing_list)
