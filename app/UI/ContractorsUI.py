@@ -235,12 +235,8 @@ class ContractorsUI():
                                     'destination': self.format.commands['*Location'][1][1:-1]
                                     }
                     
-                    # If unique identifier is empty, make it actually empty
-                    # TODO could be solved better
                     if self.format.commands['*Phone'][1][1:-1] == 'empty':
                         new_data_dict.pop('phone')
-
-
 
                     edit_response = self.inter.add_profile(self.role,'contractor',new_data_dict)
                     if not edit_response:
@@ -249,9 +245,6 @@ class ContractorsUI():
                         else:
                             self.format.comment = 'Unauthorized, Select an option'
                     else:
-                        #UPDATE SCREEN
-
-
                         self.format.comment = 'Select an option'
                         return
 

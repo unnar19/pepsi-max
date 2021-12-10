@@ -28,7 +28,7 @@ class InteractionsUI:
         response_dict = json.loads(response)
 
         if not response_dict['type']:
-            return False, None, None, None
+            return False, None, None, None, None
         
         id = response_dict['data']['id']
         role = response_dict['data']['role']
