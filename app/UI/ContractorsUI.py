@@ -1,15 +1,15 @@
 from UI.FormatUI import FormatUI
 from UI.InteractionsUI import InteractionsUI
 
+class ContractorsUI():
 
-
-class Contractors:
-
-    def __init__(self):
+    def __init__(self,id,role,location) -> None:
         self.format = FormatUI()
         self.inter = InteractionsUI()
-        self.role = 'boss'
-        self.destination = 'Tingwall'
+        self.id = id
+        self.role = role
+        self.destination = location
+        self.filter_str = ''
 
     def get_input(self, prompt_str):
         return input(f' {prompt_str}: ')
@@ -226,7 +226,7 @@ class Contractors:
 
     def add_contractor_profile(self):
         self.format.subtitle = 'Menu > contractors > Add contractor'
-        self.format.edit_commands(['Name*','Contact*','Phone*','opening_hours','Location*'Apply Changes','Cancel'])
+        self.format.edit_commands(['Name*','Contact*','Phone*','opening_hours','Location*','Apply Changes','Cancel'])
         self.format.apply_styles([0,0,0,0,0,1,1])
         list_of_comments = ['Enter name',"Enter contact info",'Enter phone number','Enter opening hours']
         self.format.preview_comment = 'Required fields marked with *'
