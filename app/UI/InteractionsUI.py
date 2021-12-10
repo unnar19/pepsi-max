@@ -24,8 +24,12 @@ class InteractionsUI:
             }
         }
         data = json.dumps(data_dict)
+        print(data_dict)
+        input('stop')
         response = self.LL.authenticate_employee(data)
         response_dict = json.loads(response)
+        print(response_dict)
+        input('stop')
 
         if not response_dict['type']:
             return False, None, None, None
@@ -33,8 +37,8 @@ class InteractionsUI:
         id = response_dict['data']['id']
         role = response_dict['data']['role']
         name = response_dict['data']['name']
-        destitation = response_dict['data']['destination']
-        return True, id, role, name, destitation
+        destination = response_dict['data']['destination']
+        return True, id, role, name, destination
 
     def listing_all_employees(self) -> list:
         ''' Gets all employees and their information to display when listing'''

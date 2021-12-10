@@ -1,6 +1,6 @@
 from UI.FormatUI import FormatUI
 from UI.InteractionsUI import InteractionsUI
-from datetime import datetime
+from datetime import date
 
 class TicketUI:
     def __init__(self,id,role,location) -> None:
@@ -236,7 +236,7 @@ class TicketUI:
             
             elif type_of_input == 1: # Command
                 if input_int == 4: #APPLY
-                    today = str(datetime.date.today())
+                    today = str(date.today())
 
                     ticket_data_dict = self.inter.get_ticket_or_report('ticket',ticket_id)
 
@@ -430,7 +430,7 @@ class TicketUI:
                     prior = self.ticket_priority_screen('Add ticket > Priority')
                     self.format.comment = 'Select an option'
                 elif input_int == 5: #APPLY
-                    today = str(datetime.date.today())
+                    today = str(date.today())
 
                     # Make dictionary with new information
                     new_data_dict = {'description': self.format.commands['*Description'][1][1:-1],
