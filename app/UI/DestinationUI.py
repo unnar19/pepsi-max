@@ -56,6 +56,7 @@ class DestinationUI:
 
     def str2bool(self, boolean_string : str) -> bool:
         return boolean_string.lower() in ["yes", "true", "t", "1"]
+        
     def destination_screen(self):
         self.format.preview_title = f'{"Airport":<30} | {"ID":<5} | {"Country":<10} | {"Manager ID":<12}'
         search_str = self.format.styles[0][1:-1]

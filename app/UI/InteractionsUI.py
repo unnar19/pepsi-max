@@ -160,6 +160,25 @@ class InteractionsUI:
             big_list.append(nested_line_list)
         return big_list
 
+    def loc_and_extra_filter(self, destination, filter_type, filter_value):
+        request = json.dumps({
+                'key': 'ticket', 'data': {
+                "filters":['destination', filter_type],
+                'filter_data': {'destination': destination,
+                filter_type: filter_value}}})
+
+        response = self.LL.get_tickets_filtered(request)
+        response_dict = json.loads(response)
+
+        real_estate_list = []
+        for value in response_dict['data'].values():
+            nested_real_list = []
+            for v in ['description','id','real_estate_id','closed']:
+                nested_real_list.append(value[v])
+            real_estate_list.append(nested_real_list)
+        return real_estate_list
+
+
     def get_person(self, id_str):
         '''
         Takes in a legal id of an employee and recieves all information

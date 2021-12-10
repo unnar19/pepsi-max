@@ -127,6 +127,6 @@ class MenuUI():
             elif input_int == 4: #contractors
                 ContractorsUI(self.id,self.role,self.destination).contractors_screen()
             elif input_int == 5: # Destinations
-                DestinationUI(self.id,self.role,self.destination)#.destinations_screen()
+                DestinationUI(self.id,self.role,self.destination).destination_screen()
             elif input_int == 6: #log out
                 return False
