@@ -40,7 +40,7 @@ class Employee(Base):
 
                 # Return session variables
                 else:
-                    return json.dumps({"type": "object", "data": {"name": val["name"], "role": val["role"], "id":key}})
+                    return json.dumps({"type": "object", "data": {"name": val["name"], "role": val["role"], "id":key, "destination":val["destination"]}})
 
         # Email not found..
         raise IncorrectCredentialsException(self._key, 'AUTH')
