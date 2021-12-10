@@ -37,12 +37,13 @@ class Ticket(Base):
             filters.remove("period")
         else:
             all_tickets = self.get_all(data)
-        return_data = {}
+        return_data = all_tickets
         # iterate through all tickets and keep those who match
         for filter in filters:
-            for key, val in all_tickets.items():
-                if val[filter] == filter_data[filter]:
-                    return_data[key] = val
+            for key, val in all_tickets.copy().items():
+                if val[filter] != filter_data[filter]:
+                    del return_data[key]
+
         return json.dumps({"type": "true", "data": return_data})
 
 
@@ -69,6 +70,6 @@ class Ticket(Base):
         #iterate through all tickets
         for key,val in all_tickets["data"].items():
             date = datetime.strptime(val["start_date"], '%Y-%m-%d')
-            if (date >= start)  and (date <= end):
+            if start <= date and date <= end:
                 return_data[key] = val
         return return_data

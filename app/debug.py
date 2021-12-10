@@ -167,11 +167,67 @@ print(json.loads(res))
         "comments": {"type": "list"},
     },
 }
+
+
+create_ticket = json.dumps({"role": "boss",
+                        "key": "ticket",
+                        "data": {
+                            "report_id": "0",
+                            "real_estate_id": "brundfata",
+                            "description": "Put dog in dishwasher",
+                            "employee_id": "2",
+                            "contractor_id": "0",
+                            "destination": "Nuuk",
+                            "start_date": "2020-12-03",
+                            "close_date": "future",
+                            "priority": "Emergency",
+                            "ready": False,
+                            "closed": False,
+                            "is_recurring": False,
+                            }
+                        })
+
+LL.post(create_ticket)
+
+
+put_data_1 = json.dumps({"role": "boss",
+                "key": "ticket",
+                "data": {
+                    "id": "1",
+                    "priority": "As soon as possible",
+                    "report_id":"1"
+                    }
+                })
+
+#LL.put(put_data_1)
+
+
+
+create_report = json.dumps({"role": "boss","key":"report", "data":{ "real_estate_id":"blabla",
+                                                                    "ticket_id": "1",
+                                                                    "employee_id": "1",
+                                                                    "destination": "Kulusuk",
+                                                                    "date" : "2021-10-10",
+                                                                    "description":"blablapenis",
+                                                                   
+                                                                     }})
+
+res = LL.post(create_report)
+
+#print(res)
+
 """
 
-print(json.dumps({"key":"ticket","data":{"id":1}}))
+req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id", "destination"],
+                                             "filter_data":{"start_date":"2021-10-10",
+                                                            "end_date":"2021-10-11",
 
-res = LL.get(json.dumps({"key":"ticket","data":{"id":1}}))
-print(json.loads(res))
-print('-'*60)
-print(type(json.loads(res)['data']))
+                                                                "employee_id":"2",
+                                                                "destination":"Nuuk"}}})
+
+res = LL.get_tickets_filtered(req)
+
+
+for key, val in json.loads(res)["data"].items():
+    print(key, val)
+
