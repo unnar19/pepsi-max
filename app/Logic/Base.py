@@ -22,18 +22,14 @@ class Base:
             "name", "contact", "phone", "opening_hours", "destination"
         },
         "destination":{
-            "name","airport", "country", "phone", "opening_hours", "manager_id"
+            "airport", "country", "phone", "opening_hours", "manager_id"
         }
     }
     __autofill = {
         "employee":{
             "home_phone": None,
-            "tickets": [],
-            "reports": []
         },
         "real_estate":{
-            "tickets": [],
-            "reports": [],
             "maintenance_info": None
         },
         "ticket":{
@@ -50,11 +46,7 @@ class Base:
             "total_price": 0,
             "contractor_id": 0,
             "contractor_pay": 0,
-            "approved": False,
             "comments": []
-        },
-        "contractor":{
-            "tickets": []
         },
     }
     __unique = {
@@ -168,7 +160,8 @@ class Base:
             ui_load = json.loads(data)['data']
             _key = json.loads(data)["key"] #might have to send put request from helper functions
             
-            if self.__is_boss(data) or (_key == "ticket" and "ready" in ui_load.keys()):
+            # Messy but works
+            if self.__is_boss(data) or (_key == "ticket" and "ready" in ui_load.keys()) or (_key == "report" and "approved" not in ui_load.keys()):
                 # Validate input
                 if self.__valid_put_data(ui_load, 'PUT'):
 
@@ -319,7 +312,7 @@ class Base:
         new_report = json.loads(data)["data"]
         ticket_id = new_report["ticket_id"] #ticket_id for the report that was created
         report_id = new_report["id"]        #report_id for the report that was created
-        #update tickets to have the new report_id so that relation holds
+        #update tickets to have the new report_id so that relation gh
         put_data = json.dumps({"role":"boss","key":"ticket","data":{"id":ticket_id, "report_id":report_id}})
         self.put(put_data)
 

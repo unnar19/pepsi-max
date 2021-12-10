@@ -32,7 +32,7 @@ class InteractionsUI:
         input('stop')
 
         if not response_dict['type']:
-            return False, None, None, None
+            return False, None, None, None, None
         
         id = response_dict['data']['id']
         role = response_dict['data']['role']
@@ -133,9 +133,9 @@ class InteractionsUI:
         destination_list = []
         for value in response_dict['data'].values():
             nested_destination_list = []
-            nested_destination_list.append(value['airport'])
-            nested_destination_list.append(value['id'])
             nested_destination_list.append(value['country'])
+            nested_destination_list.append(value['id'])
+            nested_destination_list.append(value['airport'])
             nested_destination_list.append(value['manager_id'])
             destination_list.append(nested_destination_list)
         return destination_list

@@ -144,8 +144,8 @@ class ContractorsUI():
         self.format.profile = True
         while True:
             self.format.subtitle = 'Menu > Contractors > Select'
-            self.format.edit_commands(['Edit info','Tickets','Back'])
-            self.format.apply_styles([1,1,1])
+            self.format.edit_commands(['Edit info','Back'])
+            self.format.apply_styles([1,1])
             self.format.preview_title = 'Contractor information'
             self.format.listing_lis = self.inter.custom_contractor_preview(id_str)
             self.format.preview_comment = ""
@@ -157,11 +157,7 @@ class ContractorsUI():
             else:
                 if input_int == 0: # Edit info
                     self.edit_contractor_profile(id_str)
-                elif input_int == 1: # Tickets?
-                    self.format.comment = 'Select an option' # ALSO JUST GOES BACK
-                    self.format.profile = False
-                    return
-                elif input_int == 2: # Back
+                elif input_int == 1: # Back
                     self.format.comment = 'Select an option'
                     self.format.profile = False
                     return

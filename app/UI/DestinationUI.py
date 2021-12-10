@@ -56,9 +56,9 @@ class DestinationUI:
 
     def str2bool(self, boolean_string : str) -> bool:
         return boolean_string.lower() in ["yes", "true", "t", "1"]
-        
-    def destination_screen(self):
-        self.format.preview_title = f'{"Airport":<30} | {"ID":<5} | {"Country":<10} | {"Manager ID":<12}'
+    
+    def destinations_screen(self):
+        self.format.preview_title = f'{"Country":<30} | {"ID":<5} | {"Airport":<10} | {"Manager ID":<12}'
         search_str = self.format.styles[0][1:-1]
         self.format.comment = 'Select an option'
         list_of_comments = ['Enter search term']
@@ -106,7 +106,6 @@ class DestinationUI:
                         self.emp_list = self.inter.listing_all_destinations()
                         id_list = []
                         [id_list.append(employee[1])for employee in self.emp_list]
-
                         # Make list for each screen again
                         self.page_list = self.screen_lists_from_all(self.emp_list)
                         self.filter_str = ''
@@ -114,7 +113,7 @@ class DestinationUI:
 
                     else:
                         self.format.comment = 'ID not valid, Select an option'
-                    self.format.preview_title = f'{"Airport":<30} | {"ID":<5} | {"Country":<10} | {"Manager ID":<12}'
+                    self.format.preview_title = f'{"Country":<30} | {"ID":<5} | {"Airport":<10} | {"Manager ID":<12}'
                     self.format.preview_comment = f'Page {curr_page} of {len(self.page_list)} | Filter: [{self.filter_str}]'
                     
                 elif input_int == 2: # Previous Page
@@ -130,6 +129,7 @@ class DestinationUI:
                         curr_page += 1
                     else:
                         self.format.comment = 'Invalid input, Select an option'
+                
                 elif input_int == 4: #Back (goes to back the the main menu)
                     self.format.listing_lis = self.format.empty_listing()
                     self.format.comment = 'Select an option'
@@ -153,6 +153,7 @@ class DestinationUI:
             else:
                 if input_int == 0: # Edit info
                     self.edit_destination_profile(id_str)
+                
                 elif input_int == 1: # Back
                     self.format.comment = 'Select an option'
                     self.format.profile = False

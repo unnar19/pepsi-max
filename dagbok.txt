@@ -273,3 +273,18 @@ Ennþá ekkert heyrst í Stefáni. Ræddum við Gylfa í fyrstu vikunni
 um hann. Við tölum aftur við hann eftir skil á morgun.
 Allt að gerast. Búið að loka logic, ennþá einstaka debug þar inni
 sem þarf að laga. Allar hendur farnar í UI og skjölun.
+
+_____________________________________________________________
+
+10/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Fundur síðasta daginn. Algjört crunch, allir í öllu. 
+Allir að ganga í þau verk sem eru óunnin, núna er bara verið
+að tjasla þessu saman, UI á ennþá smá í land en er 95% tilbúið. 
+Ennþá að koma buggar í logic layer en oftast auðlaganlegir.
+Höfum ekkert heyrt í Stefáni núna í viku fyrir utan ein einkaskila
+boð á Jón Evert
