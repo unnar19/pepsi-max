@@ -114,7 +114,6 @@ class LogBase:
         """
         Returns true if csv-file is empty
         """
-
         return os.stat(self.__path).st_size == 0
 
     def __validate_json(self, ll_load: json, method: str) -> bool:

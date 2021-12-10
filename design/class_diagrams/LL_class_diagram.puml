@@ -1,0 +1,77 @@
+@startuml LogicLayer Class Diagram
+
+hide empty methods
+hide empty members
+skinparam groupInheritance 1
+
+package LogicLayer <<Rectangle>>{
+    class Base{
+        ..class attrs..
+        required_fields: dict
+        autofill_fields: dict
+        unique_fields: dict
+        __
+        ..instance attrs..
+         **data_api: object**
+        * key: str
+        * identifier: str
+        * unique: str
+        * required: set
+        * autofill: dict
+        __
+        ..instance methods..
+        * get_all()
+        * get_()
+        * put()
+        * post()
+        * delete()
+    }
+
+    class Employee{
+        * parent_attrs: type
+        __
+        authenticate()
+        * parent_methods()
+    }
+
+    class Ticket{
+        * parent_attrs: type
+        __
+        filter_date()
+        * parent_methods()
+    }
+
+    class Report{
+        * parent_attrs: type
+        __
+        filter_date()
+        * parent_methods()
+    }
+
+    class RealEstate{
+        * parent_attrs: type
+        __
+        * parent_methods()
+    }
+
+    class Destination{
+        * parent_attrs: type
+        __
+        * parent_methods()
+    }
+
+    class Contractor{
+        * parent_attrs: type
+        __
+        * parent_methods()
+    }
+
+    Base <|-left- Employee 
+    Base <|-- RealEstate
+    Base <|-right- Ticket 
+    Base <|-- Report 
+    Base <|-- Destination
+    Base <|-- Contractor
+}
+
+@enduml

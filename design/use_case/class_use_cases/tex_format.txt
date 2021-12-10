@@ -1,0 +1,10 @@
+\begin{document}
+\begin{tabular}{|c|p{10cm}|l|l|}
+\hline
+	extbf\{Nr\}&	extbf\{Lýsing\}&	extbf\{Forgangur\}&	extbf\{Fall\}\\
+\hline
+35&Prenta skrá yfir áfangastaði NaN Air&A &()\\
+\hline
+\end{tabular}
+\caption{Gagnatag: Destination}
+\label{tab:Destination}\end{document}

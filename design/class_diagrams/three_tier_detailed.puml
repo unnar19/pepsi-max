@@ -1,0 +1,138 @@
+@startuml Layer Interaction
+title LayerInteractionDiagram
+
+hide empty methods
+hide empty members
+' skinparam groupInheritance 2
+left to right direction
+
+package UILayer <<Rectangle>>{
+    class InteractionsUI{
+        **logic_api: object**
+    }
+    class ScreensUI{
+
+    }
+    class FormatUI{
+ 
+    }
+    class EmployeeUI{
+
+    }
+    InteractionsUI -Up- ScreensUI
+    InteractionsUI -Up- EmployeeUI
+    EmployeeUI -Up- FormatUI
+    ScreensUI -Up- FormatUI
+}
+
+package logicwrapper <<Rectangle>>{
+
+class LogicAPI{
+    class_map: dict
+    __
+    ..CRUD..
+    get_all()
+    get()
+    post()
+    put()
+    delete()
+    __
+    ..type specific..
+    authenticate_employee()
+    __
+    ..helpers..
+    parse_key()
+    redirect_request()
+    format_error_msg()
+
+}
+' LogicAPI -left- UILayer
+
+}
+
+package LogicLayer <<Rectangle>>{
+    class Base{
+        ..class attrs..
+        required_fields: dict
+        autofill_fields: dict
+        unique_fields: dict
+        __
+        ..instance attrs..
+         **data_api: object**
+        * key: str
+        * identifier: str
+        * unique: str
+        * required: set
+        * autofill: dict
+        __
+        ..instance methods..
+        * get_all()
+        * get_()
+        * put()
+        * post()
+        * delete()
+    }
+    Base <|-left- Employee
+    Base <|-right- RealEstate
+    Base <|-Up- Ticket
+    Base <|-Up- Report
+    Base <|-Down- Contractor
+    Base <|-Down- Destination
+
+}
+
+' LogicLayer -left- LogicAPI
+package datawrapper <<Rectangle>>{
+
+class DataAPI{
+    class_map: dict
+    __
+    ..CRUD..
+    get_all()
+    post()
+    put()
+    __
+    ..helpers..
+    redirect_request()
+    format_error_msg()
+
+}
+}
+
+' DataAPI -left- LogicLayer
+
+package DataLayer <<Rectangle>>{
+    class LogBase{
+        ..class attrs..
+        path: dict
+        schema: dict
+        __
+        ..instance attrs..
+        * key: str
+        * path: str
+        * schema: dict
+        * fields: list
+        __
+        ..instance methods..
+        * get_all()
+        * post()
+        * put()
+    }
+    LogBase <|-left- LogEmployee
+    LogBase <|-right- LogRealEstate
+    LogBase <|-Up- LogTicket
+    LogBase <|-Up- LogReport
+    LogBase <|-Down- LogContractor
+    LogBase <|-Down- LogDestination
+}
+
+' DataLayer -left- DataAPI
+
+' UILayer -right- LogicAPI
+logicwrapper -right- UILayer
+logicwrapper -Down- LogicLayer
+datawrapper -Down- LogicLayer
+datawrapper -Down- DataLayer
+
+
+@enduml

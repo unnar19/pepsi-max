@@ -1,0 +1,11 @@
+	extbf{Nr},	extbf{Lýsing},	extbf{Forgangur},	extbf{Fall}
+3,Nýskrá fasteign,A ,()
+5,Breyta upplýsingum fasteignar,A ,()
+19,Leita að fasteign,A ,()
+20,Leita að fasteign eftir auðkenni,A ,()
+25,Prenta upplýsingar fasteignar,A ,()
+28,Prenta allar fasteignir,A ,()
+29,Prenta allar fasteignir sem uppfylla skilyrði,A ,()
+32,Prenta allar verkbeiðnir fyrir ákveðna fasteign,A ,()
+33,Prenta allar skýrslur fyrir ákveðna fasteign,A ,()
+38,Prenta allt viðhald á ákveðinni fasteign á ákveðnu tímabili,B ,()

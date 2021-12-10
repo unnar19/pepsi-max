@@ -1,0 +1,280 @@
+@startuml Three Tier Class Diagram
+
+hide empty methods
+hide empty members
+' skinparam groupInheritance 2
+' left to right direction
+
+package UILayer <<Rectangle>>{
+    class InteractionsUI{
+        **logic_api: object**
+    }
+    class ScreensUI{
+
+    }
+    class FormatUI{
+ 
+    }
+    class EmployeeUI{
+
+    }
+    ' InteractionsUI -Up- ScreensUI
+    ' InteractionsUI -Up- EmployeeUI
+    ' EmployeeUI -Up- FormatUI
+    ' ScreensUI -Up- FormatUI
+}
+
+' package logicwrapper <<Rectangle>>{
+
+class LogicAPI{
+    class_map: dict
+    __
+    ..CRUD..
+    get_all()
+    get()
+    post()
+    put()
+    delete()
+    __
+    ..type specific..
+    authenticate_employee()
+    __
+    ..helpers..
+    parse_key()
+    redirect_request()
+    format_error_msg()
+
+}
+' LogicAPI -left- UILayer
+
+' }
+
+package LogicLayer <<Rectangle>>{
+    class Employee{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+    class RealEstate{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+    class Ticket{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+    class Report{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+    class Contractor{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+    class Destination{
+        data_api: object
+        key: str
+        identifier: str
+        unique: str
+        required: set
+        autofill: dict
+        get()
+        put()
+        post()
+        delete()
+        get_all()
+        filter()
+        autofill()
+        valid_fields()
+        is_boss()
+    }
+
+}
+
+' LogicLayer -left- LogicAPI
+' package datawrapper <<Rectangle>>{
+
+class DataAPI{
+    class_map: dict
+    __
+    ..CRUD..
+    get_all()
+    post()
+    put()
+    __
+    ..helpers..
+    parse_key()
+    redirect_request()
+    format_error_msg()
+
+}
+' }
+
+' DataAPI -left- LogicLayer
+
+package DataLayer <<Rectangle>>{
+    ' class LogBase{
+    '     key: str
+    '     path: str
+    '     schema: dict
+    '     fields: list
+    '     get_all()
+    '     post()
+    '     put()
+    '     validate_data()
+    '     asssign_id()
+    ' }
+    class LogEmployee{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+    class LogRealEstate{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+    class LogTicket{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+    class LogReport{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+    class LogContractor{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+    class LogDestination{
+        key: str
+        path: str
+        schema: dict
+        fields: list
+        get_all()
+        post()
+        put()
+        validate_data()
+        asssign_id()
+    }
+}
+
+LogicAPI -Down- Employee
+LogicAPI -Down- RealEstate
+LogicAPI -Down- Ticket
+LogicAPI -Down- Report
+LogicAPI -Down- Contractor
+LogicAPI -Down- Destination
+
+DataAPI -Up- Employee
+DataAPI -Up- RealEstate
+DataAPI -Up- Ticket
+DataAPI -Up- Report
+DataAPI -Up- Contractor
+DataAPI -Up- Destination
+
+DataAPI -Down- LogEmployee
+DataAPI -Down- LogRealEstate
+DataAPI -Down- LogTicket
+DataAPI -Down- LogReport
+DataAPI -Down- LogContractor
+DataAPI -Down- LogDestination
+
+@enduml

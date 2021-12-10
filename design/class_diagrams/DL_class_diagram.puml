@@ -1,0 +1,63 @@
+@startuml DataLayer Class Diagram
+
+hide empty methods
+hide empty members
+skinparam groupInheritance 1
+
+package DataLayer <<Rectangle>>{
+    class LogBase{
+        ..class attrs..
+        path: dict
+        schema: dict
+        __
+        ..instance attrs..
+        * key: str
+        * path: str
+        * schema: dict
+        * fields: list
+        __
+        ..instance methods..
+        * get_all()
+        * post()
+        * put()
+    }
+
+    class LogEmployee{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    class LogTicket{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    class LogReport{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    class LogRealEstate{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    class LogDestination{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    class LogContractor{
+        * parent_attrs: type
+        * parent_methods()
+    }
+
+    LogBase <|-left- LogEmployee 
+    LogBase <|-- LogRealEstate
+    LogBase <|-right- LogTicket 
+    LogBase <|-- LogReport 
+    LogBase <|-- LogDestination
+    LogBase <|-- LogContractor
+}
+
+@enduml
