@@ -57,7 +57,7 @@ class TestContractor(unittest.TestCase):
                         "key": "contractor",
                         "data": {
                             "id": str(self.id),
-                            "phone": "6767676",
+                            "opening_hours": "12-17",
                             }
                         })
         res = json.loads(self.LL.put(put_data_1))
@@ -89,6 +89,35 @@ class TestContractor(unittest.TestCase):
         )
         res = json.loads(self.LL.get_all(data))
         self.assertEqual(res['data']['3']['name'], 'baron von flanagan')
+
+    def test_autofill(self):
+        """We try to post a contractor while only filling in the required fields"""
+        new_contractor4 = json.dumps({ "role": "boss",
+                        "key": "contractor",
+                        "data": {
+                            "name": "contractor3",
+                            "contact": "bróðir michelinmannsins",
+                            "phone": "6767676",
+                            "opening_hours": "15-21",
+                            "destination": "Nuuk",
+                            }
+                        })
+        res = json.loads(self.LL.post(new_contractor4))
+        self.assertTrue(res["type"])
+
+    def required_fields(self):
+        """We try to post a contractor while not filling in all the required fields"""
+        new_contractor4 = json.dumps({ "role": "boss",
+                        "key": "contractor",
+                        "data": {
+                            "name": "contractor3",
+                            "contact": "bróðir michelinmannsins",
+                            "opening_hours": "15-21",
+                            "destination": "Nuuk",
+                            }
+                        })
+        res = json.loads(self.LL.post(new_contractor4))
+        self.assertTrue(res["type"])
 
     @classmethod
     def tearDownClass(self):

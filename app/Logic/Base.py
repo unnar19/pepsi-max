@@ -40,7 +40,7 @@ class Base:
             "report_id": 0,
             "contractor_id": 0,
             "close_date": "future",
-            "priority": False,
+            "priority": None,
             "ready": False,
             "closed": False,
             "is_recurring": False
@@ -128,7 +128,7 @@ class Base:
 
     def post(self, data: json) -> json:
         """Posts new data into database layer, returns posted data"""
-        if self.__is_boss(data):
+        if self.__is_boss(data) or self._key == "report":
             
             if self.__correct_fields(data):
                 
@@ -162,12 +162,10 @@ class Base:
         """
 
         if not self._unique or self.__is_new(data):
-
-            if self.__is_boss(data):
-                
-                # Parse user input
-                ui_load = json.loads(data)['data']
-
+            # Parse user input
+            ui_load = json.loads(data)['data']
+            
+            if self.__is_boss(data) or (self._key == "ticket" and "ready" in ui_load.keys()):
                 # Validate input
                 if self.__valid_put_data(ui_load, 'PUT'):
 
@@ -277,7 +275,7 @@ class Base:
 
     def __wants_filter(self, data: json) -> bool:
         """If 'filter' field is set we return the field to filter and value"""
-        return 'filter' in json.loads(data).keys()
+        return 'filter' in json.loads(data)["data"].keys()
 
     def __correct_fields(self, data: json) -> bool:
         """

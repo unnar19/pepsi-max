@@ -33,13 +33,14 @@ class InteractionsUI:
         id = response_dict['data']['id']
         role = response_dict['data']['role']
         name = response_dict['data']['name']
-        return True, id, role, name
+        destitation = response_dict['data']['destination']
+        return True, id, role, name, destitation
 
     def listing_all_employees(self) -> list:
         ''' Gets all employees and their information to display when listing'''
 
         # Request data drom API
-        request = json.dumps({'key': 'employee'})
+        request = json.dumps({'key': 'employee','data':{}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 
@@ -58,7 +59,7 @@ class InteractionsUI:
         ''' Gets all realestates and their information to display when listing'''
 
         # Request data drom API
-        request = json.dumps({'key': 'real_estate'})
+        request = json.dumps({'key': 'real_estate','data':{}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
 
@@ -70,6 +71,25 @@ class InteractionsUI:
             nested_real_list.append(value['id'])
             nested_real_list.append(value['real_estate_id'])
             nested_real_list.append(value['destination'])
+            real_estate_list.append(nested_real_list)
+        return real_estate_list
+
+    def listing_all_tickets_for_destination(self, destination) -> list:
+        ''' Gets all realestates and their information to display when listing'''
+
+        # Request data drom API
+        request = json.dumps({'key': 'ticket', 'filter': True, 'data':{'filter':'destination', 'filter_value': destination}})
+        response = self.LL.get_all(request)
+        response_dict = json.loads(response)
+
+        # Decode dictionary to nested lists
+        real_estate_list = []
+        for value in response_dict['data'].values():
+            nested_real_list = []
+            nested_real_list.append(value['description'])
+            nested_real_list.append(value['id'])
+            nested_real_list.append(value['real_estate_id'])
+            nested_real_list.append(value['closed'])
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
@@ -127,6 +147,44 @@ class InteractionsUI:
             custom_preview.append([''])
         return first_name, custom_preview
 
+    def get_ticket(self, id_str):
+        '''
+        Takes in a legal id of a ticket and recieves all information
+        '''
+        request = json.dumps({'key': 'ticket','data':{'id': id_str}})
+        response = self.LL.get(request)
+
+        response_dict = json.loads(response)
+        data_dict = response_dict['data']
+        return data_dict
+
+    def custom_ticket_preview(self, id_str):
+        data_dict = self.get_ticket(id_str)
+
+        # Puts recieved data into individual lists for ScreensUI
+        description = [f'{"Description:":<15}{data_dict["description"]}']
+        start = [f'{"Start date:":<15}{data_dict["start_date"]}']
+        close = [f'{"Close date:":<15}{data_dict["close_date"]}']
+        id = [f'{"ID:":<15}{data_dict["id"]}']
+
+        estate_id = [f'{"Address ID:":<15}{data_dict["real_estate_id"]}']
+        employee_id = [f'{"Employee ID:":<15}{data_dict["employee_id"]}']
+        report_id = [f'{"Report ID:":<15}{data_dict["report_id"]}']
+        contractor_id = [f'{"Contractor ID:":<15}{data_dict["contractor_id"]}']
+
+        location = [f'{"Location:":<15}{data_dict["destination"]}']
+        
+        priority = [f'{"Priority:":<15}{data_dict["priority"]}']
+        ready = [f'{"Ready:":<15}{data_dict["ready"]}']
+        closed = [f'{"Closed:":<15}{data_dict["closed"]}']
+        recurring = [f'{"Recurring:":<15}{data_dict["is_recurring"]}']
+
+
+        custom_preview = [description,start,close,id,[''],estate_id,employee_id,report_id,contractor_id,[''],location,[''],priority,ready,closed,recurring]
+        for _ in range(len(custom_preview),20):
+            custom_preview.append([''])
+        return custom_preview
+
     def edit_profile(self, role_of_user, key, new_data_dict):
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
         response = self.LL.put(request)
@@ -134,13 +192,13 @@ class InteractionsUI:
         return response_dict['type']
 
     def add_profile(self, role_of_user, key, new_data_dict):
+        '''
+        Works for any key
+        '''
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
-        print(request)
-        input('stop')
         response = self.LL.post(request)
         response_dict = json.loads(response)
         print(response_dict)
-        input('stop')
         return response_dict['type']
 
     def get_real_estate(self, id_str):

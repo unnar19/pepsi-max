@@ -19,7 +19,7 @@ new_real_estate1 = json.dumps({ "role": "boss",
 
 #this will fail
 new_real_estate2 = json.dumps({ "role": "boss",
-                        "key": "real estate",
+                        "key": "real_estate",
                         "data": {
                             "real_estate_id": "huhuhu",
                             "address": "hverfis skata 2",
@@ -91,6 +91,47 @@ class TestRealEstate(unittest.TestCase):
         )
         res = json.loads(self.LL.get_all(data))
         self.assertEqual(res['data']['1']['address'], 'pound town')
+
+    def test_post_re_employee(self):
+        """Tests if employees can post new real estate, which they shouldn't"""
+        new_re3 = json.dumps({ "role": "employee",
+                        "key": "real_estate",
+                        "data": {
+                            "real_estate_id": "jjj",
+                            "address": "hverfis skata 2",
+                            "destination": "Reykjavík",
+                            "maintenance_info": "fix this skate",
+                            "tickets": "[]",
+                            "reports": "[]"
+                            }
+                        })
+        res = json.loads(self.LL.post(new_re3))
+        self.assertFalse(res["type"])
+    
+    def test_autofill(self):
+        """We try to post real estate while only filling in the required fields"""
+        new_re4 = json.dumps({ "role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "real_estate_id": "jjj",
+                            "address": "hverfis skata 2",
+                            "destination": "Reykjavík"
+                            }
+                        })
+        res = json.loads(self.LL.post(new_re4))
+        self.assertTrue(res["type"])
+
+    def test_required_fields(self):
+        """We try to post real estate while not filling in all the required fields"""
+        new_re4 = json.dumps({ "role": "boss",
+                        "key": "real_estate",
+                        "data": {
+                            "real_estate_id": "jjj",
+                            "destination": "Reykjavík"
+                            }
+                        })
+        res = json.loads(self.LL.post(new_re4))
+        self.assertFalse(res["type"])
 
     @classmethod
     def tearDownClass(self):

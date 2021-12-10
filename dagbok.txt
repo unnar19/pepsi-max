@@ -205,3 +205,71 @@ Methoodi í logic layer sem notar put methoodið í data layer.
 Ákváðum að Ísak myndi halda áfram að vera Test master, Unnar UI-sensei
 Jón og Eyþór Logic-liege
 
+_____________________________________________________________
+
+06/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Síðasta vikan að byrja. Verkefnið er á ágætisstað. Töluðum um að færa
+áheyrsluna smá frá Logic yfir á UI afþví að það er aftast í framvindu. 
+Það er búið að loka Data layer.
+Það á eftir að útfæra nokkra hluti frá grunni í Logic og nokkra sem þarf
+að debugga eða útfæra aðeins betur.
+
+_____________________________________________________________
+
+07/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Töluðum lengi um hvaða methood við ættum að útfæra fyrir Tickets-Reports
+relation-ið. Það er mjög óskýrt í verkefnalýsingu.
+Ákveðið var að þetta væri many-to-one relation, þar eð 1Ticket - xreports.
+Annars bara ákveðið að halda verkefnaskiptingu eins.
+
+_____________________________________________________________
+
+07/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Höfum ekkert heyrt í Stefáni í nokkra daga. Höfum reynt að ná 
+sambandi við hann í gegnum discord en hann virðist ekki vera að lesa þau.
+Annars var fundurinn aðallega um hvaða A-B kröfur eru ekki komnar 
+og allur fókus  settur á þær.
+
+_____________________________________________________________
+
+08/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+Jón fékk persónuleg skilaboð frá Stefáni á discord í gærkvöldi. 
+Hann sagðist vilja vera duglegri og ég sagði að það hann væri ennþá
+velkominn og bað hann að mæta á fund daginn eftir (í dag) í hádeginu 
+hann svaraði því aldrei og við höfum ekkert heyrt frá honum í dag.
+Við ákváðum að halda áfram bara í okkar, erum byrjaðir að skjala verkefnið
+skýrslu og readme til að spara vinnu á föstudag.
+
+_____________________________________________________________
+
+09/12/2021
+
+Fundur
+
+Mættir: Ísak, Jón, Unnar og Eyþór
+
+
+Ennþá ekkert heyrst í Stefáni. Ræddum við Gylfa í fyrstu vikunni 
+um hann. Við tölum aftur við hann eftir skil á morgun.
+Allt að gerast. Búið að loka logic, ennþá einstaka debug þar inni
+sem þarf að laga. Allar hendur farnar í UI og skjölun.
