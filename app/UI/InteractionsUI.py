@@ -24,12 +24,8 @@ class InteractionsUI:
             }
         }
         data = json.dumps(data_dict)
-        print(data_dict)
-        input('stop')
         response = self.LL.authenticate_employee(data)
         response_dict = json.loads(response)
-        print(response_dict)
-        input('stop')
 
         if not response_dict['type']:
             return False, None, None, None, None
@@ -236,8 +232,6 @@ class InteractionsUI:
 
     def custom_report_preview(self, id_str):
         data_dict = self.get_ticket_or_report('report',id_str)
-        print(data_dict)
-        input('stop')
         # Puts recieved data into individual lists for ScreensUI
         description = [f'{"Description:":<15}{data_dict["description"]}']
         date = [f'{"Date:":<15}{data_dict["date"]}']
