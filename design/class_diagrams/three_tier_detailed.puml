@@ -1,4 +1,5 @@
-@startuml Three Tier Class Diagram
+@startuml Layer Interaction
+title LayerInteractionDiagram
 
 hide empty methods
 hide empty members
@@ -23,7 +24,6 @@ package UILayer <<Rectangle>>{
     EmployeeUI -Up- FormatUI
     ScreensUI -Up- FormatUI
 }
-
 
 package logicwrapper <<Rectangle>>{
 
