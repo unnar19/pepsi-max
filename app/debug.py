@@ -218,16 +218,14 @@ res = LL.post(create_report)
 
 """
 
-req = json.dumps({"key": "ticket", "data":{ "filters":["employee_id", "destination"],
-                                             "filter_data":{"start_date":"2021-10-10",
-                                                            "end_date":"2021-10-11",
+req = json.dumps({"key": "ticket", "data":{ "filters":["destination", "closed"],
+                                             "filter_data":{"destination":'Reykjavik',
+                                                            "closed":True
 
-                                                                "employee_id":"2",
-                                                                "destination":"Nuuk"}}})
+
+                                                                }}})
 
 res = LL.get_tickets_filtered(req)
 
-
-for key, val in json.loads(res)["data"].items():
-    print(key, val)
+print(res)
 
