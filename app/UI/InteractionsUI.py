@@ -190,7 +190,8 @@ class InteractionsUI:
 
     def custom_report_preview(self, id_str):
         data_dict = self.get_ticket_or_report('report',id_str)
-
+        print(data_dict)
+        input('stop')
         # Puts recieved data into individual lists for ScreensUI
         description = [f'{"Description:":<15}{data_dict["description"]}']
         date = [f'{"Date:":<15}{data_dict["date"]}']
@@ -206,9 +207,7 @@ class InteractionsUI:
         price = [f'{"Total cost:":<15}{data_dict["total_price"]}']
         
         approved = [f'{"Approved:":<15}{data_dict["approved"]}']
-        comments = [f'{"Comments:":<15}{data_dict["comments"]}']
-        
-
+        comments = [f'{"Comment:":<15}{data_dict["comments"]}']
 
         custom_preview = [description,date,ticket_id,id,[''],real_estate_id,employee_id,destination,[''],contractor_id,contractor_pay,price,[''],approved,comments]
         for _ in range(len(custom_preview),20):
@@ -229,7 +228,6 @@ class InteractionsUI:
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
         response = self.LL.post(request)
         response_dict = json.loads(response)
-        print(response_dict)
         return response_dict['type']
 
     def get_real_estate(self, id_str):

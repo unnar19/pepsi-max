@@ -1,4 +1,4 @@
-from UI.ScreensUI import ScreensUI
+from UI.MenuUI import MenuUI
 
 class MainUI:
     '''
@@ -6,7 +6,7 @@ class MainUI:
     '''
     def __init__(self):
         self.isloggedin = False
-        self.screen = ScreensUI()
+        self.screen = MenuUI()
         self.first_login = True
 
     def run(self):
