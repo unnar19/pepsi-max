@@ -74,22 +74,25 @@ class InteractionsUI:
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
-    def listing_all_tickets_for_destination(self, destination) -> list:
-        ''' Gets all realestates and their information to display when listing'''
+    def listing_all_for_destination(self, key, destination) -> list:
+        ''' Gets all X and their information to display when listing'''
 
         # Request data drom API
-        request = json.dumps({'key': 'ticket', 'filter': True, 'data':{'filter':'destination', 'filter_value': destination}})
+        request = json.dumps({'key': key, 'filter': True, 'data':{'filter':'destination', 'filter_value': destination}})
         response = self.LL.get_all(request)
         response_dict = json.loads(response)
+
+        if key == 'ticket':
+            value_list = ['description','id','real_estate_id','closed']
+        elif key == 'report':
+            value_list = ['description','id','real_estate_id','approved']
 
         # Decode dictionary to nested lists
         real_estate_list = []
         for value in response_dict['data'].values():
             nested_real_list = []
-            nested_real_list.append(value['description'])
-            nested_real_list.append(value['id'])
-            nested_real_list.append(value['real_estate_id'])
-            nested_real_list.append(value['closed'])
+            for v in value_list:
+                nested_real_list.append(value[v])
             real_estate_list.append(nested_real_list)
         return real_estate_list
 
@@ -147,11 +150,11 @@ class InteractionsUI:
             custom_preview.append([''])
         return first_name, custom_preview
 
-    def get_ticket(self, id_str):
+    def get_ticket_or_report(self,key, id_str):
         '''
-        Takes in a legal id of a ticket and recieves all information
+        Takes in a legal id of a ticket or report and recieves all information
         '''
-        request = json.dumps({'key': 'ticket','data':{'id': id_str}})
+        request = json.dumps({'key': key,'data':{'id': id_str}})
         response = self.LL.get(request)
 
         response_dict = json.loads(response)
@@ -159,7 +162,7 @@ class InteractionsUI:
         return data_dict
 
     def custom_ticket_preview(self, id_str):
-        data_dict = self.get_ticket(id_str)
+        data_dict = self.get_ticket_or_report('ticket',id_str)
 
         # Puts recieved data into individual lists for ScreensUI
         description = [f'{"Description:":<15}{data_dict["description"]}']
@@ -184,6 +187,34 @@ class InteractionsUI:
         for _ in range(len(custom_preview),20):
             custom_preview.append([''])
         return custom_preview
+
+    def custom_report_preview(self, id_str):
+        data_dict = self.get_ticket_or_report('report',id_str)
+
+        # Puts recieved data into individual lists for ScreensUI
+        description = [f'{"Description:":<15}{data_dict["description"]}']
+        date = [f'{"Date:":<15}{data_dict["date"]}']
+        ticket_id = [f'{"Ticket ID:":<15}{data_dict["ticket_id"]}']
+        id = [f'{"ID:":<15}{data_dict["id"]}']
+        
+        real_estate_id = [f'{"Address ID:":<15}{data_dict["real_estate_id"]}']  
+        employee_id = [f'{"Employee ID:":<15}{data_dict["employee_id"]}']
+        destination = [f'{"Location:":<15}{data_dict["destination"]}']
+
+        contractor_id = [f'{"Contractor ID:":<15}{data_dict["contractor_id"]}']
+        contractor_pay = [f'{"Contractor pay:":<15}{data_dict["contractor_pay"]}']
+        price = [f'{"Total cost:":<15}{data_dict["total_price"]}']
+        
+        approved = [f'{"Approved:":<15}{data_dict["approved"]}']
+        comments = [f'{"Comments:":<15}{data_dict["comments"]}']
+        
+
+
+        custom_preview = [description,date,ticket_id,id,[''],real_estate_id,employee_id,destination,[''],contractor_id,contractor_pay,price,[''],approved,comments]
+        for _ in range(len(custom_preview),20):
+            custom_preview.append([''])
+        return custom_preview
+
 
     def edit_profile(self, role_of_user, key, new_data_dict):
         request = json.dumps({'key': key, 'role': role_of_user, 'data': new_data_dict})
