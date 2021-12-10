@@ -133,10 +133,12 @@ class Base:
                     data = self.__autofill_input(data)
 
                 # Some data, e.g. Tickets do not have a unique identifier
-                if not self._unique:
-                    return self.__data_api.post(data)
-                elif self.__is_new(data):
-                    return self.__data_api.post(data)
+                if not self._unique or self.__is_new(data):
+                    #sma messi en eina leidin til ad redda report_id <-> ticket_id relationid
+                    return_data = self.__data_api.post(data)
+                    if self._key == "report":
+                        self.__update_ticket_report_id(return_data)
+                    return return_data
                 else:
                     raise DataAlreadyExistsException(self._key, 'POST')
 
@@ -154,12 +156,13 @@ class Base:
         put() should prevent overwriting of unique constraints but
         should allow putting unchanged unique identifiers
         """
-
         if not self._unique or self.__is_new(data):
             # Parse user input
             ui_load = json.loads(data)['data']
-            # Messy, but works.
-            if self.__is_boss(data) or (self._key == "ticket" and "ready" in ui_load.keys()) or (self._key == "report" and "approved" not in ui_load.keys()):
+            _key = json.loads(data)["key"] #might have to send put request from helper functions
+            
+            # Messy but works
+            if self.__is_boss(data) or (_key == "ticket" and "ready" in ui_load.keys()) or (_key == "report" and "approved" not in ui_load.keys()):
                 # Validate input
                 if self.__valid_put_data(ui_load, 'PUT'):
 
@@ -172,7 +175,7 @@ class Base:
                         data_load[id_][key] = val
 
                     # Send fixed data to DL to be written
-                    fixed_data = json.dumps({"key": self._key, "data": data_load})
+                    fixed_data = json.dumps({"key": _key, "data": data_load})
                     response = json.loads(self.__data_api.put(fixed_data))
 
                     # Return fixed data to UI to be displayed
@@ -182,9 +185,9 @@ class Base:
                         return json.dumps(response)
 
             else:
-                raise UnauthorizedRequestException(self._key, 'PUT')
+                raise UnauthorizedRequestException(_key, 'PUT')
         else:
-            raise DataAlreadyExistsException(self._key, 'PUT')
+            raise DataAlreadyExistsException(_key, 'PUT')
 
     def delete(self, data : json) -> json:
         """
@@ -265,7 +268,7 @@ class Base:
 
     def __is_boss(self, data: json) -> bool:
         """Used in POST, PUT, DELETE exception handling"""
-        return json.loads(data)['role'] == 'boss'
+        return json.loads(data)['role'] == "boss"
 
     def __wants_filter(self, data: json) -> bool:
         """If 'filter' field is set we return the field to filter and value"""
@@ -299,3 +302,19 @@ class Base:
                 ui_load['data'][key] = val
 
         return json.dumps(ui_load)
+
+
+    def __update_ticket_report_id(self, data) -> None:
+        """
+        input: data containing ticket_id
+        when report is created we need to update ticket.reportid field
+        returns: none
+        """
+        new_report = json.loads(data)["data"]
+        ticket_id = new_report["ticket_id"] #ticket_id for the report that was created
+        report_id = new_report["id"]        #report_id for the report that was created
+        #update tickets to have the new report_id so that relation holds
+        put_data = json.dumps({"role":"boss","key":"ticket","data":{"id":ticket_id, "report_id":report_id}})
+        self.put(put_data)
+
+

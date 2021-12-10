@@ -31,18 +31,24 @@ class Ticket(Base):
         ui_data = json.loads(data)["data"]
         filters = ui_data["filters"]
         filter_data = ui_data["filter_data"]
+        
         if "period" in filters:
             all_tickets = self.__get_tickets_filtered_date(filter_data["start_date"], filter_data["end_date"])
             # pop period dates from filters 
             filters.remove("period")
         else:
-            all_tickets = self.get_all(data)
-        return_data = {}
+            all_tickets = json.loads(self.get_all(data))["data"]
+        return_data = all_tickets
         # iterate through all tickets and keep those who match
         for filter in filters:
-            for key, val in all_tickets.items():
-                if val[filter] == filter_data[filter]:
-                    return_data[key] = val
+            for key, val in all_tickets.copy().items():
+                value = val[filter]
+                # for some reason python interprets the nested dict in data as strings even
+                # after json.loads, not sure why but this if works
+                if filter in ["closed", "ready", "is_recurring"]:
+                    value = self.__str2bool(value)
+                if value != filter_data[filter]:
+                    del return_data[key]
         return json.dumps({"type": "true", "data": return_data})
 
 
@@ -69,6 +75,11 @@ class Ticket(Base):
         #iterate through all tickets
         for key,val in all_tickets["data"].items():
             date = datetime.strptime(val["start_date"], '%Y-%m-%d')
-            if (date >= start)  and (date <= end):
+            if start <= date and date <= end:
                 return_data[key] = val
         return return_data
+
+
+    def __str2bool(self, boolean_string: str) -> bool:
+        """helper function to turn strings of "true" "True" etc to booleans"""
+        return boolean_string.lower() in ("yes", "true", "1", "t")
