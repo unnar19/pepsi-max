@@ -13,8 +13,6 @@ employee_schema = {
         "mobile_phone": {"type": "number"},
         "email": {"type": "string"},
         "destination": {"type": "string"},
-        "tickets": {"type":"array"},
-        "reports": {"type":"array"},
     },
 }
 
@@ -28,8 +26,6 @@ real_estate_schema = {
         "address": {"type": "string"},
         "destination": {"type": "string"},
         "maintenance_info": {"type": "string"},
-        "tickets": {"type":"array"},
-        "reports": {"type":"array"},
     },
 }
 
@@ -59,7 +55,6 @@ contractor_schema = {
         "phone": {"type": "int"},
         "opening_hours": {"type": "string"},
         "destination": {"type": "string"},
-        "tickets" : {"type": "list"},
     },
 }
 

@@ -9,7 +9,7 @@ put_data_2 = json.dumps({"role": "employee",
                         "key": "report",
                         "data": {
                             "id": '1',
-                            "ready": "1",
+                            "approved": True,
                             }
                         })
 
@@ -151,6 +151,18 @@ class TestReport(unittest.TestCase):
                         })
         res = json.loads(self.LL.post(new_report4))
         self.assertFalse(res["type"])
+
+    def test_put_in_report_as_employee(self):
+        """We change the description of the report we made in setUp as an employee"""
+        put_data_1 = json.dumps({"role": "employee",
+                        "key": "report",
+                        "data": {
+                            "id": str(self.id),
+                            "description": "blabla",
+                            }
+                        })
+        res = json.loads(self.LL.put(put_data_1))
+        self.assertTrue(res["type"])
 
     @classmethod
     def tearDownClass(self):

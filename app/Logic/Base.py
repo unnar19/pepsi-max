@@ -28,12 +28,8 @@ class Base:
     __autofill = {
         "employee":{
             "home_phone": None,
-            "tickets": [],
-            "reports": []
         },
         "real_estate":{
-            "tickets": [],
-            "reports": [],
             "maintenance_info": None
         },
         "ticket":{
@@ -52,9 +48,6 @@ class Base:
             "contractor_pay": 0,
             "approved": False,
             "comments": []
-        },
-        "contractor":{
-            "tickets": []
         },
     }
     __unique = {
@@ -165,8 +158,8 @@ class Base:
         if not self._unique or self.__is_new(data):
             # Parse user input
             ui_load = json.loads(data)['data']
-            
-            if self.__is_boss(data) or (self._key == "ticket" and "ready" in ui_load.keys()):
+            # Messy, but works.
+            if self.__is_boss(data) or (self._key == "ticket" and "ready" in ui_load.keys()) or (self._key == "report" and "approved" not in ui_load.keys()):
                 # Validate input
                 if self.__valid_put_data(ui_load, 'PUT'):
 
