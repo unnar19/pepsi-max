@@ -22,7 +22,7 @@ class Base:
             "name", "contact", "phone", "opening_hours", "destination"
         },
         "destination":{
-            "name","airport", "country", "phone", "opening_hours", "manager_id"
+            "airport", "country", "phone", "opening_hours", "manager_id"
         }
     }
     __autofill = {
@@ -46,7 +46,6 @@ class Base:
             "total_price": 0,
             "contractor_id": 0,
             "contractor_pay": 0,
-            "approved": False,
             "comments": []
         },
     }
@@ -313,7 +312,7 @@ class Base:
         new_report = json.loads(data)["data"]
         ticket_id = new_report["ticket_id"] #ticket_id for the report that was created
         report_id = new_report["id"]        #report_id for the report that was created
-        #update tickets to have the new report_id so that relation holds
+        #update tickets to have the new report_id so that relation gh
         put_data = json.dumps({"role":"boss","key":"ticket","data":{"id":ticket_id, "report_id":report_id}})
         self.put(put_data)
 
