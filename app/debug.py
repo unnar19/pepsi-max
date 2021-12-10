@@ -218,7 +218,7 @@ res = LL.post(create_report)
 
 """
 
-req = json.dumps({"key": "tickets", "data":{ "filters":["period","employee_id", "destination"],
+req = json.dumps({"key": "ticket", "data":{ "filters":["employee_id", "destination"],
                                              "filter_data":{"start_date":"2021-10-10",
                                                             "end_date":"2021-10-11",
 

@@ -36,7 +36,7 @@ class Ticket(Base):
             # pop period dates from filters 
             filters.remove("period")
         else:
-            all_tickets = self.get_all(data)
+            all_tickets = json.loads(self.get_all(data))["data"]
         return_data = all_tickets
         # iterate through all tickets and keep those who match
         for filter in filters:
