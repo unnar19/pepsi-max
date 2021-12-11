@@ -104,6 +104,7 @@ class TicketUI:
                         self.page_list = self.screen_lists_from_all(self.emp_list)
                         self.filter_str = ''
                         curr_page = 1
+                        
                     else:
                         self.format.comment = 'ID not valid, Select an option'
 
@@ -170,6 +171,7 @@ class TicketUI:
                     [id_list.append(ticket[1])for ticket in self.emp_list]
                     self.page_list = self.screen_lists_from_all(self.emp_list)
                     self.format.comment = 'Select an option'
+                    self.format.preview_comment = f'Page 1 of {len(self.page_list)} | Filter: Employee ID [{input_str}]'
                     return
 
                 elif input_int == 2: # Filter by address id
@@ -183,6 +185,7 @@ class TicketUI:
                     [id_list.append(ticket[1])for ticket in self.emp_list]
                     self.page_list = self.screen_lists_from_all(self.emp_list)
                     self.format.comment = 'Select an option'
+                    self.format.preview_comment = f'Page 1 of {len(self.page_list)} | Filter: Address ID [{input_str}]'
                     return
 
                 elif input_int == 3: # Filter by contractor id
@@ -196,6 +199,7 @@ class TicketUI:
                     [id_list.append(ticket[1])for ticket in self.emp_list]
                     self.page_list = self.screen_lists_from_all(self.emp_list)
                     self.format.comment = 'Select an option'
+                    self.format.preview_comment = f'Page 1 of {len(self.page_list)} | Filter: Contractor ID [{input_str}]'
                     return
 
                 else: # Back

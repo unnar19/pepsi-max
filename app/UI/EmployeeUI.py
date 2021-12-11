@@ -153,7 +153,7 @@ class EmployeeUI:
             self.format.apply_styles([1,1])
             self.format.preview_title = 'Employee information'
             name, self.format.listing_lis = self.inter.custom_person_preview(id_str)
-            self.format.preview_comment = f"There are 10 days until {name}'s birthday"
+            self.format.preview_comment = f"{name}'s information"
             self.format.print_screen()
             input_str = self.get_input('Input')
             input_int, type_of_input = self.check_type_of_input(input_str)

@@ -207,6 +207,11 @@ class ReportUI():
                     if not edit_response:
                         self.format.comment = 'Unauthorized, Select an option'   
                     else:
+                        if approved:
+                            #Make ticket ready, Close ticket
+                            ticket_id = self.inter.get_ticket_or_report('report',report_data_dict['id'])
+                            ticket_id = ticket_id['ticket_id']
+                            self.inter.edit_profile(self.role,'ticket',{'id':ticket_id, 'ready': True, 'closed': True})
                         self.format.listing_lis = self.inter.custom_report_preview(new_data_dict['id'])
                         return
                     
