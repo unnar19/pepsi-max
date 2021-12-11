@@ -17,8 +17,6 @@ class EmployeeModel{
     home_phone: int
     mobile_phone: int
     destination: str
-    tickets: list
-    reports: list
 }
 class ContractorModel{
     id: int
@@ -28,7 +26,6 @@ class ContractorModel{
     contact: str
     opening_hours: str
     destination: str
-    tickets: list
 }
 class RealEstateModel{
     id: int
@@ -37,8 +34,6 @@ class RealEstateModel{
     address: str
     destination_id: str
     maintenance_info: str
-    tickets: list
-    reports: list
 }
 class ReportModel{
     id: int
