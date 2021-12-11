@@ -298,7 +298,6 @@ class TicketUI:
                     if self.format.commands['Total cost'][1][1:-1] == 'empty':
                         new_data_dict.pop('total_price')
 
-
                     if new_data_dict['description'] == 'empty' or new_data_dict['real_estate_id'] == 'empty' or new_data_dict['employee_id'] == 'empty':
                         if self.role == 'boss':
                             self.format.comment = 'Required missing, Select an option'
@@ -398,11 +397,14 @@ class TicketUI:
                                     'description': self.format.commands['Description'][1][1:-1],  
                                     'real_estate_id': self.format.commands['Address ID'][1][1:-1],
                                     'employee_id': self.format.commands['Employee ID'][1][1:-1],
-                                    'contractor_id': self.format.commands['Address ID'][1][1:-1],
+                                    'contractor_id': self.format.commands['Contractor ID'][1][1:-1],
                                     'priority': prior,
                                     'ready': ready,
                                     'is_recurring': recur}
 
+                    if self.role != 'boss':
+                        new_data_dict = {'id': ticket_data_dict['id'], 'ready': ready}
+                        self.comment = 'Only changed ready status'
 
                     edit_response = self.inter.edit_profile(self.role, 'ticket',new_data_dict)
                     if not edit_response:

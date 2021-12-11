@@ -197,6 +197,11 @@ class ReportUI():
                                     "contractor_pay": self.format.commands['Contractor pay'][1][1:-1],
                                     "approved": approved,
                                     "comments": self.format.commands['Comment'][1][1:-1]}
+
+                    if self.role != 'boss':
+                        new_data_dict.pop("approved")
+
+                        self.comment = 'Saved changes except approved status'
                     
                     edit_response = self.inter.edit_profile(self.role, 'report', new_data_dict)
                     if not edit_response:

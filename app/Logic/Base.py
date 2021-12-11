@@ -155,10 +155,11 @@ class Base:
         put() should prevent overwriting of unique constraints but
         should allow putting unchanged unique identifiers
         """
+        _key = json.loads(data)["key"]
         if not self._unique or self.__is_new(data):
             # Parse user input
             ui_load = json.loads(data)['data']
-            _key = json.loads(data)["key"] #might have to send put request from helper functions
+             #might have to send put request from helper functions
             
             # Messy but works
             if self.__is_boss(data) or (_key == "ticket" and "ready" in ui_load.keys()) or (_key == "report" and "approved" not in ui_load.keys()):
